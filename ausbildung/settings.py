@@ -103,6 +103,7 @@ INSTALLED_APPS = (
     'fhadmin',
     'tinymce',
     'south',
+    'gunicorn',
 
     'ausbildung',
 )
