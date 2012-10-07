@@ -25,7 +25,7 @@ MANAGERS = ADMINS
 
 DEV_DB = os.path.join(APP_BASEDIR, 'dev.db')
 
-DATABASES = {'default': dj_database_url.parse('sqlite:///%s' % DEV_DB)}
+DATABASES = {'default': dj_database_url.config(default='sqlite:///%s' % DEV_DB)}
 
 TIME_ZONE = 'Europe/Zurich'
 
