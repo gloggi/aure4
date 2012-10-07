@@ -8,5 +8,8 @@ dj-database-url==0.2.1
 django-fhadmin==1.2.0
 django-mptt==0.5.4
 django-tinymce==1.5.1b2
+gevent==0.13.8
+greenlet==0.4.0
+gunicorn==0.14.6
 psycopg2==2.4.5
 wsgiref==0.1.2
