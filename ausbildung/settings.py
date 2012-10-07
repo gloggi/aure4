@@ -1,5 +1,6 @@
 import os
 import sys
+import dj_database_url
 
 WEBAPP_DIR = os.path.dirname(os.path.abspath(__file__))
 APP_BASEDIR = os.path.abspath(os.path.join(WEBAPP_DIR, os.path.pardir))
@@ -13,14 +14,18 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-DATABASES = {'default': {
-    'ENGINE': 'django.db.backends.sqlite3',
-    'NAME': os.path.join(APP_BASEDIR, 'data.db'),
-    'USER': '',
-    'PASSWORD': '',
-    'HOST': '',
-    'PORT': '',
-}}
+#DATABASES = {'default': {
+#    'ENGINE': 'django.db.backends.sqlite3',
+#    'NAME': ,
+#    'USER': '',
+#    'PASSWORD': '',
+#    'HOST': '',
+#    'PORT': '',
+#}}
+
+DEV_DB = os.path.join(APP_BASEDIR, 'dev.db')
+
+DATABASES = {'default': dj_database_url.parse('sqlite:///%s' % DEV_DB)}
 
 TIME_ZONE = 'Europe/Zurich'
 
