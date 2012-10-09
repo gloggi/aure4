@@ -41,11 +41,29 @@ USE_TZ = False
 
 LANGUAGES = (('de', _('German')),)
 
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-
-AWS_ACCESS_KEY_ID = os.environ['S3_KEY']
-AWS_SECRET_ACCESS_KEY = os.environ['S3_SECRET']
+AWS_ACCESS_KEY_ID = os.environ.get('S3_KEY','')
+AWS_SECRET_ACCESS_KEY = os.environ.get('S3_SECRET','')
 AWS_STORAGE_BUCKET_NAME = 'gloggiausbildung'
+
+if DEBUG:
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+            'LOCATION': '127.0.0.1:11211'
+        }
+    }
+else:
+    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+    CACHES = {
+        'default': {
+            'BACKEND': 'django_pylibmc.memcached.PyLibMCCache'
+        }
+    }
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+
+MEDIA_ROOT = os.path.join(APP_BASEDIR, 'media')
+MEDIA_URL = '/media/'
 
 STATIC_ROOT = os.path.join(APP_BASEDIR, 'static')
 STATIC_URL = '/static/'
@@ -97,7 +115,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
-    'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
