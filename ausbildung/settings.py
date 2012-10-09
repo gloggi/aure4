@@ -2,6 +2,8 @@ import os
 import sys
 import dj_database_url
 
+_ = lambda x: x
+
 WEBAPP_DIR = os.path.dirname(os.path.abspath(__file__))
 APP_BASEDIR = os.path.abspath(os.path.join(WEBAPP_DIR, os.path.pardir))
 DEBUG = any((cmd in sys.argv for cmd in (
@@ -37,14 +39,13 @@ USE_I18N = False
 USE_L10N = False
 USE_TZ = False
 
+LANGUAGES = (('de', _('German')),)
+
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 AWS_ACCESS_KEY_ID = os.environ['S3_KEY']
 AWS_SECRET_ACCESS_KEY = os.environ['S3_SECRET']
 AWS_STORAGE_BUCKET_NAME = 'gloggiausbildung'
-
-#MEDIA_ROOT = os.path.join(APP_BASEDIR, 'uploads')
-#MEDIA_URL = '/uploads/'
 
 STATIC_ROOT = os.path.join(APP_BASEDIR, 'static')
 STATIC_URL = '/static/'
