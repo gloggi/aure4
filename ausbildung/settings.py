@@ -37,8 +37,14 @@ USE_I18N = False
 USE_L10N = False
 USE_TZ = False
 
-MEDIA_ROOT = os.path.join(APP_BASEDIR, 'uploads')
-MEDIA_URL = '/uploads/'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+
+AWS_ACCESS_KEY_ID = os.environ['S3_KEY']
+AWS_SECRET_ACCESS_KEY = os.environ['S3_SECRET']
+AWS_STORAGE_BUCKET_NAME = 'gloggiausbildung'
+
+#MEDIA_ROOT = os.path.join(APP_BASEDIR, 'uploads')
+#MEDIA_URL = '/uploads/'
 
 STATIC_ROOT = os.path.join(APP_BASEDIR, 'static')
 STATIC_URL = '/static/'
