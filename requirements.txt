@@ -14,6 +14,7 @@ django-tinymce==1.5.1b2
 gevent==0.13.8
 greenlet==0.4.0
 gunicorn==0.14.6
+newrelic==1.5.0.103
 psycopg2==2.4.5
 pylibmc==1.2.3
 python-memcached==1.48
