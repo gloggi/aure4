@@ -1,14 +1,8 @@
-/*
- * HTML5 Boilerplate
- *
- * What follows is the result of much research on cross-browser styling.
- * Credit left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
- * Kroc Camen, and the H5BP dev community and team.
- */
-
 /* ==========================================================================
-   Base styles: opinionated defaults
+   HTML5 Boilerplate styles - h5bp.com (generated via initializr.com)
    ========================================================================== */
+
+@import url('../font/beta.css');
 
 html,
 button,
@@ -23,11 +17,28 @@ body {
     line-height: 1.4;
 }
 
-/*
- * Remove text-shadow in selection highlight: h5bp.com/i
- * These selection declarations have to be separate.
- * Customize the background color to match your design.
- */
+/* sticky footer */
+
+html, body {
+    height: 100%;
+}
+
+#main-wrapper {
+    min-height: 100%;
+}
+
+.main-container {
+    overflow: auto;
+    padding-bottom: 34px;
+}
+
+.footer-container {
+    position: relative;
+    margin-top: -34px;
+    height: 26px;
+}
+
+/* html defaults */
 
 ::-moz-selection {
     background: #b3d4fc;
@@ -39,10 +50,6 @@ body {
     text-shadow: none;
 }
 
-/*
- * A better looking default horizontal rule
- */
-
 hr {
     display: block;
     height: 1px;
@@ -52,17 +59,9 @@ hr {
     padding: 0;
 }
 
-/*
- * Remove the gap between images and the bottom of their containers: h5bp.com/i/440
- */
-
 img {
     vertical-align: middle;
 }
-
-/*
- * Remove default fieldset styles.
- */
 
 fieldset {
     border: 0;
@@ -70,17 +69,9 @@ fieldset {
     padding: 0;
 }
 
-/*
- * Allow only vertical resizing of textareas.
- */
-
 textarea {
     resize: vertical;
 }
-
-/* ==========================================================================
-   Chrome Frame prompt
-   ========================================================================== */
 
 .chromeframe {
     margin: 0.2em 0;
@@ -89,39 +80,258 @@ textarea {
     padding: 0.2em 0;
 }
 
+body {
+    font: Helvetica, Helvetica Neue, Arial;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+}
+
+/* Gloggi Theme */
+
+.wrapper {
+    width: 90%;
+    margin: 0 5%;
+}
+
+.header-container {
+    border-bottom: 8px solid #a00000;
+}
+
+.footer-container {
+    border-top: 8px solid #a00000;
+}
+
+.header-container,
+.footer-container {
+    background: #bb0000;
+}
+
+.title {
+    color: white;
+/*    text-shadow: #333 1px 1px 2px;*/
+    margin: 15px 0 5px 0;
+    background-image: url(../img/logo_head.png);
+    background-position: left 4px;
+    background-repeat: no-repeat;
+    padding-left: 95px;
+    font-family: Beta;
+    font-weight: normal;
+    font-size: 28px;
+}
+
+.main aside {
+    background: #ffb;
+    border-top: 12px solid #ffd200;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+/* ==============
+    MOBILE: Menu
+   ============== */
+
+header a {
+    text-decoration: none;
+}
+
+header nav a {
+    display: block;
+    margin-bottom: 10px;
+    padding: 15px 0;
+
+    text-align: center;
+    font-weight: bold;
+    color: white;
+    background: #a00000;
+
+    text-shadow: 1px 1px 2px #333;
+
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+header nav a:hover,
+header nav a:visited {
+    color: white;
+}
+
+header nav a:hover {
+    text-decoration: none;
+    text-shadow: none;
+    
+    background-color: #800000;
+    background-image: linear-gradient(bottom, #A00000 20%, #800000 100%);
+    background-image: -o-linear-gradient(bottom, #A00000 20%, #800000 100%);
+    background-image: -moz-linear-gradient(bottom, #A00000 20%, #800000 100%);
+    background-image: -webkit-linear-gradient(bottom, #A00000 20%, #800000 100%);
+    background-image: -ms-linear-gradient(bottom, #A00000 20%, #800000 100%);
+}
+
+aside nav a {
+    display: block;
+    text-decoration: none;
+    color: #666;
+    font-weight: bold;
+    margin: 4px 0;
+}
+
+aside nav a:hover {
+    color: #000;
+}
+
+/* ==============
+    MOBILE: Main
+   ============== */
+
+.main {
+    padding: 30px 0;
+}
+
+.main article h1 {
+    font-size: 2em;
+}
+
+.main aside {
+    padding: 10px 5%;
+}
+
+.footer-container footer {
+    color: white;
+    padding: 5px 0;
+}
+
+footer p {
+    color: white;
+    margin: 0;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+footer a {
+    color: white;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* ===============
+    ALL: IE Fixes
+   =============== */
+
+.ie7 .title {
+    padding-top: 20px;
+}
+
 /* ==========================================================================
-   Author's custom styles
+   Media Queries
    ========================================================================== */
 
+@media only screen and (min-width: 480px) {
 
+/* ====================
+    INTERMEDIATE: Menu
+   ==================== */
 
+    header nav a {
+        float: left;
+        width: 27%;
+        margin: 0 1.7%;
+        padding: 10px 2%;
+        margin-bottom: 0;
+        -webkit-border-radius: 5px 5px 0 0;
+        -moz-border-radius: 5px 5px 0 0;
+        border-radius: 5px 5px 0 0;
+    }
 
+    header nav a:first-child  {
+        margin-left: 0;
+    }
 
+    header nav a:last-child {
+        margin-right: 0;
+    }
 
+/* ========================
+    INTERMEDIATE: IE Fixes
+   ======================== */
 
+    .oldie header nav a {
+        margin: 0 0.7%;
+    }
+}
 
+@media only screen and (min-width: 768px) {
 
+/* ====================
+    WIDE: CSS3 Effects
+   ==================== */
 
+    .header-container,
+    .main aside {
+        -webkit-box-shadow: 0 5px 10px #aaa;
+           -moz-box-shadow: 0 5px 10px #aaa;
+                box-shadow: 0 5px 10px #aaa;
+    }
 
+/* ============
+    WIDE: Menu
+   ============ */
 
+    .title {
+        float: left;
+        margin: 15px 0 0 0;
+    }
 
+    header nav {
+        float: right;
+        width: 38%;
+    }
 
+    header nav a {
+        margin-top: 17px;
+    }
 
+/* ============
+    WIDE: Main
+   ============ */
 
+    .main article {
+        float: left;
+        width: 57%;
+    }
+
+    .main aside {
+        float: right;
+        width: 28%;
+    }
+}
+
+@media only screen and (min-width: 1140px) {
+
+/* ===============
+    Maximal Width
+   =============== */
+
+    .wrapper {
+        width: 1026px; /* 1140px - 10% for margins */
+        margin: 0 auto;
+    }
+}
 
 /* ==========================================================================
    Helper classes
    ========================================================================== */
 
-/*
- * Image replacement
- */
-
 .ir {
     background-color: transparent;
     border: 0;
     overflow: hidden;
-    /* IE 6/7 fallback */
     *text-indent: -9999px;
 }
 
@@ -132,18 +342,10 @@ textarea {
     height: 100%;
 }
 
-/*
- * Hide from both screenreaders and browsers: h5bp.com/u
- */
-
 .hidden {
     display: none !important;
     visibility: hidden;
 }
-
-/*
- * Hide only visually, but have it available for screenreaders: h5bp.com/v
- */
 
 .visuallyhidden {
     border: 0;
@@ -156,11 +358,6 @@ textarea {
     width: 1px;
 }
 
-/*
- * Extends the .visuallyhidden class to allow the element to be focusable
- * when navigated to via the keyboard: h5bp.com/p
- */
-
 .visuallyhidden.focusable:active,
 .visuallyhidden.focusable:focus {
     clip: auto;
@@ -171,63 +368,26 @@ textarea {
     width: auto;
 }
 
-/*
- * Hide visually and from screenreaders, but maintain layout
- */
-
 .invisible {
     visibility: hidden;
 }
 
-/*
- * Clearfix: contain floats
- *
- * For modern browsers
- * 1. The space content is one way to avoid an Opera bug when the
- *    `contenteditable` attribute is included anywhere else in the document.
- *    Otherwise it causes space to appear at the top and bottom of elements
- *    that receive the `clearfix` class.
- * 2. The use of `table` rather than `block` is only necessary if using
- *    `:before` to contain the top-margins of child elements.
- */
-
 .clearfix:before,
 .clearfix:after {
-    content: " "; /* 1 */
-    display: table; /* 2 */
+    content: " ";
+    display: table;
 }
 
 .clearfix:after {
     clear: both;
 }
 
-/*
- * For IE 6/7 only
- * Include this rule to trigger hasLayout and contain floats.
- */
-
 .clearfix {
     *zoom: 1;
 }
 
 /* ==========================================================================
-   EXAMPLE Media Queries for Responsive Design.
-   Theses examples override the primary ('mobile first') styles.
-   Modify as content requires.
-   ========================================================================== */
-
-@media only screen and (min-width: 35em) {
-    /* Style adjustments for viewports that meet the condition */
-}
-
-@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
-       only screen and (min-resolution: 144dpi) {
-    /* Style adjustments for high resolution devices */
-}
-
-/* ==========================================================================
-   Print styles.
-   Inlined to avoid required HTTP connection: h5bp.com/r
+   Print styles
    ========================================================================== */
 
 @media print {

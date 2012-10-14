@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load feincms_tags feincms_page_tags %}
+
+{% block maincontent %}
+    <article>
+        {% feincms_render_region feincms_page "main" request %}
+    </article>
+    <aside>
+        {% feincms_render_region feincms_page "side" request %}        
+    </aside>   
+{% endblock %}

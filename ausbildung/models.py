@@ -8,10 +8,17 @@ from feincms.content.medialibrary.v2 import MediaFileContent
 
 Page.register_templates({
     'title': _('Standard'),
-    'path': 'base.html',
+    'path': 'feincms_main.html',
     'regions': (
-        ('main', _('Main content area')),
-        ),
+        ('main', _('Main')),
+    ),
+}, {
+    'title': _('2 Spalten'),
+    'path': 'feincms_side.html',
+    'regions': (
+        ('main', _('Main')),
+        ('side', _('Sidebar'))
+    ),
 })
 
 Page.create_content_type(RichTextContent)

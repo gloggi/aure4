@@ -11,19 +11,47 @@
     <meta name="description" content="{% block meta-description%}{% endblock %}">
     <meta name="viewport" content="width=device-width">
 
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/normalize.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/normalize.min.css">
     <link rel="stylesheet" href="{{ STATIC_URL }}css/main.css">
-    <script src="{{ STATIC_URL }}libs/modernizr-2.6.1.min.js"></script>
 </head>
 <body>
-    {% block content %}
-        {% if feincms_page %}
-            {% feincms_render_region feincms_page "main" request %}
-        {% endif %}
-    {% endblock %}
+    <!--[if lt IE 7]>
+        <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+    <![endif]-->
+    <div id="main-wrapper">
+    <div class="header-container">
+        <header class="wrapper clearfix">
+            <a href="/">
+                <h1 class="title">Gloggi Ausbildung</h1>
+            </a>
+            <nav>
+                <a href="#">Infos</a>
+                <a href="#">Kurse</a>
+                <a href="#">Team</a>
+            </nav>
+        </header>
+    </div>
 
+    <div class="main-container">
+        <div class="main wrapper clearfix">
+            {% block maincontent %}
+            {% endblock maincontent %}
+        </div> <!-- #main -->
+    </div> <!-- #main-container -->
+    </div> <!-- #main-wrapper -->
+    
+    <div class="footer-container">
+        <footer class="wrapper">
+            <p>
+                &copy; Pfadikorps Glockenhof 2012,
+                <a href="mailto:ausbildung@gloggi.ch">ausbildung@gloggi.ch</a>
+            </p>
+        </footer>
+    </div>
+    
     <script src="{{ STATIC_URL }}libs/jquery-1.8.0.min.js"></script>
-    <script src="{{ STATIC_URL }}js/plugins.js"></script>
+    <script src="{{ STATIC_URL }}libs/respond-1.1.0.min.js"></script>
     <script src="{{ STATIC_URL }}js/main.js"></script>
+    {% block javascript %}{% endblock %}
 </body>
 </html>

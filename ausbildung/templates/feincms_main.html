@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% load feincms_tags feincms_page_tags %}
+
+{% block maincontent %}
+    {% feincms_render_region feincms_page "main" request %}
+{% endblock %}
