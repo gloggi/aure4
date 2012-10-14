@@ -17,6 +17,8 @@ body {
     line-height: 1.4;
 }
 
+/* sticky footer */
+
 html, body {
     height: 100%;
 }
@@ -27,14 +29,16 @@ html, body {
 
 .main-container {
     overflow: auto;
-    padding-bottom: 36px;
+    padding-bottom: 34px;
 }
 
 .footer-container {
     position: relative;
-    margin-top: -36px;
+    margin-top: -34px;
     height: 26px;
 }
+
+/* html defaults */
 
 ::-moz-selection {
     background: #b3d4fc;
@@ -76,7 +80,6 @@ textarea {
     padding: 0.2em 0;
 }
 
-
 body {
     font: Helvetica, Helvetica Neue, Arial;
 }
@@ -85,22 +88,24 @@ h1, h2, h3, h4, h5, h6 {
     margin: 0;
 }
 
+/* Gloggi Theme */
+
 .wrapper {
     width: 90%;
     margin: 0 5%;
 }
 
 .header-container {
-    border-bottom: 10px solid #a00000;
+    border-bottom: 8px solid #a00000;
 }
 
 .footer-container {
-    border-top: 10px solid #a00000;
+    border-top: 8px solid #a00000;
 }
 
 .header-container,
 .footer-container {
-    background: #c00000;
+    background: #bb0000;
 }
 
 .title {
@@ -117,28 +122,28 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .main aside {
-    background: #aaa;
-    border-top: 10px solid #666;
+    background: #ffb;
+    border-top: 12px solid #ffd200;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
 }
 
 /* ==============
     MOBILE: Menu
    ============== */
 
-nav ul {
-    margin: 0;
-    padding: 0;
+header a {
+    text-decoration: none;
 }
 
-nav a {
+header nav a {
     display: block;
     margin-bottom: 10px;
     padding: 15px 0;
 
     text-align: center;
-    text-decoration: none;
     font-weight: bold;
-
     color: white;
     background: #a00000;
 
@@ -149,12 +154,12 @@ nav a {
     border-radius: 5px;
 }
 
-nav a:hover,
-nav a:visited {
+header nav a:hover,
+header nav a:visited {
     color: white;
 }
 
-nav a:hover {
+header nav a:hover {
     text-decoration: none;
     text-shadow: none;
     
@@ -164,6 +169,18 @@ nav a:hover {
     background-image: -moz-linear-gradient(bottom, #A00000 20%, #800000 100%);
     background-image: -webkit-linear-gradient(bottom, #A00000 20%, #800000 100%);
     background-image: -ms-linear-gradient(bottom, #A00000 20%, #800000 100%);
+}
+
+aside nav a {
+    display: block;
+    text-decoration: none;
+    color: #666;
+    font-weight: bold;
+    margin: 4px 0;
+}
+
+aside nav a:hover {
+    color: #000;
 }
 
 /* ==============
@@ -179,13 +196,28 @@ nav a:hover {
 }
 
 .main aside {
-    color: white;
     padding: 10px 5%;
 }
 
 .footer-container footer {
     color: white;
     padding: 5px 0;
+}
+
+footer p {
+    color: white;
+    margin: 0;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+footer a {
+    color: white;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
 }
 
 /* ===============
@@ -206,7 +238,7 @@ nav a:hover {
     INTERMEDIATE: Menu
    ==================== */
 
-    nav a {
+    header nav a {
         float: left;
         width: 27%;
         margin: 0 1.7%;
@@ -217,11 +249,11 @@ nav a:hover {
         border-radius: 5px 5px 0 0;
     }
 
-    nav li:first-child a {
+    header nav a:first-child  {
         margin-left: 0;
     }
 
-    nav li:last-child a {
+    header nav a:last-child {
         margin-right: 0;
     }
 
@@ -229,11 +261,7 @@ nav a:hover {
     INTERMEDIATE: IE Fixes
    ======================== */
 
-    nav ul li {
-        display: inline;
-    }
-
-    .oldie nav a {
+    .oldie header nav a {
         margin: 0 0.7%;
     }
 }
@@ -260,12 +288,12 @@ nav a:hover {
         margin: 15px 0 0 0;
     }
 
-    nav {
+    header nav {
         float: right;
         width: 38%;
     }
 
-    nav a {
+    header nav a {
         margin-top: 17px;
     }
 
