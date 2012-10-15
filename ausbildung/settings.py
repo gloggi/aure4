@@ -16,15 +16,6 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-#DATABASES = {'default': {
-#    'ENGINE': 'django.db.backends.sqlite3',
-#    'NAME': ,
-#    'USER': '',
-#    'PASSWORD': '',
-#    'HOST': '',
-#    'PORT': '',
-#}}
-
 DEV_DB = os.path.join(APP_BASEDIR, 'dev.db')
 
 DATABASES = {'default': dj_database_url.config(default='sqlite:///%s' % DEV_DB)}
@@ -131,6 +122,7 @@ INSTALLED_APPS = (
     'django_countries',
 
     'ausbildung',
+    'ausbildung.kurse',
 )
 
 FEINCMS_RICHTEXT_INIT_CONTEXT = {
