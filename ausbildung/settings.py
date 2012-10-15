@@ -35,8 +35,8 @@ LANGUAGE_CODE = 'de-CH'
 
 SITE_ID = 1
 
-USE_I18N = False
-USE_L10N = False
+USE_I18N = True
+USE_L10N = True
 USE_TZ = False
 
 LANGUAGES = (('de', _('German')),)
@@ -128,6 +128,7 @@ INSTALLED_APPS = (
     'tinymce',
     'south',
     'gunicorn',
+    'django_countries',
 
     'ausbildung',
 )
