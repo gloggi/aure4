@@ -119,7 +119,6 @@ INSTALLED_APPS = (
     'tinymce',
     'south',
     'gunicorn',
-    'django_countries',
 
     'ausbildung',
     'ausbildung.kurse',
