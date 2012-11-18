@@ -96,29 +96,29 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .header-container {
+    background: #bb0000;
     border-bottom: 8px solid #a00000;
 }
 
 .footer-container {
-    border-top: 8px solid #a00000;
+    background: #000099;
+    border-top: 8px solid #000066;
 }
 
-.header-container,
-.footer-container {
-    background: #bb0000;
+header {
+    background-image: url('../img/logo_head.png');
+    background-position: left 4px;
+    background-repeat: no-repeat;
 }
 
 .title {
     color: white;
-/*    text-shadow: #333 1px 1px 2px;*/
-    margin: 15px 0 5px 0;
-    background-image: url('../img/logo_head.png');
-    background-position: left 4px;
-    background-repeat: no-repeat;
+    margin: 20px 0 5px 0;
     padding-left: 95px;
-    font-family: Beta;
+    font-family: Sanchez;
+    text-transform: uppercase;
     font-weight: normal;
-    font-size: 28px;
+    font-size: 24px;
 }
 
 .main aside {
@@ -232,7 +232,7 @@ footer a:hover {
    Media Queries
    ========================================================================== */
 
-@media only screen and (min-width: 480px) {
+@media only screen and (min-width: 640px) {
 
 /* ====================
     INTERMEDIATE: Menu
@@ -266,7 +266,7 @@ footer a:hover {
     }
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 966px) {
 
 /* ====================
     WIDE: CSS3 Effects
@@ -285,7 +285,7 @@ footer a:hover {
 
     .title {
         float: left;
-        margin: 15px 0 0 0;
+        margin: 20px 0 0 0;
     }
 
     header nav {
