@@ -11,8 +11,10 @@
     <meta name="description" content="{% block meta-description%}{% endblock %}">
     <meta name="viewport" content="width=device-width">
 
+    <link rel="stylesheet" href="{{ STATIC_URL }}libs/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ STATIC_URL }}css/normalize.min.css">
     <link rel="stylesheet" href="{{ STATIC_URL }}css/main.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/ausbildung.css">
     <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Sanchez'>
 </head>
 <body>
@@ -23,12 +25,15 @@
     <div class="header-container">
         <header class="wrapper clearfix">
             <a href="/">
-                <h1 class="title">Gloggi & Flamberg Ausbildung</h1>
+                <h1>
+                    Ausbildungs-Region 4<br>
+                    <span>Flamberg & Glockenhof</span>
+                </h1>
             </a>
             <nav>
-                <a href="#">Infos</a>
-                <a href="#">Anmeldung</a>
-                <a href="#">Kontakt</a>
+                <a href="/">Infos</a>
+                <a href="/anmeldung/">Anmeldung</a>
+                <a href="/kontakt/">Kontakt</a>
             </nav>
         </header>
     </div>
@@ -36,6 +41,7 @@
     <div class="main-container">
         <div class="main wrapper clearfix">
             {% block maincontent %}
+            {% block content %}{% endblock %}
             {% endblock maincontent %}
         </div> <!-- #main -->
     </div> <!-- #main-container -->

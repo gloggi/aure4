@@ -5,8 +5,9 @@ from .models import Kurs, Abteilung, Anmeldung
 
 
 class KursAdmin(admin.ModelAdmin):
-    list_display = ('name', 'nummer', 'von', 'bis', 'hauptleiter')
-    search_fields = ('name', 'nummer', 'von', 'bis', 'hauptleiter')
+    list_display = ('name', 'nummer', 'anmeldeschluss', 'von', 'bis')
+    search_fields = ('name', 'nummer', 'hauptleiter')
+    prepopulated_fields = {'url': ('name',)}
     #date_hierarchy = 'von'
 
 

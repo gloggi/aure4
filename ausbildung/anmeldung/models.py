@@ -1,8 +1,14 @@
 # encoding: utf-8
 
 from django.db import models
+from django.utils.timezone import now
 
 from .fields import RequiredCharField, OptionalCharField
+
+
+class KursManager(models.Manager):
+    def open(self):
+        return self.get_query_set().filter(anmeldeschluss__gte=now())
 
 
 class Kurs(models.Model):
@@ -11,16 +17,21 @@ class Kurs(models.Model):
     CONST = 'HUU'
 
     name = RequiredCharField('Name')
+    url = models.SlugField('url')
+
     nummer = OptionalCharField('Kursnummer', help_text='z.Bsp PBS ZH 123-12')
 
     von = models.DateField('Von')
     bis = models.DateField('Bis')
+    anmeldeschluss = models.DateField('Anmeldeschluss')
 
     hauptleiter = OptionalCharField('Hauptleiter')
     email = models.EmailField('Email', blank=True, null=True)
 
     erfasst = models.DateTimeField('Erfasst', auto_now_add=True)
     aktualisiert = models.DateTimeField('Aktualisiert', auto_now=True)
+
+    objects = KursManager()
 
     class Meta:
         verbose_name = 'Kurs'

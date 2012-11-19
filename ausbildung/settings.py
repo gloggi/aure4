@@ -119,9 +119,10 @@ INSTALLED_APPS = (
     'tinymce',
     'south',
     'gunicorn',
+    'bootstrapform',
 
     'ausbildung',
-    'ausbildung.kurse',
+    'ausbildung.anmeldung',
 )
 
 FEINCMS_RICHTEXT_INIT_CONTEXT = {

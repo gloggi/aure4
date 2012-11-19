@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<p>Wöllä wötsch?</p>
+
+{% for kurs in kurse %}
+<a href="{% url anmeldung_form kurs=kurs.url %}" class="kurs clearfix">
+    <h3>{{ kurs.name }}</h3>
+    <table>
+        <tr>
+            <th>Anmeldeschluss</th>
+            <td>{{ kurs.anmeldeschluss|date:'d.m.y' }}</td>
+
+            <th>Datum von/bis:</th>
+            <td>{{ kurs.von|date:'d.m.y' }} - {{ kurs.bis|date:'d.m.y' }}</td>
+        </tr>
+        <tr>
+        {% if kurs.nummer %}
+            <th>Kursnummer:</th><td>{{ kurs.nummer }}</td>
+        {% endif %}
+        {% if kurs.hauptleiter %}
+            <th>Hauptleiter:</th><td>{{ kurs.hauptleiter }}</td>
+        {% endif %}
+        </tr>
+    </table>
+</a>
+{% endfor %}
+
+{% endblock %}

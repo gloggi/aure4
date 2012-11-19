@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load bootstrap %}
+
+{% block content %}
+    <form method="post" class="form-horizontal">
+        {{ form|bootstrap }}
+
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Fätig</button>
+        </div>
+    </form>
+{% endblock %}

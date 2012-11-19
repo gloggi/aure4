@@ -3,6 +3,13 @@
 
 {% block extrahead %}
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}fhadmin/fhadmin.css" />
+<style type="text/css">
+    .aligned label { width: 150px }
+    form .aligned p, form .aligned ul, form .aligned p.help {
+        margin-left: 150px;
+        padding-left: 10px;
+    }
+</style>
 {% endblock %}
 
 {% block title %}{{ title }} | Gloggi Ausbildung{% endblock %}
