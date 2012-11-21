@@ -18,7 +18,13 @@ def anmeldung(request, kurs):
 
     kurs = get_object_or_404(Kurs, url=kurs)
 
-    form = AnmeldungForm()
+    if request.method == 'POST':
+    	form = AnmedlungForm(request.POST)
+
+    	if form.is_valid():
+    		anmeldung = form.save()
+    else:
+    	form = AnmeldungForm()
 
     return render(request, 'anmeldung/form.html', {
         'form': form

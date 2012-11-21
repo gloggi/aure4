@@ -1,4 +1,43 @@
 
+.anmeldung > fieldset {
+    float: left;
+    width: 44%;
+    margin: 0 2%;
+}
+
+.anmeldung .left {
+    width: 48%;
+    margin-right: 4%;
+}
+
+.anmeldung .right {
+    width: 48%;
+}
+
+.anmeldung .control-label {
+    width: 120px;
+}
+
+.anmeldung .controls {
+    margin-left: 140px;
+}
+
+.anmeldung .controls input {
+    width: 92%;
+}
+
+.anmeldung .controls select {
+    width: 95%;
+}
+
+
+@media only screen and (max-width: 1140px) {
+    .anmeldung .left,
+    .anmeldung .right {
+        float: none;
+        width: 100%;
+    }
+}
 
 
 a.kurs {
