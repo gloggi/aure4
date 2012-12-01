@@ -5,8 +5,12 @@ from .forms import EmailAuthenticationForm
 urlpatterns = patterns('ausbildung.account.views',
     url(r'^$', 'account', name="account"),
 
-    url(r'^signup/$', 'signup', name="signup"),
-    url(r'^email_register/', include('email_registration.urls')),
+    url(r'^register/$',
+        'registration',
+        name='registration'),
+    url(r'^register/(?P<code>[^/]+)/$',
+        'registration_confirm',
+        name='registration_confirm'),
 )
 
 urlpatterns += patterns('django.contrib.auth.views',

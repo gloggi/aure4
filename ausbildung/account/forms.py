@@ -1,6 +1,7 @@
 
 from django import forms
 from django.contrib.auth import authenticate
+from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 
 
@@ -66,3 +67,16 @@ class EmailAuthenticationForm(forms.Form):
 
     def get_user(self):
         return self.user_cache
+
+
+class RegistrationForm(forms.Form):
+    email = forms.EmailField(label=_('e-mail address'),
+        widget=forms.TextInput(attrs={
+            'placeholder': _('e-mail address'),
+            }), max_length=75)
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if email and User.objects.filter(email=email).exists():
+            raise forms.ValidationError('Diese Email Adresse besteht bereits.')
+        return email

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+  <form method="post" class="well well_form nolabel" id="registration">
+    {% csrf_token %}
+    {% include 'bootstrapform/errors.html' %}
+
+    <div class="control-group {% if form.email.errors %} error{% endif %}">
+        <div class="controls">
+            <input type="email" name="email" placeholder="Deine Email" class="input-xlarge" required>
+        </div>
+        {% for error in form.email.errors %}
+            <span class="help-inline">{{ error }}</span>
+        {% endfor %}
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-info btn-wide btn-large">
+        Registrieren
+      </button>
+    </div>
+  </form>
+{% endblock %}

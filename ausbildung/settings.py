@@ -120,7 +120,6 @@ INSTALLED_APPS = (
     'tinymce',
     'south',
     'gunicorn',
-    'email_registration',
 
     'ausbildung',
     'ausbildung.anmeldung',
