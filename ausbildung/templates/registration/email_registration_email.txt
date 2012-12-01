@@ -1,0 +1,12 @@
+Registrierung auf aure4.ch
+
+Bitte klicke auf den folgenden Link um deinen Account zu aktivieren:
+
+{{ url }}
+
+Bitte beachte, dass dieser Link nur 30 Minuten gültig ist. Dannach
+musst du dich nochmals auf der Webseite anmelden.
+
+Allzeit Bereit
+
+Dein Aure 4 Team

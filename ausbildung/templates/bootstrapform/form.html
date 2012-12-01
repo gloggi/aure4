@@ -1,0 +1,6 @@
+{% include 'bootstrapform/errors.html' %}
+
+{% for field in form.visible_fields %}
+    {% include 'bootstrapform/field.html' %}
+{% endfor %}
+

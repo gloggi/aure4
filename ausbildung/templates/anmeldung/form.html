@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load bootstrap %}
+
+{% block content %}
+    <form method="post" class="form-horizontal">
+    	<div class="anmeldung clearfix">
+    		<div class="left">
+		    	<fieldset>
+		    		<legend>Personalien</legend>
+					{{ form.pfadiname|bootstrap }}
+			        {{ form.vorname|bootstrap }}
+			        {{ form.nachname|bootstrap }}
+			        {{ form.geburtsdatum|bootstrap }}
+
+			        <br>
+			        {{ form.email|bootstrap }}
+			        {{ form.telefon|bootstrap }}
+			        {{ form.mobiltelefon|bootstrap }}
+		    	</fieldset>
+
+		    	<fieldset>
+		    		<legend>Adresse</legend>
+			    	{{ form.strasse|bootstrap }}
+			        {{ form.plz|bootstrap }}
+			        {{ form.ort|bootstrap }}
+			        {{ form.land|bootstrap }}
+			    </fieldset>
+    		</div>
+
+    		<div class="right">
+		    	<fieldset>
+			    	<legend>Pfadi</legend>
+			        {{ form.abteilung|bootstrap }}
+			        {{ form.einheit|bootstrap }}
+			        {{ form.stufe|bootstrap }}
+			    </fieldset>
+
+			    <fieldset>
+			    	<legend>Weitere Angaben</legend>
+			        {{ form.nationalitaet|bootstrap }}
+			        {{ form.erstsprache|bootstrap }}
+			        {{ form.bahnabo|bootstrap }}
+			        {% comment %}
+			        {{ form.js|bootstrap }}
+			        {{ form.ahv|bootstrap }}
+			        {% endcomment %}
+
+			      	<br><br>
+
+			      	{{ form.essen|bootstrap }}
+		        	{{ form.gesundheit|bootstrap }}
+		        	{{ form.bestaetigung|bootstrap }}
+			    </fieldset>
+	        </div>
+		</div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Fätig</button>
+        </div>
+    </form>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load i18n bootstrap %}
+
+{% block content %}
+
+<div class="well well_form nolabel">
+    <form method="post" class="form form-horizontal">
+      {% csrf_token %}
+      {{ form|bootstrap:'nolabel' }}
+      <input type="hidden" name="next" value="{% url account %}" />
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-large btn-wide btn-success">
+          Amälde
+        </button>
+        {% url django.contrib.auth.views.password_reset as reset_url %}
+
+        <br><br>
+        <a href="{{ reset_url }}">
+          Ich glaub, ich han mis Passwort fägässe
+        </a>
+      </div>
+    </form>
+</div>
+{% endblock %}

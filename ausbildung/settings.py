@@ -32,8 +32,8 @@ USE_TZ = False
 
 LANGUAGES = (('de', _('German')),)
 
-AWS_ACCESS_KEY_ID = os.environ.get('S3_KEY','')
-AWS_SECRET_ACCESS_KEY = os.environ.get('S3_SECRET','')
+AWS_ACCESS_KEY_ID = os.environ.get('S3_KEY', '')
+AWS_SECRET_ACCESS_KEY = os.environ.get('S3_SECRET', '')
 AWS_STORAGE_BUCKET_NAME = 'gloggiausbildung'
 
 if DEBUG:
@@ -80,6 +80,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
@@ -119,15 +120,26 @@ INSTALLED_APPS = (
     'tinymce',
     'south',
     'gunicorn',
-    'bootstrapform',
+    'email_registration',
 
     'ausbildung',
     'ausbildung.anmeldung',
 )
 
+AUTHENTICATION_BACKENDS = (
+    'ausbildung.account.backend.EmailBackend',
+    'django.contrib.auth.backends.ModelBackend'
+)
+
+LOGIN_URL = '/accounts/'
+LOGOUT_URL = '/account/logout/'
+
 FEINCMS_RICHTEXT_INIT_CONTEXT = {
     'TINYMCE_JS_URL': STATIC_URL + '/tiny_mce/tiny_mce.js',
 }
+
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 from fhadmin import FHADMIN_GROUPS_REMAINING
 _ = lambda x: x

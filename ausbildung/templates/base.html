@@ -11,11 +11,22 @@
     <meta name="description" content="{% block meta-description%}{% endblock %}">
     <meta name="viewport" content="width=device-width">
 
+    {% block css %}
     <link rel="stylesheet" href="{{ STATIC_URL }}libs/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ STATIC_URL }}css/normalize.min.css">
     <link rel="stylesheet" href="{{ STATIC_URL }}css/main.css">
     <link rel="stylesheet" href="{{ STATIC_URL }}css/ausbildung.css">
     <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Sanchez'>
+    {% endblock %}
+
+    {% block js %}
+    <script src="{{ STATIC_URL }}libs/jquery-1.8.0.min.js"></script>
+    <script src="{{ STATIC_URL }}libs/respond-1.1.0.min.js"></script>
+    <script src="{{ STATIC_URL }}js/main.js"></script>
+    {% endblock %}
+
+    {% block javascript %}{% endblock %}
+    {% block extrahead %}{% endblock %}
 </head>
 <body>
     <!--[if lt IE 7]>
@@ -40,6 +51,15 @@
 
     <div class="main-container">
         <div class="main wrapper clearfix">
+
+            {% block messages %}
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} fade in">
+                  <a class="close" data-dismiss="alert" href="#">&times;</a>
+                  {{ message|safe }}</div>
+                {% endfor %}
+            {% endblock %}
+
             {% block maincontent %}
             {% block content %}{% endblock %}
             {% endblock maincontent %}
@@ -49,16 +69,31 @@
 
     <div class="footer-container">
         <footer class="wrapper">
+            <p class="right">
+                {% if request.user.is_authenticated %}
+                    Angemeldet als {{ request.user.email }}
+                    <a href="{% url account %}">
+                        Mein Profil
+                    </a>
+                    <a href="{% url logout %}?next=/">
+                        Abmelden
+                    </a>
+                {% else %}
+                    <a href="{% url login %}">
+                        Anmelden
+                    </a> |
+                    <a href="{% url signup %}">
+                        Registrieren
+                    </a>
+                {% endif %}
+            </p>
             <p>
                 &copy; Pfadikorps Glockenhof 2012,
                 <a href="mailto:ausbildung@gloggi.ch">ausbildung@gloggi.ch</a>
             </p>
+
+
         </footer>
     </div>
-
-    <script src="{{ STATIC_URL }}libs/jquery-1.8.0.min.js"></script>
-    <script src="{{ STATIC_URL }}libs/respond-1.1.0.min.js"></script>
-    <script src="{{ STATIC_URL }}js/main.js"></script>
-    {% block javascript %}{% endblock %}
 </body>
 </html>

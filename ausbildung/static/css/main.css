@@ -71,6 +71,11 @@ fieldset > legend {
 
 }
 
+.form-actions {
+    background: none;
+    border: none;
+}
+
 .left { float: left; }
 .right { float: right; }
 
@@ -117,6 +122,10 @@ header nav a:hover {
     background-image: -ms-linear-gradient(bottom, #783281 20%, #64286E 100%);
 }
 
+footer a:hover {
+    color: white;
+}
+
 aside nav a {
     display: block;
     text-decoration: none;
@@ -127,6 +136,37 @@ aside nav a {
 
 aside nav a:hover {
     color: #000;
+}
+
+.well_form {
+    width: 284px;
+    margin: 0 auto;
+}
+
+.well_form.wide {
+    width: 380px;
+}
+
+.well_form .control-label {
+    width: 160px;
+}
+
+.well_form .controls {
+    margin-left: 180px;
+}
+
+.well_form .form-actions {
+    padding: 0 0 0 180px;
+}
+
+.well_form.nolabel .controls,
+.well_form .form-actions {
+    margin-left: 0px;
+    padding: 0;
+}
+
+.btn-wide {
+    width: 284px;
 }
 
 /* ==============
