@@ -20,16 +20,16 @@ a:hover h1, a:hover h2, a:hover h3 {
 }
 
 .header-container {
-    background: #bb0000;
-    border-bottom: 8px solid #a00000;
+    background: #A046B4;
+    border-bottom: 8px solid #783281;
 }
 
 .footer-container {
     position: fixed;
     bottom: 0;
     width: 100%;
-    background: #000099;
-    border-top: 8px solid #000066;
+    background: #A046B4;
+    border-top: 8px solid #783281;
 }
 
 header {
@@ -91,7 +91,7 @@ header nav a {
     text-align: center;
     font-weight: bold;
     color: white;
-    background: #a00000;
+    background: #783281;
 
     text-shadow: 1px 1px 2px #333;
 
@@ -109,12 +109,12 @@ header nav a:hover {
     text-decoration: none;
     text-shadow: none;
 
-    background-color: #800000;
-    background-image: linear-gradient(bottom, #A00000 20%, #800000 100%);
-    background-image: -o-linear-gradient(bottom, #A00000 20%, #800000 100%);
-    background-image: -moz-linear-gradient(bottom, #A00000 20%, #800000 100%);
-    background-image: -webkit-linear-gradient(bottom, #A00000 20%, #800000 100%);
-    background-image: -ms-linear-gradient(bottom, #A00000 20%, #800000 100%);
+    background-color: #3C1841;
+    background-image: linear-gradient(bottom, #783281 20%, #64286E 100%);
+    background-image: -o-linear-gradient(bottom, #783281 20%, #64286E 100%);
+    background-image: -moz-linear-gradient(bottom, #783281 20%, #64286E 100%);
+    background-image: -webkit-linear-gradient(bottom, #783281 20%, #64286E 100%);
+    background-image: -ms-linear-gradient(bottom, #783281 20%, #64286E 100%);
 }
 
 aside nav a {
