@@ -1,8 +1,6 @@
 
-.anmeldung > fieldset {
-    float: left;
-    width: 44%;
-    margin: 0 2%;
+.anmeldung fieldset {
+    margin: 10px 0;
 }
 
 .anmeldung .left {
@@ -12,6 +10,10 @@
 
 .anmeldung .right {
     width: 48%;
+}
+
+.anmeldung .control-group {
+    margin: 4px 0;
 }
 
 .anmeldung .control-label {
@@ -30,6 +32,15 @@
     width: 95%;
 }
 
+.anmeldung .checkfield {
+    padding: 0 20px;
+}
+
+#anmelden_button {
+    display: block;
+    width: 80%;
+    margin: 0 auto;
+}
 
 @media only screen and (max-width: 1140px) {
     .anmeldung .left,

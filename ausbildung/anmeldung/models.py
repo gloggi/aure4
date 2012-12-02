@@ -133,13 +133,15 @@ class Anmeldung(models.Model):
     telefon = OptionalCharField('Telefon')
     mobiltelefon = OptionalCharField('Mobiltelefon')
 
-    essen = OptionalCharField('Essgewohnheiten', max_length=1000,
-        help_text='Vegetarier, kein Schweinefleich, Allergien etc.')
-    gesundheit = OptionalCharField('Gesunheitszustand', max_length=1000,
-        help_text='Gesundheitliche Beschwerden, benötigte Medikamente etc.')
+    vegetarier = models.BooleanField('Vegetarier',
+        help_text="Ich bin Vegetarier"
+    )
+    schweinefleisch = models.BooleanField('Kein Schweinefleich',
+        help_text="Ich esse kein Schweinefleich"
+    )
 
     bestaetigung = models.BooleanField('Bestätigung',
-        help_text=u'Ich benötige eine Bestätigung für den Arbeitsgeber')
+        help_text=u'Ich benötige eine Bestätigung für meien Arbeitsgeber')
 
     class Meta:
         verbose_name = 'Ammeldung'

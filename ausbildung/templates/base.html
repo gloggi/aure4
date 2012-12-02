@@ -68,7 +68,7 @@
     </div> <!-- #main-wrapper -->
 
     <div class="footer-container">
-        <footer class="wrapper">
+        <footer class="wrapper clearfix">
             <p class="right">
                 {% if request.user.is_authenticated %}
                     Angemeldet als {{ request.user.email }}
@@ -87,7 +87,7 @@
                     </a>
                 {% endif %}
             </p>
-            <p>
+            <p class="left">
                 &copy; Pfadikorps Glockenhof 2012,
                 <a href="mailto:ausbildung@gloggi.ch">ausbildung@gloggi.ch</a>
             </p>

@@ -7,7 +7,7 @@
     <form method="post" class="form form-horizontal">
       {% csrf_token %}
       {{ form|bootstrap:'nolabel' }}
-      <input type="hidden" name="next" value="{% url account %}" />
+      <input type="hidden" name="next" value="{% url anmeldung_kurse %}" />
 
       <div class="form-actions">
         <button type="submit" class="btn btn-large btn-wide btn-success">

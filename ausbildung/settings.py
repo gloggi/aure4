@@ -130,7 +130,7 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend'
 )
 
-LOGIN_URL = '/accounts/'
+LOGIN_URL = '/account/'
 LOGOUT_URL = '/account/logout/'
 
 FEINCMS_RICHTEXT_INIT_CONTEXT = {

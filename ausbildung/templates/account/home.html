@@ -2,15 +2,24 @@
 
 {% block content %}
 
+<h2>
+Du musst angemeldet sein, um dich bei einem Kurs anmelden zu können. Capiche?
+Keine Angst, es geht ganz schnell:
+</h2>
 
-<a href="{% url login %}" class="btn btn-large btn-success">
-    Anmelden
-</a>
+<br><br><br>
 
-<a href="{% url registration %}" class="btn btn-large btn-info">
-    Registrieren
-</a>
+<center>
+    <a href="{% url login %}" class="btn btn-large btn-success">
+        Anmelden
+    </a>
 
+    oder
+
+    <a href="{% url registration %}" class="btn btn-large btn-info">
+        Registrieren
+    </a>
+</center>
 
 
 {% endblock %}

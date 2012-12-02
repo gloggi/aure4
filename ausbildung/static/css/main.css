@@ -58,6 +58,10 @@ header a:hover {
     text-decoration: none;
 }
 
+.main-container {
+    padding-bottom: 50px;
+}
+
 .main aside {
     background: #ffb;
     border-top: 12px solid #ffd200;

@@ -2,6 +2,8 @@
 {% load bootstrap %}
 
 {% block content %}
+<h1>Anmeldung {{ kurs }}</h1>
+
     <form method="post" class="form-horizontal">
     	<div class="anmeldung clearfix">
     		<div class="left">
@@ -16,20 +18,18 @@
 			        {{ form.email|bootstrap }}
 			        {{ form.telefon|bootstrap }}
 			        {{ form.mobiltelefon|bootstrap }}
-		    	</fieldset>
 
-		    	<fieldset>
-		    		<legend>Adresse</legend>
-			    	{{ form.strasse|bootstrap }}
+			        <br>
+			        {{ form.strasse|bootstrap }}
 			        {{ form.plz|bootstrap }}
 			        {{ form.ort|bootstrap }}
 			        {{ form.land|bootstrap }}
-			    </fieldset>
+		    	</fieldset>
     		</div>
 
     		<div class="right">
 		    	<fieldset>
-			    	<legend>Pfadi</legend>
+			    	<legend>Pfadizugehörigkeit</legend>
 			        {{ form.abteilung|bootstrap }}
 			        {{ form.einheit|bootstrap }}
 			        {{ form.stufe|bootstrap }}
@@ -47,15 +47,16 @@
 
 			      	<br><br>
 
-			      	{{ form.essen|bootstrap }}
-		        	{{ form.gesundheit|bootstrap }}
+		        	{{ form.vegetarier|bootstrap }}
+		        	{{ form.schweinefleisch|bootstrap }}
 		        	{{ form.bestaetigung|bootstrap }}
 			    </fieldset>
 	        </div>
 		</div>
 
-        <div class="form-actions">
-          <button type="submit" class="btn btn-primary">Fätig</button>
-        </div>
+		<br>
+        <button id="anmelden_button" type="submit" class="btn btn-large btn-primary">
+          	Anmeldung überprüfen
+        </button>
     </form>
 {% endblock %}

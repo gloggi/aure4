@@ -1,5 +1,6 @@
 
 from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.decorators import login_required
 
 from .models import Kurs
 
@@ -13,7 +14,7 @@ def kurse(request):
         'kurse': kurse,
     })
 
-
+@login_required
 def anmeldung(request, kurs):
 
     kurs = get_object_or_404(Kurs, url=kurs)
@@ -27,5 +28,6 @@ def anmeldung(request, kurs):
     	form = AnmeldungForm()
 
     return render(request, 'anmeldung/form.html', {
+        'kurs': kurs,
         'form': form
     })
