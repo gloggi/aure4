@@ -1,3 +1,4 @@
+BeautifulSoup==3.2.1
 Django==1.4.2
 FeinCMS==1.6.3
 PIL==1.1.7
@@ -11,9 +12,11 @@ django-mptt==0.5.4
 django-pylibmc-sasl==0.2.4
 django-storages==1.1.5
 django-tinymce==1.5.1b2
+feincms-cleanse==2
 gevent==0.13.8
 greenlet==0.4.0
 gunicorn==0.14.6
+lxml==3.0.1
 newrelic==1.5.0.103
 psycopg2==2.4.5
 pylibmc==1.2.3
