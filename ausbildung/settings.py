@@ -35,25 +35,29 @@ AWS_ACCESS_KEY_ID = os.environ.get('S3_KEY', '')
 AWS_SECRET_ACCESS_KEY = os.environ.get('S3_SECRET', '')
 AWS_STORAGE_BUCKET_NAME = 'gloggiausbildung'
 
-if DEBUG:
+try:
+    import pylibmc
+    CACHES = {
+        'default': {
+            'BACKEND': 'django_pylibmc.memcached.PyLibMCCache'
+        }
+    }
+except ImportError:
     CACHES = {
         'default': {
             'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
             'LOCATION': '127.0.0.1:11211'
         }
     }
-else:
-    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-    CACHES = {
-        'default': {
-            'BACKEND': 'django_pylibmc.memcached.PyLibMCCache'
-        }
-    }
+
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 
 MEDIA_ROOT = os.path.join(APP_BASEDIR, 'media')
 MEDIA_URL = '/media/'
+
+if not DEBUG:
+    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 STATIC_ROOT = os.path.join(APP_BASEDIR, 'static')
 STATIC_URL = '/static/'

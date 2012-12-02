@@ -1,7 +1,10 @@
+# encoding: utf-8
+
 from django.utils.translation import ugettext_lazy as _
 
 from feincms.module.page.models import Page
 from feincms.content.richtext.models import RichTextContent
+from feincms.content.section.models import SectionContent
 from feincms.content.medialibrary.v2 import MediaFileContent
 
 #Page.register_extensions()
@@ -22,6 +25,10 @@ Page.register_templates({
 })
 
 Page.create_content_type(RichTextContent)
+Page.create_content_type(SectionContent, TYPE_CHOICES=(
+    ('default', 'Normal'),
+    ('menu', 'Mit Menü'),
+))
 Page.create_content_type(MediaFileContent, TYPE_CHOICES=(
     ('default', _('default')),
 ))
