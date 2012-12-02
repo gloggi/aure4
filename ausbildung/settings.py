@@ -136,13 +136,16 @@ FEINCMS_RICHTEXT_INIT_CONTEXT = {
     'TINYMCE_JS_URL': STATIC_URL + '/tiny_mce/tiny_mce.js',
 }
 
+SERVER_EMAIL = 'anmeldung@aure4.ch'
+DEFAULT_FROM_EMAIL = 'anmeldung@aure4.ch'
+
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 else:
     EMAIL_HOST = os.getenv('EMAIL_HOST', 'smtp.gmail.com')
     EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', '')
     EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')
-    EMAIL_PORT = os.getenv('EMAIL_PORT', 465)
+    EMAIL_PORT = os.getenv('EMAIL_PORT', 587)
     EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', True)
 
 from fhadmin import FHADMIN_GROUPS_REMAINING
