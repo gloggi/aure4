@@ -10,7 +10,7 @@ DEBUG = 'runserver' in sys.argv
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    ('Gloggi Admin', 'admin@gloggi.ch'),
+    ('Stefan Reinhard / Chili', 'chli@gloggi.ch'),
 )
 
 MANAGERS = ADMINS
