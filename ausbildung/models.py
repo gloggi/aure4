@@ -7,6 +7,8 @@ from feincms.content.richtext.models import RichTextContent
 from feincms.content.section.models import SectionContent
 from feincms.content.medialibrary.v2 import MediaFileContent
 
+from feincms_cleanse import cleanse_html
+
 #Page.register_extensions()
 
 Page.register_templates({
@@ -24,11 +26,12 @@ Page.register_templates({
     ),
 })
 
-Page.create_content_type(RichTextContent)
-Page.create_content_type(SectionContent, TYPE_CHOICES=(
-    ('default', 'Normal'),
-    ('menu', 'Mit Menü'),
-))
+#Page.register_extensions('titles')
+
+Page.create_content_type(RichTextContent, cleanse=cleanse_html)
+# Page.create_content_type(SectionContent, TYPE_CHOICES=(
+#     ('menu', 'Mit Menü'),
+# ))
 Page.create_content_type(MediaFileContent, TYPE_CHOICES=(
     ('default', _('default')),
 ))

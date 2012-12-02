@@ -128,6 +128,11 @@ INSTALLED_APPS = (
     'ausbildung.anmeldung',
 )
 
+SOUTH_MIGRATION_MODULES = {
+    'page': 'ausbildung.migrate.page',
+    'medialibrary': 'ausbildung.migrate.medialibrary',
+}
+
 AUTHENTICATION_BACKENDS = (
     'ausbildung.account.backend.EmailBackend',
     'django.contrib.auth.backends.ModelBackend'
@@ -142,6 +147,7 @@ FEINCMS_RICHTEXT_INIT_CONTEXT = {
 
 SERVER_EMAIL = 'anmeldung@aure4.ch'
 DEFAULT_FROM_EMAIL = 'anmeldung@aure4.ch'
+
 
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
