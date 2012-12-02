@@ -8,6 +8,10 @@ h1, h2, h3 {
     margin: 0;
 }
 
+h1 {
+    margin-bottom: 20px;
+}
+
 a:hover h1, a:hover h2, a:hover h3 {
     text-decoration: none
 }
@@ -63,11 +67,6 @@ header a:hover {
 }
 
 .main aside {
-    background: #ffb;
-    border-top: 12px solid #ffd200;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
 }
 
 fieldset > legend {
@@ -135,11 +134,21 @@ aside nav a {
     text-decoration: none;
     color: #666;
     font-weight: bold;
-    margin: 4px 0;
+    margin: 8px 0;
+
 }
 
 aside nav a:hover {
     color: #000;
+}
+
+aside nav ul {
+    margin: 0;
+    padding-left: 10px;
+}
+
+section {
+    margin-bottom: 30px;
 }
 
 .well_form {
@@ -183,10 +192,6 @@ aside nav a:hover {
 
 .main article h1 {
     font-size: 2em;
-}
-
-.main aside {
-    padding: 10px 5%;
 }
 
 .footer-container footer {
@@ -254,6 +259,17 @@ footer a:hover {
     .oldie header nav a {
         margin: 0 0.7%;
     }
+
+    .main article {
+        max-width: 800px;
+    }
+
+    .main aside {
+        float: right;
+        padding: 30px;
+        margin: 10px 0 20px 20px;
+    }
+
 }
 
 @media only screen and (min-width: 966px) {
@@ -292,15 +308,7 @@ footer a:hover {
     WIDE: Main
    ============ */
 
-    .main article {
-        float: left;
-        width: 57%;
-    }
 
-    .main aside {
-        float: right;
-        width: 28%;
-    }
 }
 
 @media only screen and (min-width: 1140px) {

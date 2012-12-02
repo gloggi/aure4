@@ -1,7 +1,9 @@
-<h2>{{ content.title }}</h2>
+<section>
+    <h2 id="section{{ content.id }}">{{ content.title }}</h2>
 
-{% if content.mediafile %}
-<a href="{{ content.mediafile.file.url }}">{{ content.mediafile }}</a>
-{% endif %}
+    {% if content.mediafile %}
+    <a href="{{ content.mediafile.file.url }}">{{ content.mediafile }}</a>
+    {% endif %}
 
-{{ content.richtext|safe }}
+    {{ content.richtext|safe }}
+</section>
