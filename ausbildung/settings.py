@@ -10,7 +10,7 @@ DEBUG = 'runserver' in sys.argv
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    ('Stefan Reinhard / Chili', 'chli@gloggi.ch'),
+    ('Stefan Reinhard / Chili', 'chili@gloggi.ch'),
 )
 
 MANAGERS = ADMINS
