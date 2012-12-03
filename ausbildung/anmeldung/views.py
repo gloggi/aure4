@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 
-from .models import Kurs
+from .models import Kurs, Anmeldung
 
 from .forms import AnmeldungForm
 
@@ -20,6 +20,9 @@ def kurse(request):
 def anmeldung(request, kurs):
     kurs = get_object_or_404(Kurs, url=kurs)
 
+    if request.user in kurs.teilnehmer.all():
+        return redirect('anmeldung_view', kurs=kurs.url)
+
     ready_to_save = request.REQUEST.get('ready_to_save', False)
 
     initial = {'email': request.user.email}
@@ -32,9 +35,9 @@ def anmeldung(request, kurs):
             if 'save' in request.POST:
                 anmeldung = form.save(commit=False)
                 anmeldung.kurs = kurs
+                anmeldung.user = request.user
                 anmeldung.save()
-                request.session['anmeldung'] = anmeldung
-                return redirect('anmeldung_done')
+                return redirect('anmeldung_view', kurs=kurs.url)
     else:
         form = AnmeldungForm(initial=initial)
 
@@ -45,7 +48,10 @@ def anmeldung(request, kurs):
     })
 
 
-def anmeldung_done(request):
+def anmeldung_view(request, kurs):
+    kurs = get_object_or_404(Kurs, url=kurs)
+    anmeldung = request.user.anmeldungen.get(kurs=kurs)
+
     return render(request, 'anmeldung/done.html', {
-        'anmeldung': request.session.get('anmeldung', None)
+        'anmeldung': anmeldung
     })

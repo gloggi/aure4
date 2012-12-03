@@ -27,6 +27,8 @@ class Kurs(models.Model):
     erfasst = models.DateTimeField('Erfasst', auto_now_add=True)
     aktualisiert = models.DateTimeField('Aktualisiert', auto_now=True)
 
+    teilnehmer = models.ManyToManyField('auth.User', through='Anmeldung')
+
     objects = KursManager()
 
     class Meta:
@@ -95,7 +97,8 @@ class Anmeldung(models.Model):
         ('rover', u'Roverstufe'),
     )
 
-    kurs = models.ForeignKey(Kurs)
+    kurs = models.ForeignKey(Kurs, related_name='anmeldungen')
+    user = models.ForeignKey('auth.User', related_name='anmeldungen')
 
     # Personendaten
     geschlecht = RequiredCharField('Geschlecht', choices=GESCHLECHT_CHOICES)
@@ -141,6 +144,7 @@ class Anmeldung(models.Model):
     class Meta:
         verbose_name = 'Ammeldung'
         verbose_name_plural = 'Anmeldungen'
+        unique_together = (('kurs', 'user'),)
 
     def __unicode__(self):
         return u'%s %s v/o %s' % (self.vorname, self.nachname, self.pfadiname)

@@ -8,7 +8,7 @@ class AnmeldungForm(forms.ModelForm):
 
     class Meta:
         model = Anmeldung
-        exclude = ('kurs',)
+        exclude = ('kurs', 'user')
 
     def make_immutable(self):
         for name, field in self.fields.iteritems():
