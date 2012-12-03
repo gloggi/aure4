@@ -3,60 +3,76 @@
 
 {% block content %}
 <h1>Anmeldung {{ kurs }}</h1>
+<form method="post" class="form-horizontal">
+	{% csrf_token %}
 
-    <form method="post" class="form-horizontal">
-    	<div class="anmeldung clearfix">
-    		<div class="left">
-		    	<fieldset>
-		    		<legend>Personalien</legend>
-					{{ form.pfadiname|bootstrap }}
-			        {{ form.vorname|bootstrap }}
-			        {{ form.nachname|bootstrap }}
-			        {{ form.geburtsdatum|bootstrap }}
+	{% include "bootstrapform/errors.html" %}
 
-			        <br>
-			        {{ form.email|bootstrap }}
-			        {{ form.telefon|bootstrap }}
-			        {{ form.mobiltelefon|bootstrap }}
+	{% if ready_to_save %}
+		<p>Bitte überprüfe deine Daten nochmals, bevor du deine Anmeldung abschickst</p>
+	{% endif %}
 
-			        <br>
-			        {{ form.strasse|bootstrap }}
-			        {{ form.plz|bootstrap }}
-			        {{ form.ort|bootstrap }}
-			        {{ form.land|bootstrap }}
-		    	</fieldset>
-    		</div>
+	<div class="anmeldung clearfix">
+		<div class="left">
+	    	<fieldset>
+	    		<legend>Personalien</legend>
+				{{ form.pfadiname|bootstrap }}
+		        {{ form.vorname|bootstrap }}
+		        {{ form.nachname|bootstrap }}
+		        {{ form.geschlecht|bootstrap }}
+		        {{ form.geburtsdatum|bootstrap }}
+		        <br>
+		        {{ form.email|bootstrap }}
+		        {{ form.telefon|bootstrap }}
+		        {{ form.mobiltelefon|bootstrap }}
 
-    		<div class="right">
-		    	<fieldset>
-			    	<legend>Pfadizugehörigkeit</legend>
-			        {{ form.abteilung|bootstrap }}
-			        {{ form.einheit|bootstrap }}
-			        {{ form.stufe|bootstrap }}
-			    </fieldset>
-
-			    <fieldset>
-			    	<legend>Weitere Angaben</legend>
-			        {{ form.nationalitaet|bootstrap }}
-			        {{ form.erstsprache|bootstrap }}
-			        {{ form.bahnabo|bootstrap }}
-			        {% comment %}
-			        {{ form.js|bootstrap }}
-			        {{ form.ahv|bootstrap }}
-			        {% endcomment %}
-
-			      	<br><br>
-
-		        	{{ form.vegetarier|bootstrap }}
-		        	{{ form.schweinefleisch|bootstrap }}
-		        	{{ form.bestaetigung|bootstrap }}
-			    </fieldset>
-	        </div>
+		        <br>
+		        {{ form.strasse|bootstrap }}
+		        {{ form.plz|bootstrap }}
+		        {{ form.ort|bootstrap }}
+		        {{ form.land|bootstrap }}
+	    	</fieldset>
 		</div>
 
-		<br>
-        <button id="anmelden_button" type="submit" class="btn btn-large btn-primary">
-          	Anmeldung überprüfen
-        </button>
-    </form>
+		<div class="right">
+	    	<fieldset>
+		    	<legend>Pfadizugehörigkeit</legend>
+		        {{ form.abteilung|bootstrap }}
+		        {{ form.einheit|bootstrap }}
+		        {{ form.stufe|bootstrap }}
+		    </fieldset>
+
+		    <fieldset>
+		    	<legend>Weitere Angaben</legend>
+		        {{ form.nationalitaet|bootstrap }}
+		        {{ form.erstsprache|bootstrap }}
+		        {{ form.bahnabo|bootstrap }}
+		        {% comment %}
+		        {{ form.js|bootstrap }}
+		        {{ form.ahv|bootstrap }}
+		        {% endcomment %}
+
+		      	<br><br>
+
+	        	{{ form.vegetarier|bootstrap }}
+	        	{{ form.schweinefleisch|bootstrap }}
+	        	{{ form.bestaetigung|bootstrap }}
+		    </fieldset>
+        </div>
+	</div>
+
+	<br>
+	{% if ready_to_save %}
+		<center>
+			<input id="change_button" type="submit" name="change"
+				value="Nochmals Anpassen" class="btn btn-large btn-warning" />
+	    	</input>
+	    	<input id="save_button" type="submit" name="save"
+	    		class="btn btn-large btn-success" />
+    	</center>
+	{% else %}
+	    <input id="anmelden_button" type="submit" value="Anmeldung überprüfen"
+	    	class="btn btn-large btn-primary">
+	{% endif %}
+</form>
 {% endblock %}

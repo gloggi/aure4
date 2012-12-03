@@ -178,6 +178,10 @@ section {
     padding: 0;
 }
 
+.control-group.required label {
+    font-weight: bold;
+}
+
 .btn-wide {
     width: 284px;
 }
@@ -214,6 +218,10 @@ footer a {
 footer a:hover {
     text-decoration: underline;
 }
+
+
+
+
 
 /* ===============
     ALL: IE Fixes

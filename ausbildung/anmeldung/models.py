@@ -12,10 +12,6 @@ class KursManager(models.Manager):
 
 
 class Kurs(models.Model):
-    # Just some Comment
-
-    CONST = 'HUU'
-
     name = RequiredCharField('Name')
     url = models.SlugField('url')
 
@@ -57,14 +53,14 @@ class Abteilung(models.Model):
         verbose_name_plural = 'Abteilungen'
 
     def __unicode__(self):
-        return self.name
+        return u'%s - %s' % (self.region, self.name)
 
 
 class Anmeldung(models.Model):
 
     GESCHLECHT_CHOICES = (
-        (1, u'männlich'),
-        (2, u'weiblich'),
+        ('1', u'männlich'),
+        ('2', u'weiblich'),
     )
 
     LAND_CHOICES = (
@@ -120,8 +116,7 @@ class Anmeldung(models.Model):
     bahnabo = RequiredCharField('Bahnabo', choices=BAHNABO_CHOICES,
         default='Keines')
 
-    abteilung = models.ForeignKey(Abteilung, verbose_name='Abteilung',
-        blank=True, null=True)
+    abteilung = models.ForeignKey(Abteilung, verbose_name='Abteilung')
 
     einheit = RequiredCharField('Einheit')
     stufe = RequiredCharField('Stufe', choices=STUFE_CHOICES)

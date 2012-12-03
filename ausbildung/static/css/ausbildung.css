@@ -36,6 +36,14 @@
     padding: 0 20px;
 }
 
+.anmeldung input[readonly=readonly],
+.anmeldung select[readonly=readonly] {
+    background: white;
+    border: none;
+    box-shadow: none;
+    outline: none;
+}
+
 #anmelden_button {
     display: block;
     width: 80%;
