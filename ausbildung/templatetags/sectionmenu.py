@@ -30,9 +30,6 @@ def sectionmenu(feincms_page):
 
         menu.append(entry)
 
-    from pprint import pprint
-    pprint(menu)
-
     return {
         'menu': menu,
     }
