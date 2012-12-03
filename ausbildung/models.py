@@ -38,13 +38,17 @@ def save(self, *args, **kwargs):
         except TypeError:
             self.richtext = self.cleanse.im_func(self.richtext)
 
+    if not self.id:
+        super(SectionContent, self).save(*args, **kwargs)
+
     soup = BeautifulSoup(self.richtext)
     for i, h3 in enumerate(soup.findAll('h3')):
-        h3['id'] = u'section%d.%d' % (self.id, i+1)
+        h3['id'] = u'section%d.%d' % (self.id, i + 1)
 
     self.richtext = soup.prettify()
 
     super(SectionContent, self).save(*args, **kwargs)
+
 SectionContent.save = save
 
 Page.create_content_type(RichTextContent, cleanse=cleanse_html)
