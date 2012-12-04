@@ -1,6 +1,8 @@
 
 from django.contrib import admin
 
+from sorl.thumbnail.admin import AdminImageMixin
+
 from .models import Kurs, Abteilung, Anmeldung
 
 
@@ -16,7 +18,7 @@ class AbteilungAdmin(admin.ModelAdmin):
     search_fields = ('name', 'region')
 
 
-class AnmeldungAdmin(admin.ModelAdmin):
+class AnmeldungAdmin(AdminImageMixin, admin.ModelAdmin):
     list_display = ('__unicode__', 'kurs', 'abteilung', 'einheit')
     list_filter = ('kurs',)
     radio_fields = {

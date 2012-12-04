@@ -1,9 +1,9 @@
 {% extends "base.html" %}
-{% load bootstrap %}
+{% load bootstrap thumbnail %}
 
 {% block content %}
 <h1>Anmeldung {{ kurs }}</h1>
-<form method="post" class="form-horizontal">
+<form method="post"  class="form-horizontal" enctype="multipart/form-data">
 	{% csrf_token %}
 
 	{% include "bootstrapform/errors.html" %}
@@ -22,15 +22,14 @@
 		        {{ form.geschlecht|bootstrap }}
 		        {{ form.geburtsdatum|bootstrap }}
 		        <br>
-		        {{ form.email|bootstrap }}
-		        {{ form.telefon|bootstrap }}
-		        {{ form.mobiltelefon|bootstrap }}
-
-		        <br>
 		        {{ form.strasse|bootstrap }}
 		        {{ form.plz|bootstrap }}
 		        {{ form.ort|bootstrap }}
 		        {{ form.land|bootstrap }}
+		        <br>
+		        {{ form.email|bootstrap }}
+		        {{ form.telefon|bootstrap }}
+		        {{ form.mobiltelefon|bootstrap }}
 	    	</fieldset>
 		</div>
 
@@ -43,7 +42,13 @@
 		    </fieldset>
 
 		    <fieldset>
-		    	<legend>Weitere Angaben</legend>
+		    	<legend>Weitere Daten</legend>
+	    		{% thumbnail form.instance.foto "100x100" as foto %}
+	    		<div class="controls">
+	    			<img src="{{ foto.url }}">
+	    		</div>
+				{% endthumbnail %}
+		    	{{ form.foto|bootstrap }}
 		        {{ form.nationalitaet|bootstrap }}
 		        {{ form.erstsprache|bootstrap }}
 		        {{ form.bahnabo|bootstrap }}
@@ -52,7 +57,7 @@
 		        {{ form.ahv|bootstrap }}
 		        {% endcomment %}
 
-		      	<br><br>
+		      	<br>
 
 	        	{{ form.vegetarier|bootstrap }}
 	        	{{ form.schweinefleisch|bootstrap }}

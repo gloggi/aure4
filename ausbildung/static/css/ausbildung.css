@@ -44,6 +44,18 @@
     outline: none;
 }
 
+#foto-clear_id {
+    width: auto;
+}
+
+label[for=foto-clear_id] {
+    display: inline;
+}
+
+#id_foto {
+    width: auto;
+}
+
 #anmelden_button {
     display: block;
     width: 80%;

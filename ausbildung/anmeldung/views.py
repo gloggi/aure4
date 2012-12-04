@@ -34,7 +34,7 @@ def anmeldung(request, kurs):
     initial = {'email': request.user.email}
 
     if request.method == 'POST':
-        form = AnmeldungForm(request.POST, initial=initial)
+        form = AnmeldungForm(request.POST, request.FILES, initial=initial)
         if form.is_valid() and not 'change' in request.POST:
             form.make_immutable()
             ready_to_save = True
@@ -59,7 +59,7 @@ def anmeldung(request, kurs):
 def anmeldung_edit(request, anmeldung):
     kurs = anmeldung.kurs
     if request.method == 'POST':
-        form = AnmeldungForm(request.POST, instance=anmeldung)
+        form = AnmeldungForm(request.POST, request.FILES, instance=anmeldung)
         if form.is_valid():
             anmeldung = form.save()
             return redirect('anmeldung_view', kurs=kurs.url)

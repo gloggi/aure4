@@ -1,4 +1,4 @@
-{% load anmeldung %}
+{% load anmeldung thumbnail %}
 
 <!DOCTYPE html>
 <html>
@@ -29,10 +29,14 @@
             http://www.aure4.ch<br>
         </p>
 
+        {% thumbnail a.foto "150x150" as foto %}
+        <img id="foto" src="{{ foto.url }}">
+        {% endthumbnail %}
+
         <p id="adresse">
             <strong>
-                Bitte unterschrieben an <br>
-                folgende Adresse schicken:
+                Bitte an folgende<br>
+                Adresse schicken:
             </strong><br><br>
             Pfadikorps Glockenhof <br>
             Sekretariat <br>

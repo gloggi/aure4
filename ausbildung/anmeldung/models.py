@@ -3,6 +3,8 @@
 from django.db import models
 from django.utils.timezone import now
 
+from sorl.thumbnail import ImageField
+
 from .fields import RequiredCharField, OptionalCharField
 
 
@@ -85,7 +87,7 @@ class Anmeldung(models.Model):
         ('Keines', u'Keines'),
         ('GA', u'GA'),
         ('Halbtax', u'Halbtax'),
-        ('Regenbogen', u'Regenbogen'),
+        ('Regenbogen', u'Regenbogen Kanton Zürich'),
         ('Gleis 7', u'Gleis 7'),
     )
 
@@ -101,12 +103,14 @@ class Anmeldung(models.Model):
     user = models.ForeignKey('auth.User', related_name='anmeldungen')
 
     # Personendaten
-    geschlecht = RequiredCharField('Geschlecht', choices=GESCHLECHT_CHOICES)
 
     pfadiname = RequiredCharField('Pfadiname')
     vorname = RequiredCharField('Vorname')
     nachname = RequiredCharField('Nachname')
+    geschlecht = RequiredCharField('Geschlecht', choices=GESCHLECHT_CHOICES)
     geburtsdatum = models.DateField('Geburtsdatum')
+
+    foto = ImageField('Foto', upload_to="tnfotos", blank=True, null=True)
 
     strasse = RequiredCharField('Strasse')
     plz = models.IntegerField('PLZ')

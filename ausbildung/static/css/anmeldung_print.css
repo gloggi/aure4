@@ -57,6 +57,7 @@ p {
 }
 
 h1 {
+    color: black;
     font-size: 30px;
     margin-bottom: 10px;
 }
@@ -73,6 +74,11 @@ h1 {
     float: right;
 }
 
+#foto {
+    float: right;
+    margin-left: 20px;
+}
+
 .spalte1 {
     width:45%;
     float: left;
@@ -85,6 +91,7 @@ h1 {
 
 th {
     padding: 2px 5px;
+    color: black;
 }
 
 th {
