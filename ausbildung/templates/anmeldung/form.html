@@ -71,8 +71,15 @@
 	    		class="btn btn-large btn-success" />
     	</center>
 	{% else %}
-	    <input id="anmelden_button" type="submit" value="Anmeldung überprüfen"
-	    	class="btn btn-large btn-primary">
+	    <button id="anmelden_button" type="submit" class="btn btn-large btn-primary">
+	    	{% if not edit %}
+	    		<i class="icon-check"></i>
+	    		Anmeldung überprüfen
+	    	{% else %}
+	    		<i class="icon-save"></i>
+	    		Anmeldung speichern
+	    	{% endif %}
+	    </button>
 	{% endif %}
 </form>
 {% endblock %}

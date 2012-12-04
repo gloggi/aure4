@@ -1,11 +1,17 @@
 
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 
 from .models import Kurs, Anmeldung
 
 from .forms import AnmeldungForm
+
+
+def requires_anmeldung(view):
+    def wrap(request, kurs, *args, **kwargs):
+        anmeldung = get_object_or_404(request.user.anmeldungen, kurs__url=kurs)
+        return view(request, anmeldung, *args, **kwargs)
+    return wrap
 
 
 def kurse(request):
@@ -48,10 +54,37 @@ def anmeldung(request, kurs):
     })
 
 
-def anmeldung_view(request, kurs):
-    kurs = get_object_or_404(Kurs, url=kurs)
-    anmeldung = request.user.anmeldungen.get(kurs=kurs)
+@login_required
+@requires_anmeldung
+def anmeldung_edit(request, anmeldung):
+    kurs = anmeldung.kurs
+    if request.method == 'POST':
+        form = AnmeldungForm(request.POST, instance=anmeldung)
+        if form.is_valid():
+            anmeldung = form.save()
+            return redirect('anmeldung_view', kurs=kurs.url)
+    else:
+        form = AnmeldungForm(instance=anmeldung)
 
-    return render(request, 'anmeldung/done.html', {
+    return render(request, 'anmeldung/form.html', {
+        'edit': True,
+        'kurs': kurs,
+        'form': form
+    })
+
+
+@login_required
+@requires_anmeldung
+def anmeldung_view(request, anmeldung):
+    return render(request, 'anmeldung/view.html', {
+        'kurs': anmeldung.kurs,
         'anmeldung': anmeldung
+    })
+
+
+@login_required
+@requires_anmeldung
+def anmeldung_print(request, anmeldung):
+    return render(request, 'anmeldung/print.html', {
+        'a': anmeldung,
     })

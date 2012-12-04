@@ -1,0 +1,102 @@
+{% load anmeldung %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Anmeldung {{ anmeldung.kurs }}</title>
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/normalize.min.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}libs/bootstrap/css/font-awesome.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/anmeldung_print.css">
+    <style type="text/css" media="print">
+        #print, .print_help { display: none; }
+        #msg { border: none; }
+    </style>
+</head>
+<body>
+    <div class="header clearfix">
+        <img id="logo" src="{{ STATIC_URL }}img/logo_print.png" class="left">
+
+        <p id="kontakt">
+            Pfadi Züri AuRe 4<br>
+            Flamberg & Glockenhof<br>
+            c/o Andreas Mörker<br>
+            Calandastr. 9<br>
+            8048 Zürich<br>
+            079 / 449 81 21<br>
+            kodack@gloggi.ch<br>
+            http://www.aure4.ch<br>
+        </p>
+
+        <p id="adresse">
+            <strong>
+                Bitte unterschrieben an <br>
+                folgende Adresse schicken:
+            </strong><br><br>
+            Pfadikorps Glockenhof <br>
+            Sekretariat <br>
+            z.Hd. Ausbildung<br>
+            Sihlstrasse 32 <br>
+            8001 Zürich<br>
+        </p>
+    </div>
+
+    <h1>Anmeldung {{ a.kurs }}</h1>
+
+    <div>
+        <table class="spalte1">
+            <tr><th colspan="2" class="cat">
+                Personalien
+            </th></tr>
+            <tr><th>Pfadiname</th><td>{{ a.pfadiname }}</td></tr>
+            <tr><th>Vorname</th><td>{{ a.vorname }}</td></tr>
+            <tr><th>Nachname</th><td>{{ a.nachname }}</td></tr>
+            <tr><th>Geburtsdatum</th><td>{{ a.geburtsdatum }}</td></tr>
+            <tr><th>Strasse</th><td>{{ a.strasse }}</td></tr>
+            <tr><th>Ort</th><td>{{ a.plz }} {{ a.ort }}</td></tr>
+            <tr><th>Land</th><td>{{ a.get_land_display }}</td></tr>
+            <tr><th>Email</th><td>{{ a.email }}</td></tr>
+            <tr><th>Telefon</th><td>{{ a.telefon }}</td></tr>
+            <tr><th>Natel</th><td>{{ a.natel }}</td></tr>
+        </table>
+        <table class="spalte2">
+            <tr><th colspan="2" class="cat">
+                Pfadizugehörigkeit
+            </th></tr>
+            <tr><th>Verband / Region</th><td>{{ a.abteilung.region }}</td></tr>
+            <tr><th>Abteilung</th><td>{{ a.abteilung.name }}</td></tr>
+            <tr><th>Einheit</th><td>{{ a.einheit }}</td></tr>
+            <tr><th>Stufe</th><td>{{ a.get_stufe_display }}</td></tr>
+
+            <tr><th colspan="2" class="cat">
+                Weitere Angaben
+            </th></tr>
+            <tr><th>Bahnabo</th><td>{{ a.bahnabo }}</td></tr>
+            <tr><th>Vegetarier</th><td>{{ a.vegetarier|printbool }}</td></tr>
+            <tr><th>Kein Schweinefleich</th><td>{{ a.schweinefleisch|printbool }}</td></tr>
+            <tr><th>Benötige Bestätigung</th><td>{{ a.bestaetigung|printbool }}</td></tr>
+        </table>
+
+        <br><br>
+        <p>Wenn du noch nicht 18 Jahre alt bist, müssen hier deine Eltern unterschreiben!</p>
+
+        <p id="ort">Datum, Ort</p>
+        <p id="unterschrift">Unterschrift</p>
+
+        <br><br>
+        <p><strong>Mitteilung:</strong></p>
+        <textarea id="msg" onclick="this.value=''">Hier kannst du uns noch etwas mitteilen, wenn du möchtest</textarea>
+
+        <a id="print" href="#print" onclick="window.print()" class="btn btn-large btn-info">
+            <i class="icon-print"></i>
+            Jetzt drucken
+        </a>
+        <span class="print_help">
+            Wenn dieser Knopf nicht funktioniert, dann kannst du diese Seite auch
+            einfach aus deinem Browser drucken (Datei -> Drucken, Ctrl+P, usw...)
+        </span>
+
+    </div>
+</body>
+</html>

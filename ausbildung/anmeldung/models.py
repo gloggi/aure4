@@ -113,23 +113,25 @@ class Anmeldung(models.Model):
     ort = RequiredCharField('Ort')
     land = RequiredCharField('Land', choices=LAND_CHOICES, default='CH')
 
-    nationalitaet = RequiredCharField(u'Nationalität', default='CH')
-    erstsprache = RequiredCharField('Erstsprache', choices=ERSTSPRACHE_CHOICES,
-        default='')
-    bahnabo = RequiredCharField('Bahnabo', choices=BAHNABO_CHOICES,
-        default='Keines')
+    email = models.EmailField('Email')
+    telefon = OptionalCharField('Telefon')
+    mobiltelefon = OptionalCharField('Natel')
 
     abteilung = models.ForeignKey(Abteilung, verbose_name='Abteilung')
 
     einheit = RequiredCharField('Einheit')
     stufe = RequiredCharField('Stufe', choices=STUFE_CHOICES)
 
+
+    nationalitaet = RequiredCharField(u'Nationalität', default='CH')
+    erstsprache = RequiredCharField('Erstsprache', choices=ERSTSPRACHE_CHOICES,
+        default='')
+    bahnabo = RequiredCharField('Bahnabo', choices=BAHNABO_CHOICES,
+        default='Keines')
+
+
     js = models.IntegerField('JS-Nummer', blank=True, null=True)
     ahv = OptionalCharField('AHV-Nr.')
-
-    email = models.EmailField('Email')
-    telefon = OptionalCharField('Telefon')
-    mobiltelefon = OptionalCharField('Mobiltelefon')
 
     vegetarier = models.BooleanField('Vegetarier',
         help_text="Ich bin Vegetarier"
