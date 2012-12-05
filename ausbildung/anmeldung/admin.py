@@ -1,26 +1,26 @@
 # encoding: utf-8
-
-
 from django.contrib import admin
 
 from sorl.thumbnail.admin import AdminImageMixin
 
+import reversion
+
 from .models import Kurs, Abteilung, Anmeldung
 
 
-class KursAdmin(admin.ModelAdmin):
+class KursAdmin(reversion.VersionAdmin):
     list_display = ('name', 'nummer', 'anmeldeschluss', 'von', 'bis')
     search_fields = ('name', 'nummer', 'hauptleiter')
     prepopulated_fields = {'url': ('name',)}
     #date_hierarchy = 'von'
 
 
-class AbteilungAdmin(admin.ModelAdmin):
+class AbteilungAdmin(reversion.VersionAdmin):
     list_display = ('name', 'region', 'verband')
     search_fields = ('name', 'region')
 
 
-class AnmeldungAdmin(AdminImageMixin, admin.ModelAdmin):
+class AnmeldungAdmin(AdminImageMixin, reversion.VersionAdmin):
     list_display = ('__unicode__', 'kurs', 'abteilung', 'einheit')
     list_filter = ('kurs',)
     raw_id_fields = ('kurs',)

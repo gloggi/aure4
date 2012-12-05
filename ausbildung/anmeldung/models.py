@@ -7,6 +7,7 @@ from sorl.thumbnail import ImageField
 
 from .fields import RequiredCharField, OptionalCharField
 
+import reversion
 
 class KursManager(models.Manager):
     def open(self):

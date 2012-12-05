@@ -82,6 +82,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.middleware.transaction.TransactionMiddleware',
+    'reversion.middleware.RevisionMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     # Uncomment the next line for simple clickjacking protection:
@@ -124,6 +126,7 @@ INSTALLED_APPS = (
     'south',
     'gunicorn',
     'sorl.thumbnail',
+    'reversion',
 
     'ausbildung',
     'ausbildung.anmeldung',
