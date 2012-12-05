@@ -4,12 +4,15 @@ from django.contrib.auth.decorators import login_required
 
 from .models import Kurs, Anmeldung
 
-from .forms import AnmeldungForm
+from .forms import AbteilungForm, AnmeldungForm
 
 
 def requires_anmeldung(view):
     def wrap(request, kurs, *args, **kwargs):
-        anmeldung = get_object_or_404(request.user.anmeldungen, kurs__url=kurs)
+        try:
+            anmeldung = request.user.anmeldungen.get(kurs__url=kurs)
+        except:
+            return redirect('anmeldung_form', kurs=kurs)
         return view(request, anmeldung, *args, **kwargs)
     return wrap
 
@@ -23,7 +26,7 @@ def kurse(request):
 
 
 @login_required
-def anmeldung(request, kurs):
+def anmeldung_form(request, kurs):
     kurs = get_object_or_404(Kurs, url=kurs)
 
     if request.user in kurs.teilnehmer.all():
@@ -32,7 +35,16 @@ def anmeldung(request, kurs):
     initial = {'email': request.user.email}
 
     if request.method == 'POST':
-        form = AnmeldungForm(request.POST, request.FILES, initial=initial)
+        data = request.POST.copy()
+        if data.get('abteilung', '') == 'andere':
+            abtform = AbteilungForm(data)
+            if abtform.is_valid():
+                abteilung = abtform.save()
+                data['abteilung'] = abteilung.id
+        else:
+            abtform = AbteilungForm()
+
+        form = AnmeldungForm(data, request.FILES, initial=initial)
         if form.is_valid():
             anmeldung = form.save(commit=False)
             anmeldung.kurs = kurs
@@ -41,10 +53,12 @@ def anmeldung(request, kurs):
             return redirect('anmeldung_view', kurs=kurs.url)
     else:
         form = AnmeldungForm(initial=initial)
+        abtform = AbteilungForm()
 
     return render(request, 'anmeldung/form.html', {
         'kurs': kurs,
-        'form': form
+        'form': form,
+        'abtform': abtform
     })
 
 

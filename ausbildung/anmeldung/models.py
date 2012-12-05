@@ -47,10 +47,9 @@ class Kurs(models.Model):
 
 class Abteilung(models.Model):
 
-    name = RequiredCharField('Name')
-    region = OptionalCharField('Region / Korps',
-        help_text='Z.Bsp. Gloggi, Flamberg oder Züri Oberland')
-    verband = OptionalCharField('Kantonalverband', default='ZH')
+    verband = RequiredCharField('Kantonalverband', default='ZH')
+    region = RequiredCharField('Region / Korps')
+    name = RequiredCharField('Abteilungsname')
 
     class Meta:
         verbose_name = 'Abteilung'

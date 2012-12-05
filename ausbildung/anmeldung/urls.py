@@ -4,7 +4,7 @@ urlpatterns = patterns('ausbildung.anmeldung.views',
     url(r'^$', 'kurse',
         name='anmeldung_kurse'),
 
-    url(r'^(?P<kurs>[-\w]+)/$', 'anmeldung',
+    url(r'^(?P<kurs>[-\w]+)/$', 'anmeldung_form',
         name='anmeldung_form'),
     url(r'^(?P<kurs>[-\w]+)/view/$', 'anmeldung_view',
         name='anmeldung_view'),
