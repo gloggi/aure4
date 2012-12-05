@@ -31,6 +31,10 @@ USE_TZ = False
 
 LANGUAGES = (('de', _('German')),)
 
+os.environ['MEMCACHE_SERVERS'] = os.environ.get('MEMCACHIER_SERVERS', '')
+os.environ['MEMCACHE_USERNAME'] = os.environ.get('MEMCACHIER_USERNAME', '')
+os.environ['MEMCACHE_PASSWORD'] = os.environ.get('MEMCACHIER_PASSWORD', '')
+
 AWS_ACCESS_KEY_ID = os.environ.get('S3_KEY', '')
 AWS_SECRET_ACCESS_KEY = os.environ.get('S3_SECRET', '')
 AWS_STORAGE_BUCKET_NAME = 'gloggiausbildung'
