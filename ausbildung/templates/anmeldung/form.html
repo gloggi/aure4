@@ -67,24 +67,9 @@
 	</div>
 
 	<br>
-	{% if ready_to_save %}
-		<center>
-			<input id="change_button" type="submit" name="change"
-				value="Nochmals Anpassen" class="btn btn-large btn-warning" />
-	    	</input>
-	    	<input id="save_button" type="submit" name="save"
-	    		class="btn btn-large btn-success" />
-    	</center>
-	{% else %}
-	    <button id="anmelden_button" type="submit" class="btn btn-large btn-primary">
-	    	{% if not edit %}
-	    		<i class="icon-check"></i>
-	    		Anmeldung überprüfen
-	    	{% else %}
-	    		<i class="icon-save"></i>
-	    		Anmeldung speichern
-	    	{% endif %}
-	    </button>
-	{% endif %}
+    <button id="anmelden_button" type="submit" class="btn btn-large btn-primary">
+		<i class="icon-save"></i>
+		Anmeldung speichern
+    </button>
 </form>
 {% endblock %}

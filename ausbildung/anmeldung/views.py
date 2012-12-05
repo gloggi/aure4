@@ -29,27 +29,21 @@ def anmeldung(request, kurs):
     if request.user in kurs.teilnehmer.all():
         return redirect('anmeldung_view', kurs=kurs.url)
 
-    ready_to_save = request.REQUEST.get('ready_to_save', False)
-
     initial = {'email': request.user.email}
 
     if request.method == 'POST':
         form = AnmeldungForm(request.POST, request.FILES, initial=initial)
-        if form.is_valid() and not 'change' in request.POST:
-            form.make_immutable()
-            ready_to_save = True
-            if 'save' in request.POST:
-                anmeldung = form.save(commit=False)
-                anmeldung.kurs = kurs
-                anmeldung.user = request.user
-                anmeldung.save()
-                return redirect('anmeldung_view', kurs=kurs.url)
+        if form.is_valid():
+            anmeldung = form.save(commit=False)
+            anmeldung.kurs = kurs
+            anmeldung.user = request.user
+            anmeldung.save()
+            return redirect('anmeldung_view', kurs=kurs.url)
     else:
         form = AnmeldungForm(initial=initial)
 
     return render(request, 'anmeldung/form.html', {
         'kurs': kurs,
-        'ready_to_save': ready_to_save,
         'form': form
     })
 
