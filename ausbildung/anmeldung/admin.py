@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 
 from django.contrib import admin
 
@@ -21,12 +23,35 @@ class AbteilungAdmin(admin.ModelAdmin):
 class AnmeldungAdmin(AdminImageMixin, admin.ModelAdmin):
     list_display = ('__unicode__', 'kurs', 'abteilung', 'einheit')
     list_filter = ('kurs',)
-    radio_fields = {
-        'geschlecht': admin.HORIZONTAL,
-        'bahnabo': admin.HORIZONTAL,
-        'stufe': admin.VERTICAL
-    }
     raw_id_fields = ('kurs',)
+    fieldsets = (
+        ('Admin', {
+            'fields': (('seki', 'notfallblatt', 'bezahlt'),)
+        }),
+        ('Personalien', {
+            'fields': (
+                'foto',
+                ('pfadiname', 'strasse', 'email'),
+                ('vorname', 'plz', 'telefon'),
+                ('nachname', 'ort', 'mobiltelefon'),
+                ('geburtsdatum', 'geschlecht'),
+            )
+        }),
+        ('Pfadizugehörigkeit', {
+            'fields': (('abteilung', 'einheit', 'stufe'),)
+        }),
+        ('Weiter Daten', {
+            'fields': (
+                ('bahnabo', 'nationalitaet', 'land', 'erstsprache'),
+                ('vegetarier', 'schweinefleisch', 'bestaetigung'),
+            )
+        })
+    )
+
+    class Media:
+        css = {
+            "all": ("css/admin.css",)
+        }
 
 
 admin.site.register(Abteilung, AbteilungAdmin)

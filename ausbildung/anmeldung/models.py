@@ -86,7 +86,7 @@ class Anmeldung(models.Model):
         ('Keines', u'Keines'),
         ('GA', u'GA'),
         ('Halbtax', u'Halbtax'),
-        ('Regenbogen', u'Regenbogen Kanton Zürich'),
+        ('Regenbogen', u'Regenbogen'),
         ('Gleis 7', u'Gleis 7'),
     )
 
@@ -100,6 +100,15 @@ class Anmeldung(models.Model):
 
     kurs = models.ForeignKey(Kurs, related_name='anmeldungen')
     user = models.ForeignKey('auth.User', related_name='anmeldungen')
+
+    # Adminfelder
+
+    seki = models.DateTimeField('Unterschriebene Anmeldung erhalten',
+        blank=True, null=True)
+    notfallblatt = models.DateTimeField('Notfallblatt erhalten', blank=True,
+        null=True)
+    bezahlt = models.DateTimeField('Zahlung eingegangen', blank=True, null=True)
+
 
     # Personendaten
 
@@ -120,8 +129,8 @@ class Anmeldung(models.Model):
     telefon = OptionalCharField('Telefon')
     mobiltelefon = OptionalCharField('Natel')
 
+    # Pfadizugehörigkeit
     abteilung = models.ForeignKey(Abteilung, verbose_name='Abteilung')
-
     einheit = RequiredCharField('Einheit')
     stufe = RequiredCharField('Stufe', choices=STUFE_CHOICES)
 
@@ -144,7 +153,7 @@ class Anmeldung(models.Model):
     )
 
     bestaetigung = models.BooleanField('Bestätigung',
-        help_text=u'Ich benötige eine Bestätigung für meien Arbeitsgeber')
+        help_text=u'Ich benötige eine Bestätigung für meinen Arbeitsgeber')
 
     class Meta:
         verbose_name = 'Ammeldung'
