@@ -58,9 +58,11 @@ class AnmeldungAdmin(AdminImageMixin, reversion.VersionAdmin):
     list_filter = ('kurs',)
     raw_id_fields = ('kurs',)
     inlines = (NotfallblattInline,)
+    readonly_fields = ('erstellt', 'aktualisiert')
     fieldsets = (
         ('Admin', {
             'fields': (
+                ('kurs', 'erstellt', 'aktualisiert'),
                 ('anmeldung_erhalten', 'notfallblatt_erhalten', 'bezahlt'),
             )
         }),

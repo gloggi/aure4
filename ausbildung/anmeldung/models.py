@@ -102,6 +102,9 @@ class Anmeldung(models.Model):
     user = models.ForeignKey('auth.User', related_name='anmeldungen')
 
     # Adminfelder
+    erstellt = models.DateTimeField(auto_now=True)
+    aktualisiert = models.DateTimeField('Zuletzt aktualisiert', auto_now_add=True)
+
     anmeldung_erhalten = models.DateTimeField('Unterschriebene Anmeldung erhalten',
         blank=True, null=True)
     notfallblatt_erhalten = models.DateTimeField('Notfallblatt erhalten', blank=True,
