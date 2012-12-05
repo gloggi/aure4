@@ -5,7 +5,7 @@ from sorl.thumbnail.admin import AdminImageMixin
 
 import reversion
 
-from .models import Kurs, Abteilung, Anmeldung
+from .models import Kurs, Abteilung, Anmeldung, Notfallblatt
 
 
 class KursAdmin(reversion.VersionAdmin):
@@ -20,13 +20,49 @@ class AbteilungAdmin(reversion.VersionAdmin):
     search_fields = ('name', 'region')
 
 
+class NotfallblattInline(admin.StackedInline):
+    model = Notfallblatt
+    extra = 0
+    fieldsets = (
+        ('Kontakperson während dem Lager', {
+            'fields': (
+                'kontakt',
+                ('strasse', 'plz', 'ort', 'land'),
+                ('email', 'telefon', 'mobiltelefon')
+            )
+        }),
+        ('Versicherung', {
+            'fields': (('krankenkasse', 'rega'),)
+        }),
+        ('Hausarzt', {
+            'fields': (
+                ('arzt_name', 'arzt_telefon'),
+                ('arzt_strasse', 'arzt_plz', 'arzt_ort'),
+            )
+        }),
+        ('Gesundheitszustand', {
+            'classes': ('collapse',),
+            'fields': (
+                'starrkrampf',
+                'medikamente',
+                'medis_ll',
+                'gesundheitszustand',
+                'weiteres',
+            )
+        })
+    )
+
+
 class AnmeldungAdmin(AdminImageMixin, reversion.VersionAdmin):
     list_display = ('__unicode__', 'kurs', 'abteilung', 'einheit')
     list_filter = ('kurs',)
     raw_id_fields = ('kurs',)
+    inlines = (NotfallblattInline,)
     fieldsets = (
         ('Admin', {
-            'fields': (('seki', 'notfallblatt', 'bezahlt'),)
+            'fields': (
+                ('anmeldung_erhalten', 'notfallblatt_erhalten', 'bezahlt'),
+            )
         }),
         ('Personalien', {
             'fields': (

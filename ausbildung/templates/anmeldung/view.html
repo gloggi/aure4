@@ -29,6 +29,18 @@
     Anmeldung nochmals bearbeiten
 </a>
 
+{% if not anmeldung.notfallblatt %}
+    <a href="{% url notfallblatt_form kurs=kurs.url %}" class="btn btn-large btn-success">
+        <i class="icon-edit"></i>
+        Notfallblatt online ausfüllen
+    </a>
+{% else %}
+    <a href="{% url notfallblatt_form kurs=kurs.url %}" class="btn btn-large btn-success">
+        <i class="icon-edit"></i>
+        Notfallblatt bearbeiten
+    </a>
+{% endif %}
+
 </center>
 
 

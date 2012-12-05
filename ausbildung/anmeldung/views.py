@@ -2,9 +2,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 
-from .models import Kurs, Anmeldung
+from .models import Kurs, Anmeldung, Notfallblatt
 
-from .forms import AbteilungForm, AnmeldungForm
+from .forms import AbteilungForm, AnmeldungForm, NotfallblattForm
 
 
 def requires_anmeldung(view):
@@ -95,4 +95,54 @@ def anmeldung_view(request, anmeldung):
 def anmeldung_print(request, anmeldung):
     return render(request, 'anmeldung/print.html', {
         'a': anmeldung,
+    })
+
+
+@login_required
+@requires_anmeldung
+def notfallblatt_form(request, anmeldung):
+    kurs = anmeldung.kurs
+
+    try:
+        notfallblatt = anmeldung.notfallblatt
+        return redirect('notfallblatt_edit', kurs=kurs.url)
+    except Notfallblatt.DoesNotExist:
+        pass
+
+    if request.method == 'POST':
+        form = NotfallblattForm(request.POST)
+        if form.is_valid():
+            notfallblatt = form.save(commit=False)
+            notfallblatt.anmeldung = anmeldung
+            notfallblatt.save()
+            return redirect('anmeldung_view', kurs=kurs.url)
+    else:
+        form = NotfallblattForm()
+
+    return render(request, 'notfallblatt/form.html', {
+        'form': form,
+        'kurs': kurs
+    })
+
+
+@login_required
+@requires_anmeldung
+def notfallblatt_edit(request, anmeldung):
+    kurs = anmeldung.kurs
+    try:
+        notfallblatt = anmeldung.notfallblatt
+    except Notfallblatt.DoesNotExist:
+        return redirect('anmeldung_view', kurs=kurs.url)
+
+    if request.method == 'POST':
+        form = NotfallblattForm(request.POST, instance=notfallblatt)
+        if form.is_valid():
+            form.save()
+            return redirect('anmeldung_view', kurs=kurs.url)
+    else:
+        form = NotfallblattForm(instance=notfallblatt)
+
+    return render(request, 'notfallblatt/form.html', {
+        'form': form,
+        'kurs': kurs
     })

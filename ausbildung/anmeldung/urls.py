@@ -12,4 +12,8 @@ urlpatterns = patterns('ausbildung.anmeldung.views',
         name='anmeldung_edit'),
     url(r'^(?P<kurs>[-\w]+)/print/$', 'anmeldung_print',
         name='anmeldung_print'),
+    url(r'^(?P<kurs>[-\w]+)/notfallblatt/$', 'notfallblatt_form',
+        name='notfallblatt_form'),
+    url(r'^(?P<kurs>[-\w]+)/notfallblatt/edit/$', 'notfallblatt_edit',
+        name='notfallblatt_edit'),
 )

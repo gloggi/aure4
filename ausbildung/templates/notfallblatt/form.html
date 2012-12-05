@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load bootstrap thumbnail %}
+
+{% block content %}
+<h1>Notfallblatt {{ kurs }}</h1>
+<form method="post" class="form-horizontal" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    {% include "bootstrapform/errors.html" %}
+
+    {{ form.errors }}
+
+    <div class="anmeldung notfallblatt clearfix">
+        <div class="left">
+            <fieldset>
+                <legend>Kontakperson während dem Lager</legend>
+                {{ form.kontakt|bootstrap }}
+                {{ form.strasse|bootstrap }}
+                {{ form.plz|bootstrap }}
+                {{ form.ort|bootstrap }}
+                {{ form.land|bootstrap }}
+                {{ form.mobiltelefon|bootstrap }}
+                {{ form.telefon|bootstrap }}
+                {{ form.email|bootstrap }}
+            </fieldset>
+
+            <fieldset>
+                <legend>Versicherung</legend>
+                {{ form.krankenkasse|bootstrap }}
+                {{ form.rega|bootstrap }}
+            </fieldset>
+
+            <fieldset>
+                <legend>Hausarzt</legend>
+                {{ form.arzt_name|bootstrap }}
+                {{ form.arzt_strasse|bootstrap }}
+                {{ form.arzt_plz|bootstrap }}
+                {{ form.arzt_ort|bootstrap }}
+                {{ form.arzt_telefon|bootstrap }}
+            </fieldset>
+        </div>
+
+        <div class="right">
+            <fieldset>
+                <legend>Gesundheitszustand</legend>
+                {{ form.starrkrampf|bootstrap }}
+                {{ form.medikamente|bootstrap }}
+                {{ form.medis_ll|bootstrap }}
+                {{ form.gesundheitszustand|bootstrap }}
+                {{ form.weiteres|bootstrap }}
+            </fieldset>
+        </div>
+    </div>
+
+    <br>
+    <center>
+        <p>Bitte überprüfe die Daten nochmals, bevor du das Notfallblatt abschickst</p>
+    </center>
+    <br>
+    <button id="anmelden_button" type="submit" class="btn btn-large btn-primary">
+        <i class="icon-save"></i>
+        Notfallblatt speichern
+    </button>
+</form>
+{% endblock %}

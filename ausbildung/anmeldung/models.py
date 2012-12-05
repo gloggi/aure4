@@ -7,7 +7,6 @@ from sorl.thumbnail import ImageField
 
 from .fields import RequiredCharField, OptionalCharField
 
-import reversion
 
 class KursManager(models.Manager):
     def open(self):
@@ -103,16 +102,13 @@ class Anmeldung(models.Model):
     user = models.ForeignKey('auth.User', related_name='anmeldungen')
 
     # Adminfelder
-
-    seki = models.DateTimeField('Unterschriebene Anmeldung erhalten',
+    anmeldung_erhalten = models.DateTimeField('Unterschriebene Anmeldung erhalten',
         blank=True, null=True)
-    notfallblatt = models.DateTimeField('Notfallblatt erhalten', blank=True,
+    notfallblatt_erhalten = models.DateTimeField('Notfallblatt erhalten', blank=True,
         null=True)
     bezahlt = models.DateTimeField('Zahlung eingegangen', blank=True, null=True)
 
-
     # Personendaten
-
     pfadiname = RequiredCharField('Pfadiname')
     vorname = RequiredCharField('Vorname')
     nachname = RequiredCharField('Nachname')
@@ -135,13 +131,11 @@ class Anmeldung(models.Model):
     einheit = RequiredCharField('Einheit')
     stufe = RequiredCharField('Stufe', choices=STUFE_CHOICES)
 
-
     nationalitaet = RequiredCharField(u'Nationalität', default='CH')
     erstsprache = RequiredCharField('Erstsprache', choices=ERSTSPRACHE_CHOICES,
         default='')
     bahnabo = RequiredCharField('Bahnabo', choices=BAHNABO_CHOICES,
         default='Keines')
-
 
     js = models.IntegerField('JS-Nummer', blank=True, null=True)
     ahv = OptionalCharField('AHV-Nr.')
@@ -163,3 +157,57 @@ class Anmeldung(models.Model):
 
     def __unicode__(self):
         return u'%s %s v/o %s' % (self.vorname, self.nachname, self.pfadiname)
+
+
+class Notfallblatt(models.Model):
+    anmeldung = models.OneToOneField(Anmeldung)
+
+    # Kontaktperson während dem Lager
+    kontakt = RequiredCharField('Name')
+    strasse = RequiredCharField('Strasse')
+    plz = models.IntegerField('PLZ')
+    ort = RequiredCharField('Ort')
+    land = RequiredCharField('Land')
+    email = OptionalCharField('Email')
+    telefon = OptionalCharField('Telefon')
+    mobiltelefon = OptionalCharField('Natel')
+
+    # Versicherung
+    krankenkasse = RequiredCharField('Krankenkasse')
+    rega = models.BooleanField('Rega-Gönner',
+        help_text='Gönner der Schweizerischen Rettungsflugwacht (Rega)')
+
+    # Hausarzt
+    arzt_name = RequiredCharField('Name')
+    arzt_strasse = RequiredCharField('Strasse')
+    arzt_plz = models.IntegerField('PLZ')
+    arzt_ort = RequiredCharField('Ort')
+    arzt_telefon = RequiredCharField('Telefon Praxis')
+
+    # Gesundheitszustand
+    starrkrampf = RequiredCharField('Datum der letzten Starrkrampfimpfung')
+
+    medikamente = models.TextField('Medikamente',  blank=True,
+        help_text='Regelmässig einzunehmende Medikamente ' +
+                  '(Bezeichnung, Dosierung, Einnamevorschrift)'
+    )
+
+    medis_ll = models.BooleanField('Verabreichung durch Lagerleitung',
+        help_text='Sollen die Medikamente durch die Leiter ' +
+                  'verabreicht werden?'
+    )
+
+    gesundheitszustand = models.TextField('Gesundheitszustand', blank=True,
+        help_text='Bemerkungen zum Gesundheitszustand (z.B. nachwirkende ' +
+                  'Krankheiten und Unfälle, Operationen, Allergien)'
+    )
+
+    weiteres = models.TextField('Weiteres', blank=True,
+        help_text='Weitere Infos, welche die Lagerleitung haben sollte')
+
+    class Meta:
+        verbose_name = 'Notfallblatt'
+        verbose_name_plural = 'Notfallblätter'
+
+    def __unicode__(self):
+        return 'Notfallblatt %s' % self.anmeldung.pfadiname

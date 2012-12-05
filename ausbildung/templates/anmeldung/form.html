@@ -3,14 +3,10 @@
 
 {% block content %}
 <h1>Anmeldung {{ kurs }}</h1>
-<form method="post"  class="form-horizontal" enctype="multipart/form-data">
+<form method="post" class="form-horizontal" enctype="multipart/form-data">
 	{% csrf_token %}
 
 	{% include "bootstrapform/errors.html" %}
-
-	{% if ready_to_save %}
-		<p>Bitte überprüfe deine Daten nochmals, bevor du deine Anmeldung abschickst</p>
-	{% endif %}
 
 	<div class="anmeldung clearfix">
 		<div class="left">
@@ -69,6 +65,11 @@
         </div>
 	</div>
 
+	<br>
+
+	<center>
+		<p>Bitte überprüfe deine Daten nochmals, bevor du die Anmeldung abschickst</p>
+	</center>
 	<br>
     <button id="anmelden_button" type="submit" class="btn btn-large btn-primary">
 		<i class="icon-save"></i>

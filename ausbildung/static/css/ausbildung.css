@@ -44,6 +44,11 @@
     outline: none;
 }
 
+.notfallblatt textarea {
+    width:  92%;
+    height: 140px;
+}
+
 #foto-clear_id {
     width: auto;
 }
