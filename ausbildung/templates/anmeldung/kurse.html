@@ -2,7 +2,14 @@
 
 {% block content %}
 
-<p>Für welchen Kurs möchtest du dich anmelden?</p>
+<h1>Unsere aktuellen Kurse</h1>
+
+<p>Hier kannst du dich für einen Kurs aus unserem  Kursangebot anmelden.
+   Wenn du mehr über unsere Kurse erfahren willst, dann besuche bitte die
+   <a href="/">Info-Seite</a>. Du musst dir zuerst <a href="{% url account %}">
+   einen Account erstellen oder dich einloggen</a>, bevor du dich für einen
+   Kurs anmelden kannst. Klicke dann auf den Kurs, der dich interessiert:
+</p>
 
 {% for kurs in kurse %}
 <a href="{% url anmeldung_form kurs=kurs.url %}" class="kurs clearfix">

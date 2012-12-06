@@ -29,7 +29,8 @@ class Kurs(models.Model):
     erfasst = models.DateTimeField('Erfasst', auto_now_add=True)
     aktualisiert = models.DateTimeField('Aktualisiert', auto_now=True)
 
-    teilnehmer = models.ManyToManyField('auth.User', through='Anmeldung')
+    teilnehmer = models.ManyToManyField('auth.User', through='Anmeldung',
+        related_name="angemeldete_kurse")
 
     objects = KursManager()
 
@@ -166,7 +167,8 @@ class Notfallblatt(models.Model):
     anmeldung = models.OneToOneField(Anmeldung)
 
     # Kontaktperson während dem Lager
-    kontakt = RequiredCharField('Name')
+    kontakt = RequiredCharField('Voller Name',
+        help_text="z.Bsp Beide Elternteile mit Vor- und Nachnamen")
     strasse = RequiredCharField('Strasse')
     plz = models.IntegerField('PLZ')
     ort = RequiredCharField('Ort')
@@ -181,7 +183,8 @@ class Notfallblatt(models.Model):
         help_text='Gönner der Schweizerischen Rettungsflugwacht (Rega)')
 
     # Hausarzt
-    arzt_name = RequiredCharField('Name')
+    arzt_name = RequiredCharField('Voller Name',
+        help_text="z.Bsp Dr. med. Christian und Ursula Koeppel | Allgemeine Medizin FMH")
     arzt_strasse = RequiredCharField('Strasse')
     arzt_plz = models.IntegerField('PLZ')
     arzt_ort = RequiredCharField('Ort')

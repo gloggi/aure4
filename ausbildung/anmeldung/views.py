@@ -20,8 +20,14 @@ def requires_anmeldung(view):
 def kurse(request):
     kurse = Kurs.objects.open()
 
+    if request.user.is_authenticated():
+        angemeldete_kurse = request.user.angemeldete_kurse.all()
+    else:
+        angemeldete_kurse = ()
+
     return render(request, 'anmeldung/kurse.html', {
         'kurse': kurse,
+        'angemeldete_kurse': angemeldete_kurse,
     })
 
 
