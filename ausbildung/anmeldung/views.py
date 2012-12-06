@@ -2,7 +2,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 
-from .models import Kurs, Anmeldung, Notfallblatt
+from .models import Kurs, Notfallblatt
 
 from .forms import AbteilungForm, AnmeldungForm, NotfallblattForm
 
@@ -17,7 +17,11 @@ def requires_anmeldung(view):
     return wrap
 
 
-def kurse(request):
+def index(request):
+    return redirect('kurse_list')
+
+
+def kurse_list(request):
     kurse = Kurs.objects.open()
 
     if request.user.is_authenticated():
@@ -25,7 +29,7 @@ def kurse(request):
     else:
         angemeldete_kurse = ()
 
-    return render(request, 'anmeldung/kurse.html', {
+    return render(request, 'kurse/list.html', {
         'kurse': kurse,
         'angemeldete_kurse': angemeldete_kurse,
     })

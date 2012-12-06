@@ -86,6 +86,11 @@ fieldset > legend {
     MOBILE: Menu
    ============== */
 
+.anmeldung_box {
+    width: 100%;
+    padding: 20px 20px;
+}
+
 header a {
     text-decoration: none;
 }
@@ -240,6 +245,13 @@ footer a:hover {
 /* ====================
     INTERMEDIATE: Menu
    ==================== */
+
+
+    .anmeldung_box {
+        width: 28%;
+        padding: 20px 2%;
+        float: left;
+    }
 
     header nav a {
         float: left;

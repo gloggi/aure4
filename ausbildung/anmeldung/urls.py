@@ -1,19 +1,22 @@
 from django.conf.urls import patterns, url
 
 urlpatterns = patterns('ausbildung.anmeldung.views',
-    url(r'^$', 'kurse',
-        name='anmeldung_kurse'),
+    url(r'^$', 'index',
+        name='anmeldung_index'),
 
-    url(r'^(?P<kurs>[-\w]+)/$', 'anmeldung_form',
+    url(r'kurse/', 'kurse_list',
+        name='kurse_list'),
+
+    url(r'^kurs/(?P<kurs>[-\w]+)/anmelden/$', 'anmeldung_form',
         name='anmeldung_form'),
-    url(r'^(?P<kurs>[-\w]+)/view/$', 'anmeldung_view',
+    url(r'^kurs/(?P<kurs>[-\w]+)/anmeldung/$', 'anmeldung_view',
         name='anmeldung_view'),
-    url(r'^(?P<kurs>[-\w]+)/edit/$', 'anmeldung_edit',
+    url(r'^kurs/(?P<kurs>[-\w]+)/anmeldung/edit/$', 'anmeldung_edit',
         name='anmeldung_edit'),
-    url(r'^(?P<kurs>[-\w]+)/print/$', 'anmeldung_print',
+    url(r'^kurs/(?P<kurs>[-\w]+)/anmeldung/print/$', 'anmeldung_print',
         name='anmeldung_print'),
-    url(r'^(?P<kurs>[-\w]+)/notfallblatt/$', 'notfallblatt_form',
+    url(r'^kurs/(?P<kurs>[-\w]+)/notfallblatt/$', 'notfallblatt_form',
         name='notfallblatt_form'),
-    url(r'^(?P<kurs>[-\w]+)/notfallblatt/edit/$', 'notfallblatt_edit',
+    url(r'^kurs/(?P<kurs>[-\w]+)/notfallblatt/edit/$', 'notfallblatt_edit',
         name='notfallblatt_edit'),
 )

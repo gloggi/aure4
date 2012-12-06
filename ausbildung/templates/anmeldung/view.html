@@ -7,43 +7,85 @@
 <p>Hier kannst du nun noch die weiteren nötigen Schritte abschliessen.
    Wichtig ist, dass du die Anmeldung noch ausdrucken und ans Seki schicken musst.
    Das Notfallblatt kannst du entweder gleich online ausfüllen oder ausdrucken und
-   mit der Anmeldung mitschicken.
-</p>
-<p>
-   Spätestens drei Tage vor dem Kurs solltest du noch den Lagerbeitrag bezahlen.
+   mit der Anmeldung mitschicken. Zur Bezahlung siehe die Bemerkungen.
 </p>
 
 <br>
 
 <center>
 
-<a href="{% url anmeldung_print kurs=kurs.url %}" target="_blank" class="btn btn-large btn-info">
-    <i class="icon-print"></i>
-    Anmeldung ausdrucken
-</a>
+<div class="anmeldung_box">
+  <h3>Anmeldung</h3>
 
-<br><br>
+  {% if anmeldung.anmeldung_erhalten %}
+    <p>Wir haben dein Anmeldung im Seki erhalten und bestätigen somit offiziell
+       deine Teilnahme am Kurs!
+    </p>
+  {% else %}
+    <p>Wir haben deine Anmeldung noch nicht bei uns im Seki erhalten. Bitte
+      drucke deine Anmeldung gleich jetzt aus und schick sie an die angegebene
+      Adresse</p>
+  {% endif %}
 
-<a href="{% url anmeldung_edit kurs=kurs.url %}" class="btn btn-large btn-warning">
-    <i class="icon-edit"></i>
-    Anmeldung nochmals bearbeiten
-</a>
+  <a href="{% url anmeldung_print kurs=kurs.url %}" target="_blank" class="btn btn-large btn-info">
+      <i class="icon-print"></i>
+      Anmeldung ausdrucken
+  </a>
 
-{% if not anmeldung.notfallblatt %}
-    <a href="{% url notfallblatt_form kurs=kurs.url %}" class="btn btn-large btn-success">
-        <i class="icon-edit"></i>
-        Notfallblatt online ausfüllen
-    </a>
-{% else %}
-    <a href="{% url notfallblatt_form kurs=kurs.url %}" class="btn btn-large btn-success">
-        <i class="icon-edit"></i>
-        Notfallblatt bearbeiten
-    </a>
-{% endif %}
+  <br><br>
+
+  <a href="{% url anmeldung_edit kurs=kurs.url %}" class="btn btn-large btn-warning">
+      <i class="icon-edit"></i>
+      Anmeldung bearbeiten
+  </a>
+</div>
+
+<div class="anmeldung_box">
+  <h3>Notfallblatt</h3>
+
+    {% if not anmeldung.notfallblatt_erhalten or anmeldung.notfallblatt %}
+      <p>Wir haben dein Notfallblatt noch nicht erhalten. Bitte fülle das
+        Notfallformular gleich online aus, oder schicke es uns ausgefüllt
+        per Post.
+      </p>
+
+      <a href="{% url notfallblatt_form kurs=kurs.url %}" class="btn btn-large btn-success">
+          <i class="icon-edit"></i>
+          Notfallblatt online ausfüllen
+      </a>
+
+      <br>
+      Notfallblatt ausdrucken Link
+    {% else %}
+      {% if anmeldung.notfallblatt_erhalten %}
+        <p>Wir haben dein Notfallblatt erhalten und dem Lagerleiter übergeben.</p>
+      {% else %}
+        <p>Dein Notfallblatt ist gespeichert. Du kannst es hier nochmals bearbeite.</p>
+
+        <a href="{% url notfallblatt_form kurs=kurs.url %}" class="btn btn-large btn-success">
+          <i class="icon-edit"></i>
+          Notfallblatt bearbeiten
+        </a>
+      {% endif %}
+    {% endif %}
+</div>
+
+
+<div class="anmeldung_box">
+  <h3>Bezahlung</h3>
+
+  <p><strong>Wir werden ab Mitte Februar hier die Möglichkeit anbieten, deinen
+    Lagerbeitrag gleich online zu bezahlen.
+  </strong></p>
+
+  <p>Du kannst uns den Lagerbeitrag von
+    150.- aber auch schon jetzt per Einzahlungsschein überweisen:
+
+    PC-Konto
+  </p>
+
+</div>
 
 </center>
-
-
-<p>HIER TEXT ÜBER NOTFALLBLATT EINFÜGEN.</p>
 
 {% endblock %}
