@@ -12,7 +12,14 @@
 </p>
 
 {% for kurs in kurse %}
-<a href="{% url anmeldung_form kurs=kurs.url %}" class="kurs clearfix">
+<a href="{% url anmeldung_form kurs=kurs.url %}" class="kurs clearfix
+    {% if kurs in angemeldete_kurse %}angemeldet{% endif %}">
+    {% if kurs in angemeldete_kurse %}
+        <p class="check"><i class="icon-check"></i>
+            Du bist für diesen Kurs angemeldet
+        </p>
+    {% endif %}
+
     <h3>{{ kurs.name }}</h3>
     <table>
         <tr>

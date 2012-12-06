@@ -89,6 +89,24 @@ a.kurs:hover {
 }
 
 a.kurs h3 {
+    float: left;
+}
+
+a.kurs.angemeldet {
+    background: #73FF73;
+}
+
+a.kurs p.check {
+    float: right;
+    margin: 0 2% 0 0;
+}
+
+a.kurs.angemeldet:hover {
+    background: #3BB83B;
+}
+
+
+a.kurs h3 {
     font-size: 18px;
 
     text-decoration: none;
