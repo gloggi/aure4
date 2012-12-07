@@ -69,10 +69,10 @@ def anmeldung_form(request, kurs):
             anmeldung.user = request.user
 
             zusatzform = Zusatzform(request.POST, prefix='zusatz')
-            anmeldung.zusatz = zusatzform.clean()
-
-            anmeldung.save()
-            return redirect('anmeldung_view', kurs=kurs.url)
+            if zusatzform.is_valid():
+                anmeldung.zusatz = zusatzform.clean()
+                anmeldung.save()
+                return redirect('anmeldung_view', kurs=kurs.url)
     else:
         form = AnmeldungForm(initial=initial)
 
