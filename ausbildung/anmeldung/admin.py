@@ -5,12 +5,18 @@ from sorl.thumbnail.admin import AdminImageMixin
 
 import reversion
 
-from .models import Kurs, Abteilung, Anmeldung, Notfallblatt
+from .models import Kurs, Zusatzfeld, Abteilung, Anmeldung, Notfallblatt
+
+
+class ZusatzfeldInline(admin.TabularInline):
+    model = Zusatzfeld
+    extra = 0
 
 
 class KursAdmin(reversion.VersionAdmin):
     list_display = ('name', 'nummer', 'anmeldeschluss', 'von', 'bis')
     search_fields = ('name', 'nummer', 'hauptleiter')
+    inlines = [ZusatzfeldInline]
     prepopulated_fields = {'url': ('name',)}
     #date_hierarchy = 'von'
 
@@ -58,8 +64,8 @@ class AnmeldungAdmin(AdminImageMixin, reversion.VersionAdmin):
     list_filter = ('kurs',)
     raw_id_fields = ('kurs',)
     inlines = (NotfallblattInline,)
-    readonly_fields = ('erstellt', 'aktualisiert')
-    fieldsets = (
+    readonly_fields = ['erstellt', 'aktualisiert']
+    fieldsets = [
         ('Admin', {
             'fields': (
                 ('kurs', 'erstellt', 'aktualisiert'),
@@ -83,8 +89,12 @@ class AnmeldungAdmin(AdminImageMixin, reversion.VersionAdmin):
                 ('bahnabo', 'nationalitaet', 'land', 'erstsprache'),
                 ('vegetarier', 'schweinefleisch', 'bestaetigung'),
             )
+        }),
+        ('Zusatzdaten', {
+            'classes': ('collapse',),
+            'fields': ('zusatz',)
         })
-    )
+    ]
 
     class Media:
         css = {

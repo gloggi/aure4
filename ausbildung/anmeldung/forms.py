@@ -18,7 +18,7 @@ class AbteilungForm(forms.ModelForm):
 class AnmeldungForm(forms.ModelForm):
     class Meta:
         model = Anmeldung
-        exclude = ('kurs', 'user', 'anmeldung_erhalte', 'notfallblatt_erhalten',
+        exclude = ('kurs', 'user', 'anmeldung_erhalten', 'notfallblatt_erhalten',
                    'bezahlt')
 
     def __init__(self, *args, **kwargs):

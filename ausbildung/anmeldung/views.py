@@ -49,31 +49,40 @@ def anmeldung_form(request, kurs):
 
     initial = {'email': request.user.email}
 
+    abtform = AbteilungForm(prefix='abt')
+
+    Zusatzform = kurs.zusatzform()
+    zusatzform = Zusatzform(prefix='zusatz')
+
     if request.method == 'POST':
         data = request.POST.copy()
         if data.get('abteilung', '') == 'andere':
-            abtform = AbteilungForm(data)
+            abtform = AbteilungForm(data, prefix='abt')
             if abtform.is_valid():
                 abteilung = abtform.save()
                 data['abteilung'] = abteilung.id
-        else:
-            abtform = AbteilungForm()
 
         form = AnmeldungForm(data, request.FILES, initial=initial)
         if form.is_valid():
             anmeldung = form.save(commit=False)
             anmeldung.kurs = kurs
             anmeldung.user = request.user
+
+            zusatzform = Zusatzform(request.POST, prefix='zusatz')
+            anmeldung.zusatz = zusatzform.clean()
+
             anmeldung.save()
             return redirect('anmeldung_view', kurs=kurs.url)
     else:
         form = AnmeldungForm(initial=initial)
-        abtform = AbteilungForm()
+
+        zusatzform = Zusatzform(prefix='zusatz')
 
     return render(request, 'anmeldung/form.html', {
         'kurs': kurs,
         'form': form,
-        'abtform': abtform
+        'abtform': abtform,
+        'zusatzform': zusatzform,
     })
 
 
@@ -81,18 +90,27 @@ def anmeldung_form(request, kurs):
 @requires_anmeldung
 def anmeldung_edit(request, anmeldung):
     kurs = anmeldung.kurs
+
+    Zusatzform = kurs.zusatzform()
+    zusatzform = Zusatzform(initial=anmeldung.zusatz, prefix='zusatz')
+
     if request.method == 'POST':
         form = AnmeldungForm(request.POST, request.FILES, instance=anmeldung)
         if form.is_valid():
-            anmeldung = form.save()
-            return redirect('anmeldung_view', kurs=kurs.url)
+            anmeldung = form.save(commit=False)
+            zusatzform = Zusatzform(request.POST, prefix='zusatz')
+            if zusatzform.is_valid():
+                anmeldung.zusatz = zusatzform.clean()
+                anmeldung.save()
+                return redirect('anmeldung_view', kurs=kurs.url)
     else:
         form = AnmeldungForm(instance=anmeldung)
 
     return render(request, 'anmeldung/form.html', {
         'edit': True,
         'kurs': kurs,
-        'form': form
+        'form': form,
+        'zusatzform': zusatzform,
     })
 
 

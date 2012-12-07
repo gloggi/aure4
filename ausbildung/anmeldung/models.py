@@ -1,11 +1,12 @@
 # encoding: utf-8
 
+from django import forms
 from django.db import models
 from django.utils.timezone import now
 
 from sorl.thumbnail import ImageField
 
-from .fields import RequiredCharField, OptionalCharField
+from .fields import RequiredCharField, OptionalCharField, JSONField
 
 
 class KursManager(models.Manager):
@@ -50,6 +51,55 @@ class Kurs(models.Model):
             return self.kursplaetze - self.teilnehmer.count()
         else:
             return u'Unbeschränkt'
+
+    def zusatzform(self):
+        felder = {}
+        for feld in self.zusatzfelder.all():
+            felder[feld.name] = feld.form_field()
+
+        return type('ZusatzForm', (forms.Form,), felder)
+
+
+class Zusatzfeld(models.Model):
+    TYP_CHOICES = (
+        ('char', 'Textfeld'),
+        ('checkbox', 'Checkbox'),
+        ('integer', 'Zahl'),
+        ('textarea', 'Langer Text'),
+    )
+
+    kurs = models.ForeignKey(Kurs, related_name='zusatzfelder')
+    typ = RequiredCharField('Typ', choices=TYP_CHOICES)
+    required = models.BooleanField('Plichtfeld', default=True)
+    label = RequiredCharField('Bezeichnung')
+    help_text = OptionalCharField('Hilfstext')
+
+    @property
+    def name(self):
+        return self.label.lower()
+
+    def form_field(self):
+        kwargs = {
+            'label': self.label,
+            'help_text': self.help_text,
+            'required': self.required
+        }
+
+        if self.typ == 'char':
+            return forms.CharField(**kwargs)
+        elif self.typ == 'checkbox':
+            return forms.BooleanField(**kwargs)
+        if self.typ == 'integer':
+            return forms.IntegerField(**kwargs)
+        if self.typ == 'textarea':
+            return forms.CharField(widget=forms.TextInput, **kwargs)
+
+    class Meta:
+        verbose_name = 'Zusatzfeld'
+        verbose_name_plural = 'Zusatzfelder'
+
+    def __unicode__(self):
+        return self.label
 
 
 class Abteilung(models.Model):
@@ -159,6 +209,8 @@ class Anmeldung(models.Model):
 
     bestaetigung = models.BooleanField('Bestätigung',
         help_text=u'Ich benötige eine Bestätigung für meinen Arbeitsgeber')
+
+    zusatz = JSONField('Zusatzdaten', blank=True, null=True)
 
     class Meta:
         verbose_name = 'Ammeldung'
