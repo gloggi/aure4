@@ -18,6 +18,8 @@ class Kurs(models.Model):
     name = RequiredCharField('Name')
     url = models.SlugField('url')
 
+    order = models.IntegerField('Reihenfolge', blank=True, null=True)
+
     nummer = OptionalCharField('Kursnummer', help_text='z.Bsp PBS ZH 123-12')
 
     von = models.DateField('Von')
@@ -41,6 +43,7 @@ class Kurs(models.Model):
     class Meta:
         verbose_name = 'Kurs'
         verbose_name_plural = 'Kurse'
+        ordering = ('order',)
 
     def __unicode__(self):
         return self.name

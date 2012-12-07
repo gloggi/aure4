@@ -6,6 +6,7 @@ from feincms.module.page.models import Page
 from feincms.content.richtext.models import RichTextContent
 from feincms.content.section.models import SectionContent
 from feincms.content.medialibrary.v2 import MediaFileContent
+from feincms.content.contactform.models import ContactFormContent
 
 from feincms_cleanse import cleanse_html
 
@@ -52,6 +53,7 @@ def save(self, *args, **kwargs):
 SectionContent.save = save
 
 Page.create_content_type(RichTextContent, cleanse=cleanse_html)
+Page.create_content_type(ContactFormContent)
 Page.create_content_type(SectionContent, cleanse=cleanse_html, TYPE_CHOICES=(
      ('menu', 'Mit Menü'),
 ))
