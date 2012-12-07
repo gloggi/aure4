@@ -6,7 +6,7 @@ from django.utils.timezone import now
 
 from sorl.thumbnail import ImageField
 
-from .fields import RequiredCharField, OptionalCharField, JSONField
+from .fields import RequiredCharField, OptionalCharField
 
 
 class KursManager(models.Manager):
@@ -70,7 +70,6 @@ class Zusatzfeld(models.Model):
 
     kurs = models.ForeignKey(Kurs, related_name='zusatzfelder')
     typ = RequiredCharField('Typ', choices=TYP_CHOICES)
-    required = models.BooleanField('Plichtfeld', default=True)
     label = RequiredCharField('Bezeichnung')
     help_text = OptionalCharField('Hilfstext')
 
@@ -82,7 +81,7 @@ class Zusatzfeld(models.Model):
         kwargs = {
             'label': self.label,
             'help_text': self.help_text,
-            'required': self.required
+            'required': False,
         }
 
         if self.typ == 'char':
@@ -114,6 +113,19 @@ class Abteilung(models.Model):
 
     def __unicode__(self):
         return u'%s - %s' % (self.region, self.name)
+
+
+class Zusatzwert(models.Model):
+    anmeldung = models.ForeignKey('Anmeldung', related_name='zusatz')
+    name = RequiredCharField('name', unique=True)
+    wert = RequiredCharField('wert')
+
+    class Meta:
+        verbose_name = 'Zusatzwert'
+        verbose_name_plural = 'Zusatzwerte'
+
+    def __unicode__(self):
+        return u'%s : %s' % (self.name, self.wert)
 
 
 class Anmeldung(models.Model):
@@ -210,7 +222,28 @@ class Anmeldung(models.Model):
     bestaetigung = models.BooleanField('Bestätigung',
         help_text=u'Ich benötige eine Bestätigung für meinen Arbeitsgeber')
 
-    zusatz = JSONField('Zusatzdaten', blank=True, null=True)
+    #zusatz = JSONField('Zusatzdaten', blank=True, null=True)
+
+    @property
+    def zusatz_initial(self):
+        result = {}
+        for wert in self.zusatz.all():
+            result[wert.name] = wert.wert
+        return result
+
+    def update_zusatzwerte(self, zusatzdaten):
+        aktualisiert = []
+        for name, wert in zusatzdaten.items():
+            try:
+                zusatzwert = self.zusatz.get(name=name)
+            except Zusatzwert.DoesNotExist:
+                zusatzwert = Zusatzwert(anmeldung=self, name=name)
+            zusatzwert.wert = unicode(zusatzdaten[zusatzwert.name])
+            zusatzwert.save()
+            aktualisiert.append(zusatzwert.id)
+
+        for zusatzwert in self.zusatz.exclude(id__in=aktualisiert):
+            zusatzwert.delete()
 
     class Meta:
         verbose_name = 'Ammeldung'

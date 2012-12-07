@@ -32,3 +32,15 @@ label[for=id_foto] {
 .help {
     display: none;
 }
+
+#zusatz-group td.original p {
+  visibility: hidden
+}
+
+#zusatz-group tr.has_original {
+    padding: none;
+}
+
+#zusatz-group tr.has_original td {
+    padding-top: 0em;
+}
