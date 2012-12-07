@@ -30,12 +30,11 @@
             <td>{{ kurs.von|date:'d.m.y' }} - {{ kurs.bis|date:'d.m.y' }}</td>
         </tr>
         <tr>
-        {% if kurs.nummer %}
-            <th>Kursnummer:</th><td>{{ kurs.nummer }}</td>
-        {% endif %}
-        {% if kurs.hauptleiter %}
+            <th>Freie Plätze:</th><td>{{ kurs.freie_plaetze }}</td>
+
+            {% if kurs.hauptleiter %}
             <th>Hauptleiter:</th><td>{{ kurs.hauptleiter }}</td>
-        {% endif %}
+            {% endif %}
         </tr>
     </table>
 </a>

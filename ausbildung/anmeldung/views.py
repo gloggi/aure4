@@ -42,6 +42,11 @@ def anmeldung_form(request, kurs):
     if request.user in kurs.teilnehmer.all():
         return redirect('anmeldung_view', kurs=kurs.url)
 
+    if kurs.kursplaetze and kurs.freie_plaetze <= 0:
+        return render(request, 'anmeldung/fully_booked.html', {
+            'kurs': kurs
+        })
+
     initial = {'email': request.user.email}
 
     if request.method == 'POST':

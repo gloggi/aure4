@@ -29,6 +29,9 @@ class Kurs(models.Model):
     erfasst = models.DateTimeField('Erfasst', auto_now_add=True)
     aktualisiert = models.DateTimeField('Aktualisiert', auto_now=True)
 
+    kursplaetze = models.IntegerField(u'Kursplätze', blank=True, null=True,
+        help_text='Maximale Anzahl Teilnehmer')
+
     teilnehmer = models.ManyToManyField('auth.User', through='Anmeldung',
         related_name="angemeldete_kurse")
 
@@ -42,8 +45,11 @@ class Kurs(models.Model):
         return self.name
 
     @property
-    def foo(self, erwin):
-        pass
+    def freie_plaetze(self):
+        if self.kursplaetze:
+            return self.kursplaetze - self.teilnehmer.count()
+        else:
+            return u'Unbeschränkt'
 
 
 class Abteilung(models.Model):
