@@ -5,7 +5,7 @@ from sorl.thumbnail.admin import AdminImageMixin
 
 import reversion
 
-from .models import Kurs, Zusatzfeld, Zusatzwert, Abteilung, Anmeldung, Notfallblatt
+from .models import Kurs, Zusatzfeld, Abteilung, Anmeldung, Notfallblatt
 
 
 class ZusatzfeldInline(admin.TabularInline):
@@ -25,16 +25,6 @@ class AbteilungAdmin(reversion.VersionAdmin):
     list_display = ('name', 'region', 'verband')
     search_fields = ('name', 'region')
 
-
-class ZusatzwertInline(admin.TabularInline):
-    model = Zusatzwert
-    #readonly_fields = ('name', 'wert')
-
-    def has_add_permission(self, request):
-        return False
-
-    def has_delete_permission(self, request, obj=None):
-        return False
 
 class NotfallblattInline(admin.StackedInline):
     model = Notfallblatt
@@ -73,7 +63,7 @@ class AnmeldungAdmin(AdminImageMixin, reversion.VersionAdmin):
     list_display = ('__unicode__', 'kurs', 'abteilung', 'einheit')
     list_filter = ('kurs',)
     raw_id_fields = ('kurs',)
-    inlines = (ZusatzwertInline, NotfallblattInline,)
+    inlines = (NotfallblattInline,)
     readonly_fields = ['erstellt', 'aktualisiert']
     fieldsets = [
         ('Admin', {
@@ -94,12 +84,16 @@ class AnmeldungAdmin(AdminImageMixin, reversion.VersionAdmin):
         ('Pfadizugehörigkeit', {
             'fields': (('abteilung', 'einheit', 'stufe'),)
         }),
-        ('Weitere Daten', {
+        ('Weiter Daten', {
             'fields': (
                 ('bahnabo', 'nationalitaet', 'land', 'erstsprache'),
                 ('vegetarier', 'schweinefleisch', 'bestaetigung'),
             )
         }),
+        ('Zusatzdaten', {
+            'classes': ('collapse',),
+            'fields': ('zusatz',)
+        })
     ]
 
     class Media:

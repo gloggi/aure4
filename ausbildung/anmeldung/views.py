@@ -70,7 +70,7 @@ def anmeldung_form(request, kurs):
 
             zusatzform = Zusatzform(request.POST, prefix='zusatz')
             if zusatzform.is_valid():
-                anmeldung.update_zusatzwerte(zusatzform.clean())
+                anmeldung.zusatz = zusatzform.clean()
                 anmeldung.save()
                 return redirect('anmeldung_view', kurs=kurs.url)
     else:
@@ -92,7 +92,7 @@ def anmeldung_edit(request, anmeldung):
     kurs = anmeldung.kurs
 
     Zusatzform = kurs.zusatzform()
-    zusatzform = Zusatzform(initial=anmeldung.zusatz_initial, prefix='zusatz')
+    zusatzform = Zusatzform(initial=anmeldung.zusatz, prefix='zusatz')
 
     if request.method == 'POST':
         form = AnmeldungForm(request.POST, request.FILES, instance=anmeldung)
@@ -100,7 +100,7 @@ def anmeldung_edit(request, anmeldung):
             anmeldung = form.save(commit=False)
             zusatzform = Zusatzform(request.POST, prefix='zusatz')
             if zusatzform.is_valid():
-                anmeldung.update_zusatzwerte(zusatzform.clean())
+                anmeldung.zusatz = zusatzform.clean()
                 anmeldung.save()
                 return redirect('anmeldung_view', kurs=kurs.url)
     else:
