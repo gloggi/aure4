@@ -10,86 +10,99 @@
    mit der Anmeldung mitschicken. Zur Bezahlung siehe die Bemerkungen.
 </p>
 
+
 <br>
 
-<center>
+<div class="clearfix">
+  <div class="anmeldung_box">
+    <h3>Kopie ans Seki</h3>
 
-<div class="anmeldung_box">
-  <h3>Anmeldung</h3>
-
-  {% if anmeldung.anmeldung_erhalten %}
-    <p>Wir haben dein Anmeldung im Seki erhalten und bestätigen somit offiziell
-       deine Teilnahme am Kurs!
-    </p>
-  {% else %}
-    <p>Wir haben deine Anmeldung noch nicht bei uns im Seki erhalten. Bitte
-      drucke deine Anmeldung gleich jetzt aus und schick sie an die angegebene
-      Adresse</p>
-  {% endif %}
-
-  <a href="{% url anmeldung_print kurs=kurs.url %}" target="_blank" class="btn btn-large btn-info">
-      <i class="icon-print"></i>
-      Anmeldung ausdrucken
-  </a>
-
-  <br><br>
-
-  <a href="{% url anmeldung_edit kurs=kurs.url %}" class="btn btn-large btn-warning">
-      <i class="icon-edit"></i>
-      Anmeldung bearbeiten
-  </a>
-</div>
-
-<div class="anmeldung_box">
-  <h3>Notfallblatt</h3>
-
-    {% if not anmeldung.notfallblatt_erhalten or anmeldung.notfallblatt %}
-      <p>Wir haben dein Notfallblatt noch nicht erhalten. Bitte fülle das
-        Notfallformular gleich online aus, oder schicke es uns ausgefüllt
-        per Post.
+    {% if anmeldung.anmeldung_erhalten %}
+      <p>Wir haben dein Anmeldung im Seki erhalten und bestätigen somit offiziell
+         deine Teilnahme am Kurs!
       </p>
-
-      <a href="{% url notfallblatt_form kurs=kurs.url %}" class="btn btn-large btn-success">
-          <i class="icon-edit"></i>
-          Notfallblatt online ausfüllen
-      </a>
-
-      <br>
-      Notfallblatt ausdrucken Link
     {% else %}
-      {% if anmeldung.notfallblatt_erhalten %}
-        <p>Wir haben dein Notfallblatt erhalten und dem Lagerleiter übergeben.</p>
-      {% else %}
-        <p>Dein Notfallblatt ist gespeichert. Du kannst es hier nochmals bearbeite.</p>
+      <p>Wir haben deine Anmeldung noch nicht bei uns im Seki erhalten. Bitte
+        drucke deine Anmeldung gleich jetzt aus und schick sie an die angegebene
+        Adresse</p>
+    {% endif %}
+
+    <a href="{% url anmeldung_print kurs=kurs.url %}" target="_blank" class="btn btn-large btn-info">
+        <i class="icon-print"></i>
+        Anmeldung ausdrucken
+    </a>
+
+    <a href="{% url anmeldung_edit kurs=kurs.url %}" class="btn btn-large btn-warning">
+        <i class="icon-edit"></i>
+        Anmeldung bearbeiten
+    </a>
+
+
+  </div>
+
+  <div class="anmeldung_box">
+    <h3>Notfallblatt</h3>
+
+      {% if not anmeldung.notfallblatt_erhalten or anmeldung.notfallblatt %}
+        <p>Wir haben dein Notfallblatt noch nicht erhalten. Bitte fülle das
+          Notfallformular gleich online aus, oder schicke es uns ausgefüllt
+          per Post.
+        </p>
 
         <a href="{% url notfallblatt_form kurs=kurs.url %}" class="btn btn-large btn-success">
-          <i class="icon-edit"></i>
-          Notfallblatt bearbeiten
+            <i class="icon-edit"></i>
+            Notfallblatt online ausfüllen
         </a>
+
+        <br>
+        Notfallblatt ausdrucken Link
+      {% else %}
+        {% if anmeldung.notfallblatt_erhalten %}
+          <p>Wir haben dein Notfallblatt erhalten und dem Lagerleiter übergeben.</p>
+        {% else %}
+          <p>Dein Notfallblatt ist gespeichert. Du kannst es hier nochmals bearbeite.</p>
+
+          <a href="{% url notfallblatt_form kurs=kurs.url %}" class="btn btn-large btn-success">
+            <i class="icon-edit"></i>
+            Notfallblatt bearbeiten
+          </a>
+        {% endif %}
       {% endif %}
-    {% endif %}
+  </div>
+
+
+  <div class="anmeldung_box">
+    <h3>Bezahlung</h3>
+
+    <p><strong>Wir werden ab Mitte Februar hier die Möglichkeit anbieten, deinen
+      Lagerbeitrag gleich online zu bezahlen.
+    </strong></p>
+
+    <p>Du kannst uns den Lagerbeitrag von
+      150.- aber auch schon jetzt per Einzahlungsschein überweisen:
+
+      <table class="table table-condensed">
+        <tr><th>PC-Konto</th><td>80-17164-3</td></tr>
+        <tr><th>IBAN</th><td>CH34 0900 0000 8001 7164 3</td></tr>
+        <tr><th>BIC</th><td>POFICHBEXXX</td></tr>
+      </table>
+    </p>
+  </div>
 </div>
 
+<h3>Das Kleingedruckte</h3>
 
-<div class="anmeldung_box">
-  <h3>Bezahlung</h3>
+<p>Für unsere Leiterkurse gelten die folgenden Suchtmittelregeln für den Umgang mit Drogen, Alkohol und Tabak:</p>
+<ul>
+  <li>Die gesetzlichen Bestimmungen haben auch für unsere Leiterkurse volle Gültigkeit.</li>
+  <li>Der Konsum von illegalen Drogen (inkl. Cannabis) sowie Alkohol ist generell untersagt. Ein Verstoss
+      gegen diese Regel hat zwingend das Nichtbestehen des Kurses zur Folge.</li>
+  <li>In Uniform und während dem Programm wird generell nicht geraucht. Die Kursleitung definiert und
+      kommuniziert weitergehende Raucherregeln (wann, wo und unter welchen Bedingungen geraucht werden darf),
+      sowie Konsequenzen bei Verstössen.
+  </li>
+</ul>
 
-  <p><strong>Wir werden ab Mitte Februar hier die Möglichkeit anbieten, deinen
-    Lagerbeitrag gleich online zu bezahlen.
-  </strong></p>
-
-  <p>Du kannst uns den Lagerbeitrag von
-    150.- aber auch schon jetzt per Einzahlungsschein überweisen:
-
-    <table class="table table-condensed">
-      <tr><th>PC-Konto</th><td>80-17164-3</td></tr>
-      <tr><th>IBAN</th><td>CH34 0900 0000 8001 7164 3</td></tr>
-      <tr><th>BIC</th><td>POFICHBEXXX</td></tr>
-    </table>
-  </p>
-
-</div>
-
-</center>
+<strong>Versicherung ist Sache der Teilnehmer.</strong>
 
 {% endblock %}

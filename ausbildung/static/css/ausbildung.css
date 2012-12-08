@@ -77,6 +77,11 @@ label[for=foto-clear_id] {
     }
 }
 
+.anmeldung_box a {
+    display: block;
+    margin: 10px 0;
+}
+
 a.kurs {
     display: block;
     text-decoration: none;

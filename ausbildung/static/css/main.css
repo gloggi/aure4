@@ -88,7 +88,7 @@ fieldset > legend {
 
 .anmeldung_box {
     width: 100%;
-    padding: 20px 20px;
+    padding: 20px 4% 20px 0;
 }
 
 header a {
@@ -249,7 +249,7 @@ footer a:hover {
 
     .anmeldung_box {
         width: 28%;
-        padding: 20px 2%;
+        padding: 20px 4% 20px 0;
         float: left;
     }
 
