@@ -240,6 +240,7 @@ class Notfallblatt(models.Model):
 
     # Versicherung
     krankenkasse = RequiredCharField('Krankenkasse')
+    unfallversicherung = RequiredCharField('Unfallversicherung')
     rega = models.BooleanField('Rega-Gönner',
         help_text='Gönner der Schweizerischen Rettungsflugwacht (Rega)')
 

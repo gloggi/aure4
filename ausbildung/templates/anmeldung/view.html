@@ -4,91 +4,130 @@
 
 <h1>Du bist für den Kurs {{ anmeldung.kurs }} angemeldet</h1>
 
-<p>Hier kannst du nun noch die weiteren nötigen Schritte abschliessen.
-   Wichtig ist, dass du die Anmeldung noch ausdrucken und ans Seki schicken musst.
-   Das Notfallblatt kannst du entweder gleich online ausfüllen oder ausdrucken und
-   mit der Anmeldung mitschicken. Zur Bezahlung siehe die Bemerkungen.
-</p>
+<p>Um deine Anmeldung abzuschliessen, musst du noch folgende 3 Schritte abschliessen</p>
 
 
 <br>
 
 <div class="clearfix">
   <div class="anmeldung_box">
-    <h3>Kopie ans Seki</h3>
-
+    <h3>1. Kopie ans Seki</h3>
+    <br>
     {% if anmeldung.anmeldung_erhalten %}
-      <p>Wir haben dein Anmeldung im Seki erhalten und bestätigen somit offiziell
-         deine Teilnahme am Kurs!
+      <div class="alert alert-success">
+       <i class="icon-check"></i> <strong>Abgeschlossen</strong>
+      </div>
+
+      <p>Wir haben dein Anmeldung erhalten und bestätigen somit offiziell deine
+         Teilnahme am Kurs! Du kannst deine Anmeldung aber nachwievor hier
+         ergänzen, wir benötigen keine neue Kopie.
       </p>
     {% else %}
-      <p>Wir haben deine Anmeldung noch nicht bei uns im Seki erhalten. Bitte
-        drucke deine Anmeldung gleich jetzt aus und schick sie an die angegebene
-        Adresse</p>
-    {% endif %}
+      <div class="alert alert-error">
+       <i class="icon-check-empty"></i> <strong>Noch nicht abgeschlossen</strong>
+      </div>
 
-    <a href="{% url anmeldung_print kurs=kurs.url %}" target="_blank" class="btn btn-large btn-info">
+      <p>Wir benötigen noch eine unterschriebene Kopie deiner Anmeldung. Bitte
+        drucke deine Anmeldung gleich jetzt aus und schick sie an angegebene
+        Adresse unseres Seki.
+      </p>
+
+      <a href="{% url anmeldung_print kurs=kurs.url %}" target="_blank" class="btn btn-large btn-info">
         <i class="icon-print"></i>
         Anmeldung ausdrucken
-    </a>
+      </a>
+    {% endif %}
 
     <a href="{% url anmeldung_edit kurs=kurs.url %}" class="btn btn-large btn-warning">
         <i class="icon-edit"></i>
         Anmeldung bearbeiten
     </a>
-
-
   </div>
 
   <div class="anmeldung_box">
-    <h3>Notfallblatt</h3>
+    <h3>2. Notfallblatt</h3>
+    <br>
 
-      {% if not anmeldung.notfallblatt_erhalten or anmeldung.notfallblatt %}
-        <p>Wir haben dein Notfallblatt noch nicht erhalten. Bitte fülle das
-          Notfallformular gleich online aus, oder schicke es uns ausgefüllt
-          per Post.
+      {% if anmeldung.notfallblatt_erhalten or anmeldung.notfallblatt %}
+        <div class="alert alert-success">
+         <i class="icon-check"></i> <strong>Abgeschlossen</strong>
+        </div>
+
+        {% if anmeldung.notfallblatt_erhalten %}
+          <p>Wir haben dein Notfallblatt erhalten und dem Lagerleiter übergeben.</p>
+        {% endif %}
+
+        {% if anmeldung.notfallblatt %}
+          <p>Dein Notfallblatt ist gespeichert. Du kannst es aber jederzeit noch
+             ergänzen.
+          </p>
+
+          <a href="{% url notfallblatt_form kurs=kurs.url %}" class="btn btn-large btn-success">
+              <i class="icon-edit"></i>
+              Notfallblatt ergänzen
+          </a>
+        {% endif %}
+      {% else %}
+        <div class="alert alert-error">
+         <i class="icon-check-empty"></i> <strong>Noch nicht abgeschlossen</strong>
+        </div>
+
+        <p>Wir haben noch kein ein Notfallblatt von dir. Entweder füllst du das
+          Notfallblatt gleich online aus oder du schickst das ausgefüllte
+          Notfallblatt und an unser Seki.
         </p>
 
         <a href="{% url notfallblatt_form kurs=kurs.url %}" class="btn btn-large btn-success">
             <i class="icon-edit"></i>
             Notfallblatt online ausfüllen
         </a>
-
-        <br>
-        Notfallblatt ausdrucken Link
-      {% else %}
-        {% if anmeldung.notfallblatt_erhalten %}
-          <p>Wir haben dein Notfallblatt erhalten und dem Lagerleiter übergeben.</p>
-        {% else %}
-          <p>Dein Notfallblatt ist gespeichert. Du kannst es hier nochmals bearbeite.</p>
-
-          <a href="{% url notfallblatt_form kurs=kurs.url %}" class="btn btn-large btn-success">
-            <i class="icon-edit"></i>
-            Notfallblatt bearbeiten
-          </a>
-        {% endif %}
       {% endif %}
   </div>
 
 
   <div class="anmeldung_box">
-    <h3>Bezahlung</h3>
+    <h3>3. Lagerbeitrag</h3>
+    <br>
 
-    <p><strong>Wir werden ab Mitte Februar hier die Möglichkeit anbieten, deinen
-      Lagerbeitrag gleich online zu bezahlen.
-    </strong></p>
+    {% if anmeldung.bezahlt %}
+      <div class="alert alert-success">
+       <i class="icon-check"></i> <strong>Abgeschlossen</strong>
+      </div>
 
-    <p>Du kannst uns den Lagerbeitrag von
-      150.- aber auch schon jetzt per Einzahlungsschein überweisen:
+      <p>Wir haben deinen Lagerbeitrag erhalten und bestätigen deine Bezahlung</p>
+    {% else %}
+      <div class="alert alert-error">
+       <i class="icon-check-empty"></i> <strong>Noch nicht abgeschlossen</strong>
+      </div>
 
-      <table class="table table-condensed">
-        <tr><th>PC-Konto</th><td>80-17164-3</td></tr>
-        <tr><th>IBAN</th><td>CH34 0900 0000 8001 7164 3</td></tr>
-        <tr><th>BIC</th><td>POFICHBEXXX</td></tr>
-      </table>
-    </p>
+      <p>Du musst noch den Lagerbeitrag von 150 Franken überweisen</p>
+
+      <p><strong>Ab Mitte Februar werden wir hier die Möglichkeit anbieten, deinen
+        Lagerbeitrag gleich online zu bezahlen.
+      </strong></p>
+
+      <p>Du kannst uns den Lagerbeitrag aber auch schon jetzt per Einzahlungsschein überweisen:
+
+        <table class="table table-condensed">
+          <tr><th>PC-Konto</th><td>80-17164-3</td></tr>
+          <tr><th>IBAN</th><td>CH34 0900 0000 8001 7164 3</td></tr>
+          <tr><th>BIC</th><td>POFICHBEXXX</td></tr>
+        </table>
+      </p>
+    {% endif %}
   </div>
 </div>
+
+
+<p><strong>Wenn du deinen Lagerbeitrag per Einzahlungsschein oder Online-Banking
+  bezahlts, gibt bitte unbedingt deinen Namen wie in der Anmeldung und den Kurs an
+</strong><p>
+
+<p>Dein Lagerbeitrag muss spätestens einen Monat vor dem Kurs bei
+   uns eintreffen.
+</p>
+
+<br><br>
 
 <h3>Das Kleingedruckte</h3>
 

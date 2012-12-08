@@ -38,7 +38,7 @@ class NotfallblattInline(admin.StackedInline):
             )
         }),
         ('Versicherung', {
-            'fields': (('krankenkasse', 'rega'),)
+            'fields': (('krankenkasse', 'unfallversicherung', 'rega'),)
         }),
         ('Hausarzt', {
             'fields': (
@@ -84,7 +84,7 @@ class AnmeldungAdmin(AdminImageMixin, reversion.VersionAdmin):
         ('Pfadizugehörigkeit', {
             'fields': (('abteilung', 'einheit', 'stufe'),)
         }),
-        ('Weiter Daten', {
+        ('Weitere Daten', {
             'fields': (
                 ('bahnabo', 'nationalitaet', 'land', 'erstsprache'),
                 ('vegetarier', 'schweinefleisch', 'bestaetigung'),

@@ -3,6 +3,13 @@
 
 {% block content %}
 <h1>Notfallblatt {{ kurs }}</h1>
+
+<p>Die Angaben auf dem Notfallblatt dienen der Lagerleitung bei allfälligen
+   unvorhergesehenen Vorkommnissen während des Lagers. Die Lagerleitung
+   verpflichtet sich, diese Angaben vertraulich zu behandeln. Die Daten werden
+   nach dem Kurs wieder gelöscht und niemals an Drittpersonen weitergegeben.
+</p>
+
 <form method="post" class="form-horizontal" enctype="multipart/form-data">
     {% csrf_token %}
 
@@ -25,8 +32,9 @@
             </fieldset>
 
             <fieldset>
-                <legend>Versicherung</legend>
+                <legend>Versicherung des Teilnehmers</legend>
                 {{ form.krankenkasse|bootstrap }}
+                {{ form.unfallversicherung|bootstrap }}
                 {{ form.rega|bootstrap }}
             </fieldset>
 
