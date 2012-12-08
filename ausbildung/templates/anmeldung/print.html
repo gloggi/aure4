@@ -29,7 +29,7 @@
             http://www.aure4.ch<br>
         </p>
 
-        {% thumbnail a.foto "150x150" as foto %}
+        {% thumbnail a.foto "250x200" as foto %}
         <img id="foto" src="{{ foto.url }}">
         {% endthumbnail %}
 
@@ -88,7 +88,10 @@
         <p id="unterschrift">Unterschrift</p>
 
         <br><br>
-        <p><strong>Mitteilung:</strong></p>
+        <p><strong>Mitteilung:</strong>
+            <span class="help">Zum Beispiel Absenzen während dem Lager</span>
+        </p>
+
         <textarea id="msg" onclick="this.value=''">Hier kannst du uns noch etwas mitteilen, wenn du möchtest</textarea>
 
         <a id="print" href="#print" onclick="window.print()" class="btn btn-large btn-info">
@@ -96,8 +99,8 @@
             Jetzt drucken
         </a>
         <span class="print_help">
-            Wenn dieser Knopf nicht funktioniert, dann kannst du diese Seite auch
-            einfach aus deinem Browser drucken (Datei -> Drucken, Ctrl+P, usw...)
+            Wenn dieser Knopf nicht funktioniert kannst du  diese Seite auch einfach aus deinem
+            Browser drucken.
         </span>
 
     </div>
