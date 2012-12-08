@@ -42,7 +42,7 @@
 
 		    <fieldset>
 		    	<legend>Weitere Daten</legend>
-	    		{% thumbnail form.instance.foto "100x100" as foto %}
+	    		{% thumbnail user.profil.foto "100x100" as foto %}
 	    		<div class="controls">
 	    			<img src="{{ foto.url }}">
 	    		</div>

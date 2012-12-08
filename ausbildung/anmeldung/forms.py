@@ -23,9 +23,10 @@ class AnmeldungForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(AnmeldungForm, self).__init__(*args, **kwargs)
-        choices = tuple(self.fields['abteilung'].choices)
-        choices += (('andere', 'Andere Abteilung'),)
-        self.fields['abteilung'].choices = choices
+        if not self.instance.id:
+            choices = tuple(self.fields['abteilung'].choices)
+            choices += (('andere', 'Andere Abteilung'),)
+            self.fields['abteilung'].choices = choices
 
     def make_immutable(self):
         for name, field in self.fields.iteritems():
