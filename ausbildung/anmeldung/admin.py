@@ -5,7 +5,7 @@ from sorl.thumbnail.admin import AdminImageMixin
 
 import reversion
 
-from .models import Kurs, Zusatzfeld, Abteilung, Anmeldung, Notfallblatt
+from .models import Kurs, Zusatzfeld, Abteilung, Anmeldung, Notfallblatt, ALFeedback
 
 
 class ZusatzfeldInline(admin.TabularInline):
@@ -59,11 +59,20 @@ class NotfallblattInline(admin.StackedInline):
     )
 
 
+class ALFeedbackInline(admin.StackedInline):
+    model = ALFeedback
+    raw_id_fields = ('user',)
+    fieldsets = [
+        ('Feedback', {'fields': ('user', 'mitteilung')}),
+        ('Kontaktperson', {'fields': (('kontaktperson', 'mobiltelefon'),)})
+    ]
+
+
 class AnmeldungAdmin(AdminImageMixin, reversion.VersionAdmin):
     list_display = ('__unicode__', 'kurs', 'abteilung', 'einheit')
     list_filter = ('kurs',)
     raw_id_fields = ('kurs',)
-    inlines = (NotfallblattInline,)
+    inlines = (NotfallblattInline, ALFeedbackInline)
     readonly_fields = ['erstellt', 'aktualisiert']
     fieldsets = [
         ('Admin', {
