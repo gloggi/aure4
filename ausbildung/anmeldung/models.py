@@ -279,3 +279,24 @@ class Notfallblatt(models.Model):
 
     def __unicode__(self):
         return 'Notfallblatt %s' % self.anmeldung.pfadiname
+
+
+class ALFeedback(models.Model):
+
+    anmeldung = models.OneToOneField(Anmeldung)
+
+    erstellt = models.DateTimeField(auto_now=True)
+    aktualisiert = models.DateTimeField(auto_now_add=True)
+
+    user = models.ForeignKey('auth.User')
+
+    mitteilung = models.TextField('Mitteilung',
+        help_text='In welchen Bereichen soll die/der TN speziell '
+            'gefördert werden, Bemerkungen, Antrag für Ausnahmen')
+
+    kontaktperson = models.CharField('Kontaktperson', max_length=255,
+        help_text='Kontaktperson der Abteilung / an wen kann sich die '
+            'Kursleitung bei Fragen wenden')
+
+    mobiltelefon = models.CharField('Natelnummer der Kontaktperson',
+        max_length=255, blank=True, null=True)
