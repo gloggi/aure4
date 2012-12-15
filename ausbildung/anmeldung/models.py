@@ -111,12 +111,31 @@ class Abteilung(models.Model):
     region = RequiredCharField('Region / Korps')
     name = RequiredCharField('Abteilungsname')
 
+    abteilungsleitung = models.ManyToManyField('auth.User',
+        through='Abteilungsleitung')
+
     class Meta:
         verbose_name = 'Abteilung'
         verbose_name_plural = 'Abteilungen'
 
     def __unicode__(self):
         return u'%s - %s' % (self.region, self.name)
+
+
+class Abteilungsleitung(models.Model):
+
+    abteilung = models.ForeignKey(Abteilung, related_name='leiter')
+    user = models.ForeignKey('auth.User', related_name='al')
+
+    seit = models.DateField(default=now)
+    bis = models.DateField(blank=True, null=True)
+
+    class Meta:
+        verbose_name = 'Abteilungsleiter'
+        verbose_name_plural = 'Abteilungsleiter'
+
+    def __unicode__(self):
+        return u'AL %s von %s' % (self.abteilung, self.user)
 
 
 class Anmeldung(models.Model):
@@ -300,3 +319,10 @@ class ALFeedback(models.Model):
 
     mobiltelefon = models.CharField('Natelnummer der Kontaktperson',
         max_length=255, blank=True, null=True)
+
+    class Meta:
+        verbose_name = 'ALFeedback'
+        verbose_name_plural = 'ALFeedbacks'
+
+    def __unicode__(self):
+        return u'Bestätgung für %s von %s' % (self.anmeldung, self.user)

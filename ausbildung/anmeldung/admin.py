@@ -5,7 +5,8 @@ from sorl.thumbnail.admin import AdminImageMixin
 
 import reversion
 
-from .models import Kurs, Zusatzfeld, Abteilung, Anmeldung, Notfallblatt, ALFeedback
+from .models import (Kurs, Zusatzfeld, Abteilung, Abteilungsleitung, Anmeldung,
+    Notfallblatt, ALFeedback)
 
 
 class ZusatzfeldInline(admin.TabularInline):
@@ -21,9 +22,15 @@ class KursAdmin(reversion.VersionAdmin):
     #date_hierarchy = 'von'
 
 
+class AbteilungsleitungInline(admin.StackedInline):
+    model = Abteilungsleitung
+    extra = 0
+
+
 class AbteilungAdmin(reversion.VersionAdmin):
     list_display = ('name', 'region', 'verband')
     search_fields = ('name', 'region')
+    inlines = (AbteilungsleitungInline,)
 
 
 class NotfallblattInline(admin.StackedInline):
