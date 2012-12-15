@@ -30,6 +30,7 @@ class AbteilungsleitungInline(admin.StackedInline):
 class AbteilungAdmin(reversion.VersionAdmin):
     list_display = ('name', 'region', 'verband')
     search_fields = ('name', 'region')
+    readonly_fields = ('slug',)
     inlines = (AbteilungsleitungInline,)
 
 
