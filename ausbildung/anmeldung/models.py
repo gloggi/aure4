@@ -3,6 +3,9 @@
 from django import forms
 from django.db import models
 from django.utils.timezone import now
+from django.template.defaultfilters import slugify
+
+from autoslug import AutoSlugField
 
 from sorl.thumbnail import ImageField
 
@@ -110,6 +113,8 @@ class Abteilung(models.Model):
     verband = RequiredCharField('Kantonalverband', default='ZH')
     region = RequiredCharField('Region / Korps')
     name = RequiredCharField('Abteilungsname')
+
+    slug = AutoSlugField(populate_from='name', unique=True)
 
     abteilungsleitung = models.ManyToManyField('auth.User',
         through='Abteilungsleitung')

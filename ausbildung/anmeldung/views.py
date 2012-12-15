@@ -187,3 +187,4 @@ def notfallblatt_edit(request, anmeldung):
         'form': form,
         'kurs': kurs
     })
+
