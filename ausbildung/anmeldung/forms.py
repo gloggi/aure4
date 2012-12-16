@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Abteilung, Anmeldung, Notfallblatt
+from .models import Abteilung, Anmeldung, Notfallblatt, ALFeedback
 
 
 class AbteilungForm(forms.ModelForm):
@@ -37,3 +37,18 @@ class NotfallblattForm(forms.ModelForm):
     class Meta:
         model = Notfallblatt
         exclude = ('anmeldung',)
+
+
+BLOCKINPUT = {'class': 'input-block-level'}
+
+
+class ALFeedbackForm(forms.ModelForm):
+    class Meta:
+        model = ALFeedback
+        exclude = ('user',)
+        widgets = {
+            'anmeldung': forms.HiddenInput(),
+            'mitteilung': forms.Textarea(attrs=BLOCKINPUT),
+            'kontaktperson': forms.TextInput(attrs=BLOCKINPUT),
+            'mobiltelefon': forms.TextInput(attrs=BLOCKINPUT),
+        }

@@ -117,7 +117,7 @@ class Abteilung(models.Model):
     slug = AutoSlugField(populate_from='name', unique=True)
 
     abteilungsleitung = models.ManyToManyField('auth.User',
-        through='Abteilungsleitung')
+        through='Abteilungsleitung', related_name='abteilungen')
 
     class Meta:
         verbose_name = 'Abteilung'

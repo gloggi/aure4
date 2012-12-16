@@ -1,12 +1,15 @@
 
-from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.forms.models import model_to_dict
 from django.core.exceptions import ObjectDoesNotExist
+from django.http import HttpResponseForbidden
+from django.forms.models import model_to_dict
+from django.shortcuts import render, redirect, get_object_or_404
+from django.utils.datastructures import SortedDict
 
-from .models import Kurs, Notfallblatt
+from .models import Abteilung, Kurs, Anmeldung, Notfallblatt
 
-from .forms import AbteilungForm, AnmeldungForm, NotfallblattForm
+from .forms import (AbteilungForm, AnmeldungForm, NotfallblattForm,
+    ALFeedbackForm)
 
 
 def requires_anmeldung(view):
@@ -188,3 +191,41 @@ def notfallblatt_edit(request, anmeldung):
         'kurs': kurs
     })
 
+
+@login_required
+def al_bereich(request, abteilung):
+    abteilung = get_object_or_404(Abteilung, slug=abteilung)
+
+    if abteilung not in request.user.abteilungen.all():
+        return HttpResponseForbidden('Du bist nicht AL dieser Abteilung')
+
+    anmeldungen = SortedDict()
+    for anmeldung in Anmeldung.objects.filter(abteilung=abteilung):
+        abteilung_tns = anmeldungen.setdefault(anmeldung.kurs, [])
+        abteilung_tns.append(anmeldung)
+
+    return render(request, 'kurse/albereich.html', {
+        'abteilung': abteilung,
+        'anmeldungen': anmeldungen
+    })
+
+
+@login_required
+def al_feedback(request, anmeldung_id):
+    anmeldung = get_object_or_404(Anmeldung, pk=anmeldung_id)
+
+    if anmeldung.abteilung not in request.user.abteilungen.all():
+        return HttpResponseForbidden('Anmeldung nicht aus deiner Abteilung!')
+
+    if request.method == 'POST':
+        form = ALFeedbackForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('al_bereich', abteilung=anmeldung.abteilung.slug)
+    else:
+        form = ALFeedbackForm(initial={'anmeldung': anmeldung})
+
+    return render(request, 'anmeldung/alfeedback_form.html',  {
+        'a': anmeldung,
+        'form': form
+    })

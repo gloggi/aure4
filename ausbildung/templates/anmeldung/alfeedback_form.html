@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load bootstrap anmeldung %}
+
+{% block content %}
+<h1>Bestätigung für {{ a }}</h1>
+
+<div class="row">
+    <div class="span6">
+        <h3>Personalien</h3>
+        <table class="table table-condensed">
+            <tr><th>Pfadiname</th><td>{{ a.pfadiname }}</td></tr>
+            <tr><th>Vorname</th><td>{{ a.vorname }}</td></tr>
+            <tr><th>Nachname</th><td>{{ a.nachname }}</td></tr>
+            <tr><th>Geburtsdatum</th><td>{{ a.geburtsdatum }}</td></tr>
+            <tr><th>Strasse</th><td>{{ a.strasse }}</td></tr>
+            <tr><th>Ort</th><td>{{ a.plz }} {{ a.ort }}</td></tr>
+            <tr><th>Land</th><td>{{ a.get_land_display }}</td></tr>
+            <tr><th>Email</th><td>{{ a.email }}</td></tr>
+            <tr><th>Telefon</th><td>{{ a.telefon }}</td></tr>
+            <tr><th>Natel</th><td>{{ a.natel }}</td></tr>
+        </table>
+    </div>
+    <div class="span6">
+        <h3>Pfadizugehörigkeit</h3>
+        <table class="table table-condensed">
+            <tr><th>Verband / Region</th><td>{{ a.abteilung.region }}</td></tr>
+            <tr><th>Abteilung</th><td>{{ a.abteilung.name }}</td></tr>
+            <tr><th>Einheit</th><td>{{ a.einheit }}</td></tr>
+            <tr><th>Stufe</th><td>{{ a.get_stufe_display }}</td></tr>
+        </table>
+
+        <h3>Weitere Angaben</h3>
+        <table class="table table-condensed">
+            <tr><th>Bahnabo</th><td>{{ a.bahnabo }}</td></tr>
+            <tr><th>Vegetarier</th><td>{{ a.vegetarier|printbool }}</td></tr>
+            <tr><th>Kein Schweinefleich</th><td>{{ a.schweinefleisch|printbool }}</td></tr>
+            <tr><th>Benötige Bestätigung</th><td>{{ a.bestaetigung|printbool }}</td></tr>
+        </table>
+    </div>
+</div>
+
+<form method="post" class="form-horizontal">
+    {% csrf_token %}
+
+    {{ form|bootstrap }}
+
+    <center>
+        <button type="submit" class="btn btn-large btn-primary">
+            <i class="icon-check"></i>
+            Anmeldung bestätigen
+        </button>
+    </center>
+</form>
+
+{% endblock %}

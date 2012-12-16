@@ -11,6 +11,17 @@
    Kurs anmelden kannst. Klicke dann auf den Kurs, der dich interessiert:
 </p>
 
+
+{% for abteilung in request.user.abteilungen.all %}
+    {% url al_bereich abteilung=abteilung.slug as al_url %}
+    <div class="form-actions">
+        <a href="{{ al_url }}" class="btn btn-large btn-info">
+            Die Anmeldungen deiner Abteilungen verwalten
+        </a>
+    </div>
+{% endfor %}
+
+
 {% for kurs in kurse %}
 <a href="{% url anmeldung_form kurs=kurs.url %}" class="kurs clearfix
     {% if kurs in angemeldete_kurse %}angemeldet{% endif %}">

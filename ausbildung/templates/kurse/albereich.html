@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>AL-Bereich {{ abteilung.name }}</h1>
+
+<p>Die Anmeldungen deiner Abteilung:</p>
+
+<br><br>
+
+{% for kurs, tns in anmeldungen.items %}
+    <h2>{{ kurs }}</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Einheit</th>
+                <th>Geburtsdatum</th>
+                <th>Angemeldet</th>
+                <th>Bestätigung</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for tn in tns %}
+            <tr>
+                <td>{{ tn }}</td>
+                <td>{{ tn.einheit }}</td>
+                <td>{{ tn.geburtsdatum|date:"d.m.Y" }}</td>
+                <td>{{ tn.erstellt|date:"d.m.Y" }}</td>
+                <td>
+                    {% url al_feedback anmeldung_id=tn.id as feedback_url %}
+                    <a href="{{ feedback_url }}" class="btn btn-small btn-success">
+                        Bestätigen
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endfor %}
+
+{% endblock %}

@@ -20,6 +20,8 @@ urlpatterns = patterns('ausbildung.anmeldung.views',
     url(r'^kurs/(?P<kurs>[-\w]+)/notfallblatt/edit/$', 'notfallblatt_edit',
         name='notfallblatt_edit'),
 
-    # url(r'^albereich/$', 'al_bereich',
-    #     name='albereich')
+    url(r'^albereich/(?P<abteilung>[-\w]+)/$', 'al_bereich',
+        name='al_bereich'),
+    url(r'^alfeedback/(?P<anmeldung_id>\d+)/$', 'al_feedback',
+        name='al_feedback')
 )
