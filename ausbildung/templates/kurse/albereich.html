@@ -22,16 +22,22 @@
         </thead>
         <tbody>
         {% for tn in tns %}
-            <tr>
+            <tr class="{% if tn.alfeedback %}success{% else %}warning{% endif %}">
                 <td>{{ tn }}</td>
                 <td>{{ tn.einheit }}</td>
                 <td>{{ tn.geburtsdatum|date:"d.m.Y" }}</td>
                 <td>{{ tn.erstellt|date:"d.m.Y" }}</td>
                 <td>
                     {% url al_feedback anmeldung_id=tn.id as feedback_url %}
-                    <a href="{{ feedback_url }}" class="btn btn-small btn-success">
-                        Bestätigen
-                    </a>
+                    {% if tn.alfeedback %}
+                        <a href="{{ feedback_url }}" class="btn btn-small btn-info">
+                            Bearbeiten
+                        </a>
+                    {% else %}
+                        <a href="{{ feedback_url }}" class="btn btn-small btn-success">
+                            Bestätigen
+                        </a>
+                    {% endif %}
                 </td>
             </tr>
         {% endfor %}

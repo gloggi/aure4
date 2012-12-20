@@ -1,4 +1,5 @@
 
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseForbidden
@@ -6,7 +7,7 @@ from django.forms.models import model_to_dict
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.datastructures import SortedDict
 
-from .models import Abteilung, Kurs, Anmeldung, Notfallblatt
+from .models import Abteilung, Kurs, Anmeldung, Notfallblatt, ALFeedback
 
 from .forms import (AbteilungForm, AnmeldungForm, NotfallblattForm,
     ALFeedbackForm)
@@ -217,13 +218,26 @@ def al_feedback(request, anmeldung_id):
     if anmeldung.abteilung not in request.user.abteilungen.all():
         return HttpResponseForbidden('Anmeldung nicht aus deiner Abteilung!')
 
+    try:
+        instance = anmeldung.alfeedback
+    except ALFeedback.DoesNotExist:
+        instance = None
+
     if request.method == 'POST':
-        form = ALFeedbackForm(request.POST)
+        form = ALFeedbackForm(request.POST,
+            initial={'anmeldung': anmeldung},
+            instance=instance
+        )
         if form.is_valid():
-            form.save()
+            feedback = form.save(commit=False)
+            feedback.user = request.user
+            feedback.save()
             return redirect('al_bereich', abteilung=anmeldung.abteilung.slug)
     else:
-        form = ALFeedbackForm(initial={'anmeldung': anmeldung})
+        form = ALFeedbackForm(
+            initial={'anmeldung': anmeldung},
+            instance=instance
+        )
 
     return render(request, 'anmeldung/alfeedback_form.html',  {
         'a': anmeldung,

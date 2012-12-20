@@ -69,6 +69,7 @@ class NotfallblattInline(admin.StackedInline):
 
 class ALFeedbackInline(admin.StackedInline):
     model = ALFeedback
+    extra = 0
     raw_id_fields = ('user',)
     fieldsets = [
         ('Feedback', {'fields': ('user', 'mitteilung')}),
