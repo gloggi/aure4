@@ -2,6 +2,7 @@
 
 from django import forms
 from django.utils.safestring import mark_safe
+from django.core.exceptions import ValidationError
 
 from .models import Abteilung, Anmeldung, Notfallblatt, ALFeedback
 
@@ -19,6 +20,10 @@ class AbteilungForm(forms.ModelForm):
 
 
 class AnmeldungForm(forms.ModelForm):
+    tos = forms.BooleanField(
+        widget=forms.CheckboxInput(attrs={'required':'required'})
+    )
+
     class Meta:
         model = Anmeldung
         exclude = ('kurs', 'user', 'anmeldung_erhalten', 'notfallblatt_erhalten',
@@ -30,6 +35,12 @@ class AnmeldungForm(forms.ModelForm):
             choices = tuple(self.fields['abteilung'].choices)
             choices += (('andere', 'Andere Abteilung'),)
             self.fields['abteilung'].choices = choices
+
+    def clean_tos(self):
+        tos = self.cleaned_data.get('tos', False)
+        if not tos:
+            raise ValidationError('Du musst die Anmeldebedingungen akzeptieren')
+        return tos
 
     def make_immutable(self):
         for name, field in self.fields.iteritems():

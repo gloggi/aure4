@@ -70,7 +70,21 @@
 	<br>
 
 	<center>
-		<p>Bitte überprüfe deine Daten nochmals, bevor du die Anmeldung abschickst</p>
+		<div class="control-group {% if form.tos.errors %}error{% endif %} required">
+			<div class="checkfield">
+				<label class="check">
+				{{ form.tos }}
+				<span>
+					Ich akzeptiere die	<a href="/bedingungen/" target="_blank">
+						Teilnahmebedingungen</a>
+				</label>
+				</span>
+			</div>
+
+			{% for error in form.tos.errors %}
+                <span class="help-inline">{{ error }}</span>
+            {% endfor %}
+		</div>
 	</center>
 	<br>
     <button id="anmelden_button" type="submit" class="btn btn-large btn-primary">

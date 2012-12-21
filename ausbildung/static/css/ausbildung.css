@@ -38,6 +38,10 @@
     padding: 0 20px;
 }
 
+.anmeldung .checkfield input[type="checkbox"] {
+    margin: 0;
+}
+
 .anmeldung input[readonly=readonly],
 .anmeldung select[readonly=readonly] {
     background: white;
