@@ -95,15 +95,30 @@
   <div class="anmeldung_box">
     <h3>3. Bestätigung der Abteilungsleitung</h3>
     <br>
-      <div class="alert alert-error">
-       <i class="icon-check-empty"></i> <strong>Noch nicht abgeschlossen</strong>
-      </div>
-      <p>Deine Abteilungsleitung muss deine Anmeldung noch bestätigen. Dazu bekommt
-        er von uns ein Login und kann hier auf dieser Seite sein OK zu deiner
-        Anmeldung geben. So wissen wir, dass du für diesen Kurs genug erfahren
-        und motiviert bist. Dank dem Feedback deiner AL können wir auch spezifisch
-        auf deine Bedürfnisse eingehen.
-      </p>
+      {% if not anmeldung.alfeedback %}
+          <div class="alert alert-error">
+            <i class="icon-check-empty"></i> <strong>Noch nicht abgeschlossen</strong>
+          </div>
+          <p>Deine Abteilungsleitung muss deine Anmeldung noch bestätigen. Dazu bekommt
+            er von uns ein Login und kann hier auf dieser Seite sein OK zu deiner
+            Anmeldung geben. So wissen wir, dass du für diesen Kurs genug erfahren
+            und motiviert bist. Dank dem Feedback deiner AL können wir auch spezifisch
+            auf deine Bedürfnisse eingehen.
+          </p>
+      {% elif not anmeldung.alfeedback.ok %}
+          <div class="alert alert-error">
+            <i class="icon-ban-circle"></i> <strong>ANMELDUNG NICHT OK!</strong>
+          </div>
+          <p>Deine Abteilungsleitung hat deine Anmeldung mit einer Begründung
+            abgelehnt. Diese Begründung wird dir so bald wie möglich mitgeteilt.
+            Wir schauen die Sache an und geben dir Bescheid!
+          </p>
+      {% else %}
+          <div class="alert alert-success">
+            <i class="icon-check"></i> <strong>Anmeldung bestätigt</strong>
+          </div>
+          <p>Deine Abteilungsleitung hat deine Teilnahme am Kurs bestätigt.</p>
+      {% endif %}
   </div>
 
   <div class="anmeldung_box">
