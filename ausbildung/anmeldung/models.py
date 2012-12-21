@@ -31,7 +31,7 @@ class Kurs(models.Model):
 
     jahrgang = models.SmallIntegerField(blank=True, null=True)
 
-    hauptleiter = OptionalCharField('Hauptleiter')
+    hauptleiter = OptionalCharField('HauptleiterInn')
     email = models.EmailField('Email', blank=True, null=True)
 
     erfasst = models.DateTimeField('Erfasst', auto_now_add=True)
