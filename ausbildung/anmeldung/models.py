@@ -287,12 +287,12 @@ class Notfallblatt(models.Model):
         help_text='Gönner der Schweizerischen Rettungsflugwacht (Rega)')
 
     # Hausarzt
-    arzt_name = RequiredCharField('Voller Name',
+    arzt_name = OptionalCharField('Voller Name',
         help_text="z.Bsp Dr. med. Christian und Ursula Koeppel | Allgemeine Medizin FMH")
-    arzt_strasse = RequiredCharField('Strasse')
-    arzt_plz = models.IntegerField('PLZ')
-    arzt_ort = RequiredCharField('Ort')
-    arzt_telefon = RequiredCharField('Telefon Praxis')
+    arzt_strasse = OptionalCharField('Strasse')
+    arzt_plz = models.IntegerField('PLZ', blank=True, null=True)
+    arzt_ort = OptionalCharField('Ort')
+    arzt_telefon = OptionalCharField('Telefon Praxis')
 
     # Gesundheitszustand
     starrkrampf = RequiredCharField('Datum der letzten Starrkrampfimpfung')
