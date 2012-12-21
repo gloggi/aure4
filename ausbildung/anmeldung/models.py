@@ -29,6 +29,8 @@ class Kurs(models.Model):
     bis = models.DateField('Bis')
     anmeldeschluss = models.DateField('Anmeldeschluss')
 
+    jahrgang = models.SmallIntegerField(blank=True, null=True)
+
     hauptleiter = OptionalCharField('Hauptleiter')
     email = models.EmailField('Email', blank=True, null=True)
 

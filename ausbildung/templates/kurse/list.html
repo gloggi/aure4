@@ -43,8 +43,18 @@
         <tr>
             <th>Freie Plätze:</th><td>{{ kurs.freie_plaetze }}</td>
 
+            {% if kurs.jahrgang %}
+            <th>Ab Jahrgang:</th><td>{{ kurs.jahrgang }}</td>
+            {% endif %}
+        </tr>
+
+        <tr>
             {% if kurs.hauptleiter %}
             <th>Hauptleiter:</th><td>{{ kurs.hauptleiter }}</td>
+            {% endif %}
+
+            {% if kurs.nummer %}
+            <th>Kursnummer:</th><td>{{ kurs.nummer }}</td>
             {% endif %}
         </tr>
     </table>
