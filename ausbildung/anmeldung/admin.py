@@ -72,14 +72,14 @@ class ALFeedbackInline(admin.StackedInline):
     extra = 0
     raw_id_fields = ('user',)
     fieldsets = [
-        ('Feedback', {'fields': ('user', 'mitteilung')}),
+        ('Feedback', {'fields': ('ok', 'user', 'mitteilung')}),
         ('Kontaktperson', {'fields': (('kontaktperson', 'mobiltelefon'),)})
     ]
 
 
 class AnmeldungAdmin(AdminImageMixin, reversion.VersionAdmin):
-    list_display = ('__unicode__', 'kurs', 'abteilung', 'einheit')
-    list_filter = ('kurs',)
+    list_display = ('__unicode__', 'kurs', 'abteilung', 'einheit', 'al_ok')
+    list_filter = ('kurs', 'alfeedback__ok')
     raw_id_fields = ('kurs',)
     inlines = (NotfallblattInline, ALFeedbackInline)
     readonly_fields = ['erstellt', 'aktualisiert']

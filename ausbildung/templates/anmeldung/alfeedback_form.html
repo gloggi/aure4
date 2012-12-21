@@ -42,7 +42,29 @@
 <form method="post" class="form-horizontal">
     {% csrf_token %}
 
-    {{ form|bootstrap }}
+    {% include "bootstrapform/errors.html" %}
+
+    {{ form.ok|bootstrap }}
+
+    <div class="control-group {% if form.mitteilung.errors %}error{% endif %} required">
+        <label class="control-label" for="{{ form.mitteilung.auto_id }}">
+            Details
+        </label>
+
+        <div class="controls">
+            <p class="help-block" style="margin:0 0 5px 0">
+                {{ form.mitteilung.help_text|safe }}:
+            </p>
+            {{ form.mitteilung }}
+
+            {% for error in field.errors %}
+                <span class="help-inline">{{ error }}</span>
+            {% endfor %}
+        </div>
+    </div>
+
+    {{ form.kontaktperson|bootstrap }}
+    {{ form.mobiltelefon|bootstrap }}
 
     <center>
         <button type="submit" class="btn btn-large btn-primary">

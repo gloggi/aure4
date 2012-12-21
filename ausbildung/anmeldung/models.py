@@ -247,6 +247,22 @@ class Anmeldung(models.Model):
     def __unicode__(self):
         return u'%s %s v/o %s' % (self.vorname, self.nachname, self.pfadiname)
 
+    def tr_class(self):
+        try:
+            print self.alfeedback
+            if self.alfeedback.ok:
+                return 'success'
+            else:
+                return 'error'
+        except:
+            return 'warning'
+
+    def al_ok(self):
+        try:
+            return self.alfeedback.ok
+        except:
+            return False
+    al_ok.boolean = True
 
 class Notfallblatt(models.Model):
     anmeldung = models.OneToOneField(Anmeldung)
@@ -312,11 +328,13 @@ class ALFeedback(models.Model):
     erstellt = models.DateTimeField(auto_now=True)
     aktualisiert = models.DateTimeField(auto_now_add=True)
 
-    user = models.ForeignKey('auth.User')
+    user = models.ForeignKey('auth.User', verbose_name='Erstellt von')
+
+    ok = models.BooleanField('OK', default=True)
 
     mitteilung = models.TextField('Mitteilung',
         help_text='In welchen Bereichen soll die/der TN speziell '
-            'gefördert werden, Bemerkungen, Antrag für Ausnahmen')
+            'gefördert werden, Bemerkungen, Begründung Ablehnung')
 
     kontaktperson = models.CharField('Kontaktperson', max_length=255,
         help_text='Kontaktperson der Abteilung / an wen kann sich die '

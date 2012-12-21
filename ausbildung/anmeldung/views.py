@@ -1,3 +1,4 @@
+# encoding: utf-8
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -232,6 +233,12 @@ def al_feedback(request, anmeldung_id):
             feedback = form.save(commit=False)
             feedback.user = request.user
             feedback.save()
+
+            if not feedback.ok:
+                messages.warning(request, u'Danke für deine Rückmeldung. '
+                    u'Da du die Anmeldung nicht bestätigt hasst, werden wir '
+                    u'uns sobald wie möglich mit dir in Verbindung setzen')
+
             return redirect('al_bereich', abteilung=anmeldung.abteilung.slug)
     else:
         form = ALFeedbackForm(

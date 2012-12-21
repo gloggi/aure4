@@ -1,4 +1,7 @@
+# encoding: utf-8
+
 from django import forms
+from django.utils.safestring import mark_safe
 
 from .models import Abteilung, Anmeldung, Notfallblatt, ALFeedback
 
@@ -39,10 +42,28 @@ class NotfallblattForm(forms.ModelForm):
         exclude = ('anmeldung',)
 
 
+class Horizontal(forms.RadioSelect.renderer):
+
+    def render(self):
+        return mark_safe(u'\n'.join([u'%s\n' % w for w in self]))
+
+
 BLOCKINPUT = {'class': 'input-block-level'}
+
+YES_OR_NO = (
+    (True, u'Ja, ich bestätige diese Anmeldung'),
+    (False, u'Nein, aus folgendem Grund')
+)
 
 
 class ALFeedbackForm(forms.ModelForm):
+    ok = forms.TypedChoiceField(
+        label=u'Bestätigung',
+        choices=YES_OR_NO,
+        widget=forms.RadioSelect(renderer=Horizontal),
+        required=True
+    )
+
     class Meta:
         model = ALFeedback
         exclude = ('user',)

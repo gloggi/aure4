@@ -22,7 +22,7 @@
         </thead>
         <tbody>
         {% for tn in tns %}
-            <tr class="{% if tn.alfeedback %}success{% else %}warning{% endif %}">
+            <tr class="{{ tn.tr_class }}">
                 <td>{{ tn }}</td>
                 <td>{{ tn.einheit }}</td>
                 <td>{{ tn.geburtsdatum|date:"d.m.Y" }}</td>
