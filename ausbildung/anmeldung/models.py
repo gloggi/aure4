@@ -263,7 +263,8 @@ class Anmeldung(models.Model):
         try:
             return self.alfeedback.ok
         except:
-            return False
+            return None
+    al_ok.short_description = u"AL Betätigung"
     al_ok.boolean = True
 
 class Notfallblatt(models.Model):
