@@ -1,4 +1,5 @@
 # encoding: utf-8
+from datetime import timedelta
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -7,6 +8,7 @@ from django.http import HttpResponseForbidden
 from django.forms.models import model_to_dict
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.datastructures import SortedDict
+from django.utils.timezone import now
 
 from .models import Abteilung, Kurs, Anmeldung, Notfallblatt, ALFeedback
 
@@ -29,7 +31,7 @@ def index(request):
 
 
 def kurse_list(request):
-    kurse = Kurs.objects.open()
+    kurse = Kurs.objects.all()
 
     if request.user.is_authenticated():
         angemeldete_kurse = request.user.angemeldete_kurse.all()
@@ -45,6 +47,9 @@ def kurse_list(request):
 @login_required
 def anmeldung_form(request, kurs):
     kurs = get_object_or_404(Kurs, url=kurs)
+
+    if now().date() - timedelta(days=60) > kurs.anmeldeschluss:
+        return render(request, 'anmeldung/too_late.html')
 
     if request.user in kurs.teilnehmer.all():
         return redirect('anmeldung_view', kurs=kurs.url)
