@@ -134,6 +134,7 @@ INSTALLED_APPS = (
     'gunicorn',
     'sorl.thumbnail',
     'reversion',
+    'report_builder',
 
     'ausbildung',
     'ausbildung.account',
