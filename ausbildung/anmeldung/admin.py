@@ -123,3 +123,13 @@ class AnmeldungAdmin(AdminImageMixin, reversion.VersionAdmin):
 admin.site.register(Abteilung, AbteilungAdmin)
 admin.site.register(Kurs, KursAdmin)
 admin.site.register(Anmeldung, AnmeldungAdmin)
+
+from report_builder.models import Report
+from report_builder.admin import ReportAdmin
+
+admin.site.unregister(Report)
+
+class SaveAsReportAdmin(ReportAdmin):
+    save_as = True
+
+admin.site.register(Report, SaveAsReportAdmin)
