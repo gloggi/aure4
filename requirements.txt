@@ -24,6 +24,8 @@ newrelic==1.5.0.103
 openpyxl==1.6.1
 psycopg2==2.4.5
 pylibmc==1.2.3
+python-dateutil==2.1
 python-memcached==1.48
+six==1.2.0
 sorl-thumbnail==11.12
 wsgiref==0.1.2
