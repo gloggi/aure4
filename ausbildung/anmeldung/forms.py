@@ -10,6 +10,7 @@ from .models import Abteilung, Anmeldung, Notfallblatt, ALFeedback
 class AbteilungForm(forms.ModelForm):
     class Meta:
         model = Abteilung
+        exclude = ('abteilungsleitung',)
 
     def save(self, *args, **kwargs):
         # Dont' save if an exact copy already exist
