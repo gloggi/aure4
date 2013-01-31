@@ -79,7 +79,7 @@ class ALFeedbackInline(admin.StackedInline):
 
 class AnmeldungAdmin(AdminImageMixin, reversion.VersionAdmin):
     list_display = ('__unicode__', 'kurs', 'abteilung', 'einheit', 'al_ok', 'anmeldedatum')
-    list_filter = ('kurs', 'alfeedback__ok')
+    list_filter = ('kurs', 'alfeedback__ok', 'bestaetigung')
     raw_id_fields = ('user', 'kurs',)
     inlines = (NotfallblattInline, ALFeedbackInline)
     readonly_fields = ['erstellt', 'aktualisiert']
