@@ -105,6 +105,7 @@ class AnmeldungAdmin(AdminImageMixin, reversion.VersionAdmin):
         ('Weitere Daten', {
             'fields': (
                 ('bahnabo', 'nationalitaet', 'land', 'erstsprache'),
+                ('js', 'ahv'),
                 ('vegetarier', 'schweinefleisch', 'bestaetigung'),
             )
         }),
