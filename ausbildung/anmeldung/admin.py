@@ -78,7 +78,7 @@ class ALFeedbackInline(admin.StackedInline):
 
 
 class AnmeldungAdmin(AdminImageMixin, reversion.VersionAdmin):
-    list_display = ('__unicode__', 'kurs', 'abteilung', 'einheit', 'al_ok')
+    list_display = ('__unicode__', 'kurs', 'abteilung', 'einheit', 'al_ok', 'anmeldedatum')
     list_filter = ('kurs', 'alfeedback__ok')
     raw_id_fields = ('user', 'kurs',)
     inlines = (NotfallblattInline, ALFeedbackInline)
@@ -119,6 +119,8 @@ class AnmeldungAdmin(AdminImageMixin, reversion.VersionAdmin):
             "all": ("css/admin.css",)
         }
 
+    def anmeldedatum(self, obj):
+        return obj.erstellt.strftime('%d.%m.%Y')
 
 admin.site.register(Abteilung, AbteilungAdmin)
 admin.site.register(Kurs, KursAdmin)
