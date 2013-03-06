@@ -3,10 +3,12 @@ from datetime import timedelta
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseForbidden
 from django.forms.models import model_to_dict
 from django.shortcuts import render, redirect, get_object_or_404
+from django.template.loader import render_to_string
 from django.utils.datastructures import SortedDict
 from django.utils.timezone import now
 
@@ -90,6 +92,14 @@ def anmeldung_form(request, kurs):
             if zusatzform.is_valid():
                 anmeldung.zusatz = zusatzform.clean()
                 anmeldung.save()
+
+                subject = u'Anmeldung von %(name)s an %(kurs)s' % \
+                    {'name': anmeldung.pfadiname, 'kurs': anmeldung.kurs}
+                message = render_to_string('anmeldung/email.txt',
+                    {'a': anmeldung})
+                send_mail(subject, message, 'anmeldung@aure4.ch',
+                    ['kodack@gloggi.ch', 'chili@gloggi.ch'])
+
                 return redirect('anmeldung_view', kurs=kurs.url)
     else:
         form = AnmeldungForm(initial=initial)

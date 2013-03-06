@@ -1,0 +1,16 @@
+
+Eine neue Anmledung wurde auf aure4.ch erfasst.
+
+Kurs: {{ a.kurs }}
+
+Pfadiname: {{ a.pfadiname }}
+Vorname: {{ a.vorname }}
+Nachname: {{ a.nachname }}
+
+Abteilung: {{ a.abteilung }}
+Einheit: {{ a.einheit }}
+Stufe: {{ a.stufe}}
+
+Geburtsdatum: {{ a.geburtsdatum }}
+Email: {{ a.email }}
+Handy: {{ a.mobiltelefon }}
