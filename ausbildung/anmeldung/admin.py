@@ -6,6 +6,7 @@ from datetime import date
 from django.contrib import admin
 from django.contrib.admin.util import lookup_field
 from django.http import HttpResponse
+from django.shortcuts import render
 from django.utils.encoding import force_unicode
 from django.utils.translation import ugettext_lazy as _
 from django.utils.timezone import now
@@ -139,10 +140,14 @@ def sportdb_export(modeladmin, request, queryset):
 sportdb_export.short_description = _('Export as csv')
 
 
+def print_export(modeladmin, request, queryset):
+    return render(request, 'anmeldung/export.html', {'anmeldungen': queryset})
+
+
 class AnmeldungAdmin(AdminImageMixin, reversion.VersionAdmin):
     list_display = ('__unicode__', 'kurs', 'abteilung', 'einheit', 'al_ok', 'anmeldedatum')
     list_filter = ('kurs', 'alfeedback__ok', 'bestaetigung')
-    actions = [sportdb_export]
+    actions = [sportdb_export, print_export]
     raw_id_fields = ('user', 'kurs',)
     inlines = (NotfallblattInline, ALFeedbackInline)
     readonly_fields = ['erstellt', 'aktualisiert']

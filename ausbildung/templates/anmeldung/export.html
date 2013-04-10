@@ -1,0 +1,121 @@
+{% load anmeldung thumbnail %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Anmeldungen {{ anmeldung.kurs }}</title>
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/normalize.min.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}libs/bootstrap/css/font-awesome.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/anmeldung_print.css">
+    <style type="text/css">
+        hr { margin: 20px 0;}
+        h2 { color: #000; font-size: 24px; margin-bottom: 10px; }
+        p { margin-bottom: 10px; line-height: 1.5em;}
+        th.cat { font-size: 18px; }
+    </style>
+</head>
+<body>
+    {% for a in anmeldungen %}
+    <div class="clearfix">
+        <h1>{{ a.vorname }} {{ a.nachname }} v/o {{ a.pfadiname }}</h1>
+
+        {% thumbnail a.foto "250x200" as foto %}
+        <img id="foto" src="{{ foto.url }}">
+        {% endthumbnail %}
+    </div>
+    <br>
+    <div class="clearfix">
+        <h2>Anmeldung</h2>
+        <table class="spalte1">
+            <tr><th colspan="2" class="cat">
+                Personalien
+            </th></tr>
+            <tr><th>Pfadiname</th><td>{{ a.pfadiname }}</td></tr>
+            <tr><th>Vorname</th><td>{{ a.vorname }}</td></tr>
+            <tr><th>Nachname</th><td>{{ a.nachname }}</td></tr>
+            <tr><th>Geburtsdatum</th><td>{{ a.geburtsdatum }}</td></tr>
+            <tr><th>Strasse</th><td>{{ a.strasse }}</td></tr>
+            <tr><th>Ort</th><td>{{ a.plz }} {{ a.ort }}</td></tr>
+            <tr><th>Land</th><td>{{ a.get_land_display }}</td></tr>
+            <tr><th>Email</th><td>{{ a.email }}</td></tr>
+            <tr><th>Telefon</th><td>{{ a.telefon }}</td></tr>
+            <tr><th>Natel</th><td>{{ a.natel }}</td></tr>
+        </table>
+        <table class="spalte2">
+            <tr><th colspan="2" class="cat">
+                Pfadizugehörigkeit
+            </th></tr>
+            <tr><th>Verband / Region</th><td>{{ a.abteilung.region }}</td></tr>
+            <tr><th>Abteilung</th><td>{{ a.abteilung.name }}</td></tr>
+            <tr><th>Einheit</th><td>{{ a.einheit }}</td></tr>
+            <tr><th>Stufe</th><td>{{ a.get_stufe_display }}</td></tr>
+
+            <tr><th colspan="2" class="cat">
+                Weitere Angaben
+            </th></tr>
+            <tr><th>Bahnabo</th><td>{{ a.bahnabo }}</td></tr>
+            <tr><th>Vegetarier</th><td>{{ a.vegetarier|printbool }}</td></tr>
+            <tr><th>Kein Schweinefleich</th><td>{{ a.schweinefleisch|printbool }}</td></tr>
+            <tr><th>Benötige Bestätigung</th><td>{{ a.bestaetigung|printbool }}</td></tr>
+        </table>
+    </div>
+    <br>
+    <div class="clearfix">
+        <h2>AL Feedback </h2>
+        <p><strong>Kontaktperson:</strong> {{ a.alfeedback.kontaktperson }}
+           <strong>Natelnummer:</strong> {{ a.alfeedback.mobiltelefon }}</p>
+        <p><strong>Mittteilung:</strong><br> {{ a.alfeedback.mitteilung }}</p>
+    </div>
+    <br>
+    <div class="clearfix">
+        {% if a.notfallblatt %}
+        <h2>Notfallblatt</h2>
+        <table class="spalte1">
+            <tr><th colspan="2" class="cat">
+                Kontaktperson während dem Lager
+            </th></tr>
+            <tr><th>Voller Name</th><td>{{ a.notfallblatt.kontakt }}</td></tr>
+            <tr><th>Strasse</th><td>{{ a.notfallblatt.strasse }}</td></tr>
+            <tr><th>Ort</th><td>{{ a.notfallblatt.plz }} {{ a.notfallblatt.ort }}</td></tr>
+            <tr><th>Land</th><td>{{ a.notfallblatt.land }}</td></tr>
+            <tr><th>Email</th><td>{{ a.notfallblatt.email }}</td></tr>
+            <tr><th>Telefon</th><td>{{ a.notfallblatt.telefon }}</td></tr>
+            <tr><th>Natel</th><td>{{ a.notfallblatt.mobiltelefon }}</td></tr>
+        </table>
+        <table class="spalte2">
+            <tr><th colspan="2" class="cat">
+                Versicherung
+            </th></tr>
+            <tr><th>Krankenkasse</th><td>{{ a.notfallblatt.krankenkasse }}</td></tr>
+            <tr><th>Unfallversicherung</th><td>{{ a.notfallblatt.unfallversicherung }}</td></tr>
+            <tr><th>Regagönner</th><td>{{ a.notfallblatt.rega }}</td></tr>
+            <tr><th colspan="2" class="cat">
+                Hausarzt
+            </th></tr>
+            <tr><th>Voller Name</th><td>{{ a.notfallblatt.arzt_name }}</td></tr>
+            <tr><th>Strasse</th><td>{{ a.notfallblatt.arzt_strasse }}</td></tr>
+            <tr><th>Ort</th><td>{{ a.notfallblatt.arzt_plz }} {{ a.notfallblatt.arzt_ort }}</td></tr>
+            <tr><th>Telefon</th><td>{{ a.notfallblatt.azrt_telefon }}</td></tr>
+        </table>
+
+        <br>
+        <p><strong>Datum der letzten Starrkrampfimpfung</strong> {{ a.notfallblatt.starrkrampf}}</p>
+
+        <p><strong>Medikamente:</strong><br> {{ a.notfallblatt.medikamente }}</p>
+
+        <p><strong>Verabreichung durch Lagerleitung:</strong>
+            {% if a.notfallblatt.medis_ll %}JA{% else %}NEIN{% endif %}</p>
+
+        <p><strong>Gesundheitszustand:</strong><br> {{ a.notfallblatt.gesundheitszustand }}</p>
+
+        <p><strong>Weiteres:</strong><br> {{ a.notfallblatt.weiteres }}</p>
+        {% else %}
+            <h3>Kein Notfallblatt</h3>
+        {% endif %}
+    </div>
+    <hr>
+    {% endfor %}
+</body>
+</html>
