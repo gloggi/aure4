@@ -33,7 +33,7 @@ def index(request):
 
 
 def kurse_list(request):
-    kurse = Kurs.objects.all()
+    kurse = Kurs.objects.online()
 
     if request.user.is_authenticated():
         angemeldete_kurse = request.user.angemeldete_kurse.all()

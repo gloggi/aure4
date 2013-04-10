@@ -16,8 +16,14 @@ class KursManager(models.Manager):
     def open(self):
         return self.get_query_set().filter(anmeldeschluss__gte=now())
 
+    def online(self):
+        return self.filter(online=True)
 
 class Kurs(models.Model):
+
+    online = models.BooleanField('Online', help_text='Auf Webseite anzeigen',
+        default=True)
+
     name = RequiredCharField('Name')
     url = models.SlugField('url')
 
