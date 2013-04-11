@@ -145,7 +145,7 @@ def print_export(modeladmin, request, queryset):
 
 
 class AnmeldungAdmin(AdminImageMixin, reversion.VersionAdmin):
-    list_display = ('__unicode__', 'kurs', 'abteilung', 'einheit', 'al_ok', 'anmeldedatum')
+    list_display = ('pfadiname', 'vorname', 'nachname', 'kurs', 'abteilung', 'einheit', 'al_ok', 'erstellt')
     list_filter = ('kurs', 'alfeedback__ok', 'bestaetigung')
     actions = [sportdb_export, print_export]
     raw_id_fields = ('user', 'kurs',)
