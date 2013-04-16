@@ -54,11 +54,14 @@ body {
 
 p {
     color: black;
+    margin-bottom: 10px;
+    line-height: 1.5em;
 }
 
 h1 {
     color: black;
     font-size: 30px;
+    line-height: 1.2em;
     margin-bottom: 10px;
 }
 
@@ -138,4 +141,23 @@ th.cat {
 .print_help {
     color: #888;
     font-size: 12px;
+}
+
+hr {
+    border-top: 1px solid black;
+    margin: 20px 0;
+    page-break-after:always;
+}
+
+hr:last-child {
+    border: none;
+    page-break-after:avoid;
+}
+
+@media print {
+    hr {
+        border:none;
+    }
+
+
 }

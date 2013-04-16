@@ -137,17 +137,23 @@ def sportdb_export(modeladmin, request, queryset):
 
     return response
 
-sportdb_export.short_description = _('Export as csv')
+sportdb_export.short_description = 'Sportdb Export (CSV, UTF-8)'
 
 
 def print_export(modeladmin, request, queryset):
-    return render(request, 'anmeldung/export.html', {'anmeldungen': queryset})
+    return render(request, 'anmeldung/anmeldung_print.html', {'anmeldungen': queryset})
+print_export.short_description = 'Anmeldungen Drucken'
+
+
+def notfallblatt_export(modeladmin, request, queryset):
+    return render(request, 'anmeldung/notfallblatt_print.html', {'anmeldungen': queryset})
+notfallblatt_export.short_description = 'Notfallblätter Drucken'
 
 
 class AnmeldungAdmin(AdminImageMixin, reversion.VersionAdmin):
     list_display = ('__unicode__', 'kurs', 'abteilung', 'einheit', 'al_ok', 'anmeldedatum')
     list_filter = ('kurs', 'alfeedback__ok', 'bestaetigung')
-    actions = [sportdb_export, print_export]
+    actions = [sportdb_export, print_export, notfallblatt_export]
     raw_id_fields = ('user', 'kurs',)
     inlines = (NotfallblattInline, ALFeedbackInline)
     readonly_fields = ['erstellt', 'aktualisiert']

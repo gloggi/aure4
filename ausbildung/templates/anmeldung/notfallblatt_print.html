@@ -9,69 +9,29 @@
     <link rel="stylesheet" href="{{ STATIC_URL }}libs/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ STATIC_URL }}libs/bootstrap/css/font-awesome.css">
     <link rel="stylesheet" href="{{ STATIC_URL }}css/anmeldung_print.css">
-    <style type="text/css">
-        hr { margin: 20px 0;}
-        h2 { color: #000; font-size: 24px; margin-bottom: 10px; }
-        p { margin-bottom: 10px; line-height: 1.5em;}
-        th.cat { font-size: 18px; }
-    </style>
 </head>
 <body>
     {% for a in anmeldungen %}
-    <div class="clearfix">
-        <h1>{{ a.vorname }} {{ a.nachname }} v/o {{ a.pfadiname }}</h1>
+    {% if a.notfallblatt %}
+    <div class="header clearfix">
+        <img id="logo" src="{{ STATIC_URL }}img/logo_print.png" class="left">
 
-        {% thumbnail a.foto "250x200" as foto %}
+        <p id="kontakt">
+            Pfadi Züri AuRe 4, Flamberg & Glockenhof<br>
+            Andreas Mörker v/o Kodack, kodack@gloggi.ch<br>
+            http://aure4.ch
+        </p>
+    </div>
+
+    <div class="clearfix">
+        {% thumbnail a.foto "250x250" as foto %}
         <img id="foto" src="{{ foto.url }}">
         {% endthumbnail %}
-    </div>
-    <br>
-    <div class="clearfix">
-        <h2>Anmeldung</h2>
-        <table class="spalte1">
-            <tr><th colspan="2" class="cat">
-                Personalien
-            </th></tr>
-            <tr><th>Pfadiname</th><td>{{ a.pfadiname }}</td></tr>
-            <tr><th>Vorname</th><td>{{ a.vorname }}</td></tr>
-            <tr><th>Nachname</th><td>{{ a.nachname }}</td></tr>
-            <tr><th>Geburtsdatum</th><td>{{ a.geburtsdatum }}</td></tr>
-            <tr><th>Strasse</th><td>{{ a.strasse }}</td></tr>
-            <tr><th>Ort</th><td>{{ a.plz }} {{ a.ort }}</td></tr>
-            <tr><th>Land</th><td>{{ a.get_land_display }}</td></tr>
-            <tr><th>Email</th><td>{{ a.email }}</td></tr>
-            <tr><th>Telefon</th><td>{{ a.telefon }}</td></tr>
-            <tr><th>Natel</th><td>{{ a.natel }}</td></tr>
-        </table>
-        <table class="spalte2">
-            <tr><th colspan="2" class="cat">
-                Pfadizugehörigkeit
-            </th></tr>
-            <tr><th>Verband / Region</th><td>{{ a.abteilung.region }}</td></tr>
-            <tr><th>Abteilung</th><td>{{ a.abteilung.name }}</td></tr>
-            <tr><th>Einheit</th><td>{{ a.einheit }}</td></tr>
-            <tr><th>Stufe</th><td>{{ a.get_stufe_display }}</td></tr>
 
-            <tr><th colspan="2" class="cat">
-                Weitere Angaben
-            </th></tr>
-            <tr><th>Bahnabo</th><td>{{ a.bahnabo }}</td></tr>
-            <tr><th>Vegetarier</th><td>{{ a.vegetarier|printbool }}</td></tr>
-            <tr><th>Kein Schweinefleich</th><td>{{ a.schweinefleisch|printbool }}</td></tr>
-            <tr><th>Benötige Bestätigung</th><td>{{ a.bestaetigung|printbool }}</td></tr>
-        </table>
+        <h1>Notfallblatt von:<br>{{ a.vorname }} {{ a.nachname }} v/o {{ a.pfadiname }}</h1>
     </div>
     <br>
     <div class="clearfix">
-        <h2>AL Feedback </h2>
-        <p><strong>Kontaktperson:</strong> {{ a.alfeedback.kontaktperson }}
-           <strong>Natelnummer:</strong> {{ a.alfeedback.mobiltelefon }}</p>
-        <p><strong>Mittteilung:</strong><br> {{ a.alfeedback.mitteilung }}</p>
-    </div>
-    <br>
-    <div class="clearfix">
-        {% if a.notfallblatt %}
-        <h2>Notfallblatt</h2>
         <table class="spalte1">
             <tr><th colspan="2" class="cat">
                 Kontaktperson während dem Lager
@@ -111,11 +71,9 @@
         <p><strong>Gesundheitszustand:</strong><br> {{ a.notfallblatt.gesundheitszustand }}</p>
 
         <p><strong>Weiteres:</strong><br> {{ a.notfallblatt.weiteres }}</p>
-        {% else %}
-            <h3>Kein Notfallblatt</h3>
-        {% endif %}
     </div>
     <hr>
+    {% endif %}
     {% endfor %}
 </body>
 </html>
