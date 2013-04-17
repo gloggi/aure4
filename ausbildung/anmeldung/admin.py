@@ -153,6 +153,7 @@ notfallblatt_export.short_description = 'Notfallblätter Drucken'
 class AnmeldungAdmin(AdminImageMixin, reversion.VersionAdmin):
     list_display = ('pfadiname', 'vorname', 'nachname', 'kurs', 'abteilung', 'einheit', 'al_ok', 'erstellt')
     list_filter = ('kurs', 'alfeedback__ok', 'bestaetigung', 'anmeldung_erhalten', 'notfallblatt_erhalten', 'bezahlt', 'vegetarier', 'abteilung')
+    list_search = ('pfadiname', 'vorname', 'nachname', 'email')
     actions = [sportdb_export, print_export, notfallblatt_export]
     raw_id_fields = ('user', 'kurs',)
     inlines = (NotfallblattInline, ALFeedbackInline)
