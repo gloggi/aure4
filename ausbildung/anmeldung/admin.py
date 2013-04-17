@@ -151,7 +151,7 @@ notfallblatt_export.short_description = 'Notfallblätter Drucken'
 
 
 class AnmeldungAdmin(AdminImageMixin, reversion.VersionAdmin):
-    list_display = ('pfadiname', 'vorname', 'nachname', 'kurs', 'abteilung', 'einheit', 'al_ok', 'erstellt')
+    list_display = ('pfadiname', 'vorname', 'nachname', 'kurs', 'abteilung', 'einheit', 'al_ok', 'notfallblatt_erfasst', 'erstellt')
     list_filter = ('kurs', 'alfeedback__ok', 'bestaetigung', 'anmeldung_erhalten', 'notfallblatt_erhalten', 'bezahlt', 'vegetarier', 'abteilung')
     list_search = ('pfadiname', 'vorname', 'nachname', 'email')
     actions = [sportdb_export, print_export, notfallblatt_export]
@@ -197,6 +197,15 @@ class AnmeldungAdmin(AdminImageMixin, reversion.VersionAdmin):
 
     def anmeldedatum(self, obj):
         return obj.erstellt.strftime('%d.%m.%Y')
+
+    def notfallblatt_erfasst(self, obj):
+        try:
+            obj.notfallblatt
+            return True
+        except:
+            return False
+
+    notfallblatt_erfasst.boolean = True
 
 admin.site.register(Abteilung, AbteilungAdmin)
 admin.site.register(Kurs, KursAdmin)
