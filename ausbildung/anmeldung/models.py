@@ -248,7 +248,7 @@ class Anmeldung(models.Model):
     zusatz = JSONField('Zusatzdaten', blank=True, null=True)
 
     class Meta:
-        verbose_name = 'Ammeldung'
+        verbose_name = 'Anmeldung'
         verbose_name_plural = 'Anmeldungen'
         unique_together = (('kurs', 'user'),)
 
