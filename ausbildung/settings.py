@@ -31,31 +31,19 @@ USE_TZ = False
 
 LANGUAGES = (('de', _('German')),)
 
-os.environ['MEMCACHE_SERVERS'] = os.environ.get('MEMCACHIER_SERVERS', '')
-os.environ['MEMCACHE_USERNAME'] = os.environ.get('MEMCACHIER_USERNAME', '')
-os.environ['MEMCACHE_PASSWORD'] = os.environ.get('MEMCACHIER_PASSWORD', '')
+SECRET_KEY = os.environ.get('SECRET_KEY', 'not_so_secret')
 
 AWS_ACCESS_KEY_ID = os.environ.get('S3_KEY', '')
 AWS_SECRET_ACCESS_KEY = os.environ.get('S3_SECRET', '')
 AWS_STORAGE_BUCKET_NAME = 'gloggiausbildung'
 
-try:
-    import pylibmc
-    CACHES = {
-        'default': {
-            'BACKEND': 'django_pylibmc.memcached.PyLibMCCache',
-            'LOCATION': os.environ.get('MEMCACHIER_SERVERS', ''),
-            'TIMEOUT': 500,
-            'BINARY': True,
-	   }
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '127.0.0.1:11211'
     }
-except ImportError:
-    CACHES = {
-        'default': {
-            'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-            'LOCATION': '127.0.0.1:11211'
-        }
-    }
+}
 
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
