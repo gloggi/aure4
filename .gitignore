@@ -18,6 +18,5 @@ MANIFEST
 /local
 /share
 /venv
-/htdocs
 /log
 local_settings.py
