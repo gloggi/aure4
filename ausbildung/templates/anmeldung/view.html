@@ -32,13 +32,13 @@
         Adresse unseres Seki.
       </p>
 
-      <a href="{% url anmeldung_print kurs=kurs.url %}" target="_blank" class="btn btn-large btn-info">
+      <a href="{% url 'anmeldung_print' kurs=kurs.url %}" target="_blank" class="btn btn-large btn-info">
         <i class="icon-print"></i>
         Anmeldung ausdrucken
       </a>
     {% endif %}
 
-    <a href="{% url anmeldung_edit kurs=kurs.url %}" class="btn btn-large btn-warning">
+    <a href="{% url 'anmeldung_edit' kurs=kurs.url %}" class="btn btn-large btn-warning">
         <i class="icon-edit"></i>
         Anmeldung bearbeiten
     </a>
@@ -62,7 +62,7 @@
              ergänzen.
           </p>
 
-          <a href="{% url notfallblatt_form kurs=kurs.url %}" class="btn btn-large btn-success">
+          <a href="{% url 'notfallblatt_form' kurs=kurs.url %}" class="btn btn-large btn-success">
               <i class="icon-edit"></i>
               Notfallblatt ergänzen
           </a>
@@ -77,7 +77,7 @@
           Notfallblatt und an unser Seki.
         </p>
 
-        <a href="{% url notfallblatt_form kurs=kurs.url %}" class="btn btn-large btn-success">
+        <a href="{% url 'notfallblatt_form' kurs=kurs.url %}" class="btn btn-large btn-success">
             <i class="icon-edit"></i>
             Notfallblatt online ausfüllen
         </a>

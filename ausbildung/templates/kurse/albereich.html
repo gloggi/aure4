@@ -28,7 +28,7 @@
                 <td>{{ tn.geburtsdatum|date:"d.m.Y" }}</td>
                 <td>{{ tn.erstellt|date:"d.m.Y" }}</td>
                 <td>
-                    {% url al_feedback anmeldung_id=tn.id as feedback_url %}
+                    {% url 'al_feedback' anmeldung_id=tn.id as feedback_url %}
                     {% if tn.alfeedback %}
                         <a href="{{ feedback_url }}" class="btn btn-small btn-info">
                             Bearbeiten

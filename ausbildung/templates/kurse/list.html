@@ -6,14 +6,14 @@
 
 <p>Hier kannst du dich für einen Kurs aus unserem  Kursangebot anmelden.
    Wenn du mehr über unsere Kurse erfahren willst, dann besuche bitte die
-   <a href="/">Info-Seite</a>. Du musst dir zuerst <a href="{% url account %}">
+   <a href="/">Info-Seite</a>. Du musst dir zuerst <a href="{% url 'account' %}">
    einen Account erstellen oder dich einloggen</a>, bevor du dich für einen
    Kurs anmelden kannst. Klicke dann auf den Kurs, der dich interessiert:
 </p>
 
 
 {% for abteilung in request.user.abteilungen.all %}
-    {% url al_bereich abteilung=abteilung.slug as al_url %}
+    {% url 'al_bereich' abteilung=abteilung.slug as al_url %}
     <div class="form-actions">
         <a href="{{ al_url }}" class="btn btn-large btn-info">
             Die Anmeldungen deiner Abteilungen verwalten
@@ -23,7 +23,7 @@
 
 
 {% for kurs in kurse %}
-<a href="{% url anmeldung_form kurs=kurs.url %}" class="kurs clearfix
+<a href="{% url 'anmeldung_form' kurs=kurs.url %}" class="kurs clearfix
     {% if kurs in angemeldete_kurse %}angemeldet{% endif %}">
     {% if kurs in angemeldete_kurse %}
         <p class="check"><i class="icon-check"></i>

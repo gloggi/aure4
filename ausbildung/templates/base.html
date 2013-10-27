@@ -73,17 +73,17 @@
             <p class="right">
                 {% if request.user.is_authenticated %}
                     Angemeldet als {{ request.user.email }}
-                    <a href="{% url account %}">
+                    <a href="{% url 'account' %}">
                         Mein Profil
                     </a>
-                    <a href="{% url logout %}?next=/">
+                    <a href="{% url 'logout' %}?next=/">
                         Abmelden
                     </a>
                 {% else %}
-                    <a href="{% url login %}">
+                    <a href="{% url 'login' %}">
                         Anmelden
                     </a> |
-                    <a href="{% url registration %}">
+                    <a href="{% url 'registration' %}">
                         Registrieren
                     </a>
                 {% endif %}
