@@ -8,6 +8,8 @@ APP_BASEDIR = os.path.abspath(os.path.join(WEBAPP_DIR, os.path.pardir))
 DEBUG = 'runserver' in sys.argv
 TEMPLATE_DEBUG = DEBUG
 
+ALLOWED_HOSTS = ['localhost', '.aure4.ch']
+
 ADMINS = (
     ('Stefan Reinhard / Chili', 'chili@gloggi.ch'),
 )
