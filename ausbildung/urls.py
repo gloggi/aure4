@@ -10,7 +10,6 @@ urlpatterns = patterns('',
     url(r'^account/', include('ausbildung.account.urls')),
     url(r'^anmeldung/', include('ausbildung.anmeldung.urls')),
     url(r'^report_builder/', include('report_builder.urls')),
-    url(r'', include('feincms.urls')),
 )
 
 if settings.DEBUG:
@@ -19,3 +18,7 @@ if settings.DEBUG:
         'django.views.static.serve',
         {'document_root': settings.MEDIA_ROOT}),
     )
+
+urlpatterns += patterns('',
+    url(r'', include('feincms.urls')),
+)
