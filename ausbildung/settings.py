@@ -35,12 +35,11 @@ USE_TZ = False
 
 LANGUAGES = (('de', _('German')),)
 
-SECRET_KEY = os.environ.get('SECRET_KEY', 'not_so_secret')
+SECRET_KEY = 'not_so_secret'
 
-AWS_ACCESS_KEY_ID = os.environ.get('S3_KEY', '')
-AWS_SECRET_ACCESS_KEY = os.environ.get('S3_SECRET', '')
-AWS_STORAGE_BUCKET_NAME = 'gloggiausbildung'
-
+AWS_ACCESS_KEY_ID = ''
+AWS_SECRET_ACCESS_KEY = ''
+AWS_STORAGE_BUCKET_NAME = ''
 
 CACHES = {
     'default': {
@@ -54,9 +53,6 @@ SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 
 MEDIA_ROOT = os.path.join(APP_BASEDIR, 'media')
 MEDIA_URL = '/media/'
-
-if not DEBUG:
-    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 STATIC_ROOT = os.path.join(APP_BASEDIR, 'static')
 STATIC_URL = '/static/'
@@ -175,3 +171,6 @@ try:
     from ausbildung.local_settings import *
 except ImportError:
     pass
+
+if AWS_STORAGE_BUCKET_NAME and AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY:
+    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
