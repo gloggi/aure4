@@ -1,6 +1,5 @@
 import os
 import sys
-import dj_database_url
 
 _ = lambda x: x
 
@@ -15,9 +14,12 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-DEV_DB = os.path.join(APP_BASEDIR, 'dev.db')
-
-DATABASES = {'default': dj_database_url.config(default='sqlite:///%s' % DEV_DB)}
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(APP_BASEDIR, 'dev.db'),
+    }
+}
 
 TIME_ZONE = 'Europe/Zurich'
 
@@ -149,15 +151,8 @@ FEINCMS_RICHTEXT_INIT_CONTEXT = {
 SERVER_EMAIL = 'anmeldung@aure4.ch'
 DEFAULT_FROM_EMAIL = 'anmeldung@aure4.ch'
 
-
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-else:
-    EMAIL_HOST = os.getenv('EMAIL_HOST', 'smtp.gmail.com')
-    EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', '')
-    EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')
-    EMAIL_PORT = os.getenv('EMAIL_PORT', 587)
-    EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', True)
 
 from fhadmin import FHADMIN_GROUPS_REMAINING
 _ = lambda x: x
@@ -173,3 +168,8 @@ FHADMIN_GROUPS_CONFIG = [
         'apps': ('auth', 'rosetta', 'external', 'sites'),
         }),
     ]
+
+try:
+    from ausbildung.local_settings import *
+except ImportError:
+    pass

@@ -20,3 +20,4 @@ MANIFEST
 /venv
 /htdocs
 /log
+local_settings.py
