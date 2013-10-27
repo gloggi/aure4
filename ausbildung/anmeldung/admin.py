@@ -141,18 +141,42 @@ sportdb_export.short_description = 'Sportdb Export (CSV, UTF-8)'
 
 
 def print_export(modeladmin, request, queryset):
-    return render(request, 'anmeldung/anmeldung_print.html', {'anmeldungen': queryset})
+    return render(request, 'anmeldung/anmeldung_print.html', {
+        'anmeldungen': queryset
+    })
 print_export.short_description = 'Anmeldungen Drucken'
 
 
 def notfallblatt_export(modeladmin, request, queryset):
-    return render(request, 'anmeldung/notfallblatt_print.html', {'anmeldungen': queryset})
+    return render(request, 'anmeldung/notfallblatt_print.html', {
+        'anmeldungen': queryset
+    })
 notfallblatt_export.short_description = 'Notfallblätter Drucken'
 
 
 class AnmeldungAdmin(AdminImageMixin, reversion.VersionAdmin):
-    list_display = ('pfadiname', 'vorname', 'nachname', 'kurs', 'abteilung', 'einheit', 'al_ok', 'notfallblatt_erfasst', 'erstellt')
-    list_filter = ('kurs', 'alfeedback__ok', 'bestaetigung', 'anmeldung_erhalten', 'notfallblatt_erhalten', 'bezahlt', 'vegetarier', 'abteilung')
+    list_display = (
+        'pfadiname',
+        'vorname',
+        'nachname',
+        'kurs',
+        'abteilung',
+        'einheit',
+        'al_ok',
+        'notfallblatt_erfasst',
+        'bezahlt',
+        'erstellt',
+    )
+    list_filter = (
+        'kurs',
+        'alfeedback__ok',
+        'bestaetigung',
+        'anmeldung_erhalten',
+        'notfallblatt_erhalten',
+        'bezahlt',
+        'vegetarier',
+        'abteilung'
+    )
     list_search = ('pfadiname', 'vorname', 'nachname', 'email')
     actions = [sportdb_export, print_export, notfallblatt_export]
     raw_id_fields = ('user', 'kurs',)
