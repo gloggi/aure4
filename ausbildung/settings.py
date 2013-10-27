@@ -37,17 +37,12 @@ LANGUAGES = (('de', _('German')),)
 
 SECRET_KEY = 'not_so_secret'
 
-AWS_ACCESS_KEY_ID = ''
-AWS_SECRET_ACCESS_KEY = ''
-AWS_STORAGE_BUCKET_NAME = ''
-
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
         'LOCATION': '127.0.0.1:11211'
     }
 }
-
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 
@@ -171,6 +166,3 @@ try:
     from ausbildung.local_settings import *
 except ImportError:
     pass
-
-if AWS_STORAGE_BUCKET_NAME and AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY:
-    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
