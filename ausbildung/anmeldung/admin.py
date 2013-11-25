@@ -1,21 +1,18 @@
 # encoding: utf-8
-import csv
-
-from datetime import date
 
 from django.contrib import admin
-from django.contrib.admin.util import lookup_field
-from django.http import HttpResponse
-from django.shortcuts import render
-from django.utils.encoding import force_unicode
-from django.utils.timezone import now
+from django.db import models
 
 from sorl.thumbnail.admin import AdminImageMixin
+
+from suit.widgets import SuitSplitDateTimeWidget
 
 import reversion
 
 from .models import (Kurs, Zusatzfeld, Abteilung, Abteilungsleitung, Anmeldung,
     Notfallblatt, ALFeedback)
+
+from .admin_actions import sportdb_export, print_export, notfallblatt_export
 
 
 class ZusatzfeldInline(admin.TabularInline):
@@ -46,6 +43,7 @@ class AbteilungAdmin(reversion.VersionAdmin):
 class NotfallblattInline(admin.StackedInline):
     model = Notfallblatt
     extra = 0
+    suit_classes = 'suit-tab suit-tab-notfallblatt'
     fieldsets = (
         ('Kontakperson während dem Lager', {
             'fields': (
@@ -80,77 +78,12 @@ class ALFeedbackInline(admin.StackedInline):
     model = ALFeedback
     extra = 0
     raw_id_fields = ('user',)
+    suit_classes = 'suit-tab suit-tab-alfeedback'
     fieldsets = [
         ('Feedback', {'fields': ('ok', 'user', 'mitteilung')}),
         ('Kontaktperson', {'fields': (('kontaktperson', 'mobiltelefon'),)})
     ]
 
-
-def sportdb_export(modeladmin, request, queryset):
-    response = HttpResponse(mimetype='text/csv')
-    timestamp = now().strftime('%d%m%y_%H%M')
-    filename = 'sportdb_export_%s.csv' % timestamp
-    response['Content-Disposition'] = 'attachment; filename=%s' % filename
-    writer = csv.writer(response, delimiter=';')
-
-    header = (
-        'NDBJS_PERS_NR',
-        'GESCHLECHT',
-        'NAME',
-        'VORNAME',
-        'GEB_DATUM',
-        'STRASSE',
-        'PLZ',
-        'ORT',
-        'LAND',
-        'NATIONALITAET',
-        'ERSTSPRACHE',
-        'KLASSE/GRUPPE'
-    )
-
-    writer.writerow([row for row in header])
-
-    fields = (
-        'js',
-        'geschlecht',
-        'nachname',
-        'vorname',
-        'geburtsdatum',
-        'strasse',
-        'plz',
-        'ort',
-        'land',
-        'nationalitaet',
-        'erstsprache',
-    )
-
-    def serialize(obj, field):
-        f, attr, value = lookup_field(field, obj, modeladmin)
-        value = value if value is not None else ''
-        if type(value) == date:
-            value = value.strftime('%d.%m.%Y')
-        return force_unicode(value).encode('utf-8')
-
-    for obj in queryset:
-        writer.writerow([serialize(obj, field) for field in fields] + [''])
-
-    return response
-
-sportdb_export.short_description = 'Sportdb Export (CSV, UTF-8)'
-
-
-def print_export(modeladmin, request, queryset):
-    return render(request, 'anmeldung/anmeldung_print.html', {
-        'anmeldungen': queryset
-    })
-print_export.short_description = 'Anmeldungen Drucken'
-
-
-def notfallblatt_export(modeladmin, request, queryset):
-    return render(request, 'anmeldung/notfallblatt_print.html', {
-        'anmeldungen': queryset
-    })
-notfallblatt_export.short_description = 'Notfallblätter Drucken'
 
 
 class AnmeldungAdmin(AdminImageMixin, reversion.VersionAdmin):
@@ -180,59 +113,84 @@ class AnmeldungAdmin(AdminImageMixin, reversion.VersionAdmin):
     )
     list_filter = (
         'kurs',
-        ('alfeedback__ok', admin.BooleanFieldListFilter),
-        ('notfallblatt_erhalten', admin.BooleanFieldListFilter),
-        ('anmeldung_erhalten', admin.BooleanFieldListFilter),
-        ('bezahlt', admin.BooleanFieldListFilter),
     )
     list_search = ('pfadiname', 'vorname', 'nachname', 'email')
     actions = [sportdb_export, print_export, notfallblatt_export]
     raw_id_fields = ('user', 'kurs',)
     inlines = (NotfallblattInline, ALFeedbackInline)
     readonly_fields = ['erstellt', 'aktualisiert']
+    formfield_overrides = {
+        models.DateTimeField: {'widget': SuitSplitDateTimeWidget},
+    }
+    suit_form_tabs = (
+        ('admin', 'Admin'),
+        ('personalien', 'Personalien'),
+        ('weitere', 'Weitere Daten'),
+        ('alfeedback', 'AL Feedback'),
+        ('notfallblatt', 'Notfallblatt'),
+    )
     fieldsets = [
         ('Admin', {
+            'classes': ('suit-tab suit-tab-admin',),
             'fields': (
-                ('user', 'kurs', 'erstellt', 'aktualisiert'),
-                ('anmeldung_erhalten', 'notfallblatt_erhalten', 'bezahlt'),
-            )
-        }),
-        ('Personalien', {
-            'fields': (
-                'foto',
-                ('pfadiname', 'strasse', 'email'),
-                ('vorname', 'plz', 'telefon'),
-                ('nachname', 'ort', 'mobiltelefon'),
-                ('geburtsdatum', 'geschlecht'),
+                'user',
+                'kurs',
+                'erstellt',
+                'aktualisiert',
+                'anmeldung_erhalten',
+                'notfallblatt_erhalten',
+                'bezahlt',
             )
         }),
         ('Pfadizugehörigkeit', {
-            'fields': (('abteilung', 'einheit', 'stufe'),)
+            'classes': ('suit-tab suit-tab-admin',),
+            'fields': ('abteilung', 'einheit', 'stufe')
+        }),
+        ('Personalien', {
+            'classes': ('suit-tab suit-tab-personalien',),
+            'fields': (
+                'foto',
+                'pfadiname',
+                'strasse',
+                'email',
+                'vorname',
+                'plz',
+                'telefon',
+                'nachname',
+                'ort',
+                'mobiltelefon',
+                'geburtsdatum',
+                'geschlecht',
+            )
         }),
         ('Weitere Daten', {
+            'classes': ('suit-tab suit-tab-weitere',),
             'fields': (
-                ('bahnabo', 'nationalitaet', 'land', 'erstsprache'),
-                ('js', 'ahv'),
-                ('vegetarier', 'schweinefleisch', 'bestaetigung'),
+                'bahnabo',
+                'nationalitaet',
+                'land',
+                'erstsprache',
+                'js',
+                'ahv',
+                'vegetarier',
+                'schweinefleisch',
+                'bestaetigung',
             )
         }),
         ('Zusatzdaten', {
-            'classes': ('collapse',),
+            'classes': ('collapse suit-tab suit-tab-weitere',),
             'fields': ('zusatz',)
-        })
+        }),
     ]
 
-    class Media:
-        css = {
-            "all": ("css/admin.css",)
-        }
-
     def geschlecht_kurz(self, obj):
-        return 'm' if obj.geschlecht else 'w'
+        return 'm' if obj.geschlecht == '1' else 'w'
     geschlecht_kurz.short_description = 'Geschl.'
+    geschlecht_kurz.admin_order_field = 'geschlecht'
 
     def pfadi(self, obj):
         return u'%s / %s' % (obj.abteilung.name, obj.einheit)
+    pfadi.admin_order_field = 'abteilung'
 
     def al_ok(self, obj):
         try:
@@ -240,6 +198,7 @@ class AnmeldungAdmin(AdminImageMixin, reversion.VersionAdmin):
         except:
             return None
     al_ok.short_description = 'AL OK'
+    al_ok.admin_order_field = 'alfeedback__ok'
     al_ok.boolean = True
 
     def nfb(self, obj):
@@ -249,16 +208,20 @@ class AnmeldungAdmin(AdminImageMixin, reversion.VersionAdmin):
         except:
             return obj.notfallblatt_erhalten is not None
     nfb.short_description = 'NFB'
+    nfb.admin_order_field='notfallblatt_erhalten'
     nfb.boolean = True
 
     def anmeldung_seki(self, obj):
         return obj.anmeldung_erhalten is not None
     anmeldung_seki.short_description = 'Anm.'
+    anmeldung_seki.admin_order_field = 'anmeldung_erhalten'
     anmeldung_seki.boolean = True
 
     def zahlung(self, obj):
         return obj.bezahlt is not None
+    zahlung.admin_order_field = 'anmeldung_erhalten'
     zahlung.boolean = True
+
 
 
 admin.site.register(Abteilung, AbteilungAdmin)

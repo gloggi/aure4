@@ -148,7 +148,21 @@ if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 SUIT_CONFIG = {
-    'ADMIN_NAME': 'AURE 4 admin'
+    'ADMIN_NAME': 'AURE 4 admin',
+    'SEARCH_URL': '/admin/anmeldung/anmeldung/',
+    'LIST_PER_PAGE': 50,
+    'MENU': (
+        {
+            'app': 'anmeldung',
+            'label': 'Anmeldungen',
+            'icon': 'icon-user',
+            'models': ('anmeldung', 'kurs', 'abteilung')
+        },
+        {'app': 'page', 'icon': 'icon-file'},
+        {'app': 'medialibrary', 'icon': 'icon-picture'},
+        'sites',
+        'auth',
+    )
 }
 
 try:
