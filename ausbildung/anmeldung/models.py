@@ -31,6 +31,9 @@ class Kurs(models.Model):
 
     nummer = OptionalCharField('Kursnummer', help_text='z.Bsp PBS ZH 123-12')
 
+    lagerbeitrag = models.PositiveIntegerField('Lagerbeitrag', default=150,
+        help_text='CHF')
+
     von = models.DateField('Von')
     bis = models.DateField('Bis')
     anmeldeschluss = models.DateField('Anmeldeschluss')
