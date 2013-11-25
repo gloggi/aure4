@@ -151,10 +151,12 @@
         <tr><th>IBAN</th><td>CH34 0900 0000 8001 7164 3</td></tr>
         <tr><th>BIC</th><td>POFICHBEXXX</td></tr>
         <tr><th>Finazinstitut</th><td>Swiss Post - PostFinance, Nordring 8, 3030 Bern, Switzerland</td></tr>
+        <tr><th>Zahlungszweck</th>
+          <td>Lagerbeitrag von {{ anmeldung }} für {{ anmeldung.kurs }} {{ anmeldung.kurs.von.year }}</td></tr>
       </table>
 
       <p><strong>
-        Bei der Überweisung bitte Vorname, Name, Pfadiname und Kurs angeben!
+        Bei der Überweisung bitte unbedingt den Zahlungszweck angeben!
       </strong><p>
 
     {% endif %}
