@@ -100,6 +100,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 INSTALLED_APPS = (
+    'suit',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sites',
@@ -111,7 +112,6 @@ INSTALLED_APPS = (
     'feincms',
     'feincms.module.page',
     'feincms.module.medialibrary',
-    'fhadmin',
     'tinymce',
     'south',
     'gunicorn',
@@ -147,20 +147,9 @@ DEFAULT_FROM_EMAIL = 'anmeldung@aure4.ch'
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-from fhadmin import FHADMIN_GROUPS_REMAINING
-_ = lambda x: x
-
-FHADMIN_GROUPS_CONFIG = [
-    (_('Main content'), {
-        'apps': ('page', 'medialibrary', 'blog'),
-        }),
-    (_('Modules'), {
-        'apps': ('links', FHADMIN_GROUPS_REMAINING),
-        }),
-    (_('Preferences'), {
-        'apps': ('auth', 'rosetta', 'external', 'sites'),
-        }),
-    ]
+SUIT_CONFIG = {
+    'ADMIN_NAME': 'AURE 4 admin'
+}
 
 try:
     from ausbildung.local_settings import *

@@ -158,23 +158,32 @@ class AnmeldungAdmin(AdminImageMixin, reversion.VersionAdmin):
         'pfadiname',
         'vorname',
         'nachname',
-        'kurs',
-        'abteilung',
-        'einheit',
+        'strasse',
+        'plz',
+        'ort',
+        'geburtsdatum',
+        'email',
+        'telefon',
+        'mobiltelefon',
+        'vegetarier',
+        'geschlecht_kurz',
+        'pfadi',
         'al_ok',
         'nfb',
         'anmeldung_seki',
         'zahlung',
     )
+    list_display_links = (
+        'pfadiname',
+        'vorname',
+        'nachname',
+    )
     list_filter = (
         'kurs',
-        'alfeedback__ok',
-        'bestaetigung',
-        ('anmeldung_erhalten', admin.BooleanFieldListFilter),
+        ('alfeedback__ok', admin.BooleanFieldListFilter),
         ('notfallblatt_erhalten', admin.BooleanFieldListFilter),
+        ('anmeldung_erhalten', admin.BooleanFieldListFilter),
         ('bezahlt', admin.BooleanFieldListFilter),
-        'vegetarier',
-        'abteilung',
     )
     list_search = ('pfadiname', 'vorname', 'nachname', 'email')
     actions = [sportdb_export, print_export, notfallblatt_export]
@@ -218,17 +227,20 @@ class AnmeldungAdmin(AdminImageMixin, reversion.VersionAdmin):
             "all": ("css/admin.css",)
         }
 
-    def anmeldedatum(self, obj):
-        return obj.erstellt.strftime('%d.%m.%Y')
+    def geschlecht_kurz(self, obj):
+        return 'm' if obj.geschlecht else 'w'
+    geschlecht_kurz.short_description = 'Geschl.'
+
+    def pfadi(self, obj):
+        return u'%s / %s' % (obj.abteilung.name, obj.einheit)
 
     def al_ok(self, obj):
         try:
             return obj.alfeedback.ok
         except:
             return None
-    al_ok.short_description = u"AL OK"
+    al_ok.short_description = 'AL OK'
     al_ok.boolean = True
-
 
     def nfb(self, obj):
         try:
@@ -236,12 +248,12 @@ class AnmeldungAdmin(AdminImageMixin, reversion.VersionAdmin):
             return True
         except:
             return obj.notfallblatt_erhalten is not None
-    nfb.short_description = 'Notfallblatt'
+    nfb.short_description = 'NFB'
     nfb.boolean = True
 
     def anmeldung_seki(self, obj):
         return obj.anmeldung_erhalten is not None
-    anmeldung_seki.short_description = 'Anm. SEKI'
+    anmeldung_seki.short_description = 'Anm.'
     anmeldung_seki.boolean = True
 
     def zahlung(self, obj):

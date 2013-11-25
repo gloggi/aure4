@@ -60,7 +60,7 @@ class Kurs(models.Model):
         ordering = ('order',)
 
     def __unicode__(self):
-        return self.name
+        return u'%s %d' % (self.name, self.von.year)
 
     @property
     def freie_plaetze(self):
@@ -200,9 +200,9 @@ class Anmeldung(models.Model):
     erstellt = models.DateTimeField(auto_now=True)
     aktualisiert = models.DateTimeField('Zuletzt aktualisiert', auto_now_add=True)
 
-    anmeldung_erhalten = models.DateTimeField('Anmeldung SEKI', blank=True, null=True,
+    anmeldung_erhalten = models.DateTimeField('Anm. SEKI', blank=True, null=True,
         help_text='Wann ist die unterschrieben Anmeldung im Seki angekommen')
-    notfallblatt_erhalten = models.DateTimeField('Notfallblatt SEKI', blank=True, null=True,
+    notfallblatt_erhalten = models.DateTimeField('Notfallblatt', blank=True, null=True,
         help_text='Wann ist das Notfallblatt im Seki angekommen')
     bezahlt = models.DateTimeField('Bezahlt', blank=True, null=True,
         help_text='Wann ist die Zahlung eingegangen')
@@ -239,14 +239,14 @@ class Anmeldung(models.Model):
     js = models.IntegerField('JS-Nummer', blank=True, null=True)
     ahv = OptionalCharField('AHV-Nr.')
 
-    vegetarier = models.BooleanField('Vegetarier',
+    vegetarier = models.BooleanField('Vegi',
         help_text="Ich bin Vegetarier"
     )
     schweinefleisch = models.BooleanField('Kein Schweinefleich',
         help_text="Ich esse kein Schweinefleich"
     )
 
-    bestaetigung = models.BooleanField('Bestätigung',
+    bestaetigung = models.BooleanField(u'Bestätigung',
         help_text=u'Ich benötige eine Bestätigung für meinen Arbeitsgeber')
 
     zusatz = JSONField('Zusatzdaten', blank=True, null=True)
@@ -335,7 +335,7 @@ class ALFeedback(models.Model):
 
     user = models.ForeignKey('auth.User', verbose_name='Erstellt von')
 
-    ok = models.BooleanField('OK', default=True)
+    ok = models.BooleanField('AL OK', default=True)
 
     mitteilung = models.TextField('Mitteilung',
         help_text='In welchen Bereichen soll die/der TN speziell '
