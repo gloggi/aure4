@@ -8,7 +8,6 @@ from django.contrib.admin.util import lookup_field
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.utils.encoding import force_unicode
-from django.utils.translation import ugettext_lazy as _
 from django.utils.timezone import now
 
 from sorl.thumbnail.admin import AdminImageMixin
@@ -163,19 +162,19 @@ class AnmeldungAdmin(AdminImageMixin, reversion.VersionAdmin):
         'abteilung',
         'einheit',
         'al_ok',
-        'notfallblatt_erfasst',
-        'bezahlt',
-        'erstellt',
+        'nfb',
+        'anmeldung_seki',
+        'zahlung',
     )
     list_filter = (
         'kurs',
         'alfeedback__ok',
         'bestaetigung',
-        'anmeldung_erhalten',
-        'notfallblatt_erhalten',
-        'bezahlt',
+        ('anmeldung_erhalten', admin.BooleanFieldListFilter),
+        ('notfallblatt_erhalten', admin.BooleanFieldListFilter),
+        ('bezahlt', admin.BooleanFieldListFilter),
         'vegetarier',
-        'abteilung'
+        'abteilung',
     )
     list_search = ('pfadiname', 'vorname', 'nachname', 'email')
     actions = [sportdb_export, print_export, notfallblatt_export]
@@ -222,14 +221,33 @@ class AnmeldungAdmin(AdminImageMixin, reversion.VersionAdmin):
     def anmeldedatum(self, obj):
         return obj.erstellt.strftime('%d.%m.%Y')
 
-    def notfallblatt_erfasst(self, obj):
+    def al_ok(self, obj):
+        try:
+            return obj.alfeedback.ok
+        except:
+            return None
+    al_ok.short_description = u"AL OK"
+    al_ok.boolean = True
+
+
+    def nfb(self, obj):
         try:
             obj.notfallblatt
             return True
         except:
-            return False
+            return obj.notfallblatt_erhalten is not None
+    nfb.short_description = 'Notfallblatt'
+    nfb.boolean = True
 
-    notfallblatt_erfasst.boolean = True
+    def anmeldung_seki(self, obj):
+        return obj.anmeldung_erhalten is not None
+    anmeldung_seki.short_description = 'Anm. SEKI'
+    anmeldung_seki.boolean = True
+
+    def zahlung(self, obj):
+        return obj.bezahlt is not None
+    zahlung.boolean = True
+
 
 admin.site.register(Abteilung, AbteilungAdmin)
 admin.site.register(Kurs, KursAdmin)

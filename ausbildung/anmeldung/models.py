@@ -200,11 +200,12 @@ class Anmeldung(models.Model):
     erstellt = models.DateTimeField(auto_now=True)
     aktualisiert = models.DateTimeField('Zuletzt aktualisiert', auto_now_add=True)
 
-    anmeldung_erhalten = models.DateTimeField('Unterschriebene Anmeldung erhalten',
-        blank=True, null=True)
-    notfallblatt_erhalten = models.DateTimeField('Notfallblatt erhalten', blank=True,
-        null=True)
-    bezahlt = models.DateTimeField('Zahlung eingegangen', blank=True, null=True)
+    anmeldung_erhalten = models.DateTimeField('Anmeldung SEKI', blank=True, null=True,
+        help_text='Wann ist die unterschrieben Anmeldung im Seki angekommen')
+    notfallblatt_erhalten = models.DateTimeField('Notfallblatt SEKI', blank=True, null=True,
+        help_text='Wann ist das Notfallblatt im Seki angekommen')
+    bezahlt = models.DateTimeField('Bezahlt', blank=True, null=True,
+        help_text='Wann ist die Zahlung eingegangen')
 
     # Personendaten
     pfadiname = RequiredCharField('Pfadiname')
@@ -267,14 +268,6 @@ class Anmeldung(models.Model):
                 return 'error'
         except:
             return 'warning'
-
-    def al_ok(self):
-        try:
-            return self.alfeedback.ok
-        except:
-            return None
-    al_ok.short_description = u"AL Betätigung"
-    al_ok.boolean = True
 
 class Notfallblatt(models.Model):
     anmeldung = models.OneToOneField(Anmeldung)
