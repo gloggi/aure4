@@ -12,7 +12,7 @@ import reversion
 from .models import (Kurs, Zusatzfeld, Abteilung, Abteilungsleitung, Anmeldung,
     Notfallblatt, ALFeedback)
 
-from .admin_actions import sportdb_export, print_export, notfallblatt_export
+import admin_actions as actions
 
 
 class ZusatzfeldInline(admin.TabularInline):
@@ -120,7 +120,13 @@ class AnmeldungAdmin(AdminImageMixin, reversion.VersionAdmin):
         'kurs',
     )
     list_search = ('pfadiname', 'vorname', 'nachname', 'email')
-    actions = [sportdb_export, print_export, notfallblatt_export]
+    actions = [
+        actions.list_export,
+        actions.sportdb_export,
+        actions.print_export,
+        actions.print_confirmation,
+        actions.notfallblatt_export
+    ]
     raw_id_fields = ('user', 'kurs',)
     inlines = (NotfallblattInline, ALFeedbackInline)
     readonly_fields = ['erstellt', 'aktualisiert']
