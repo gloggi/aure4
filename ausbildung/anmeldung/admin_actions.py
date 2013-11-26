@@ -99,7 +99,7 @@ def print_export(modeladmin, request, queryset):
 print_export.short_description = 'Anmeldungen Drucken'
 
 def print_confirmation(modeladmin, request, queryset):
-    return render(request, 'anmeldung/print.html', {
+    return render(request, 'anmeldung/confirm_print.html', {
         'anmeldungen': queryset
     })
 print_confirmation.short_description = u'Bestätigung drucken'
