@@ -197,8 +197,8 @@ class Anmeldung(models.Model):
     user = models.ForeignKey('auth.User', related_name='anmeldungen')
 
     # Adminfelder
-    erstellt = models.DateTimeField(auto_now=True)
-    aktualisiert = models.DateTimeField('Zuletzt aktualisiert', auto_now_add=True)
+    erstellt = models.DateTimeField('zuletzt aktualisiert', auto_now=True)
+    aktualisiert = models.DateTimeField('eingegangen', auto_now_add=True)
 
     anmeldung_erhalten = models.DateTimeField('Anmeldung im Seki',
         blank=True, null=True,
