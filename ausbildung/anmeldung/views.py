@@ -176,6 +176,8 @@ def notfallblatt_form(request, anmeldung):
             notfallblatt = form.save(commit=False)
             notfallblatt.anmeldung = anmeldung
             notfallblatt.save()
+            anmeldung.notfallblatt_erhalten = now()
+            anmeldung.save()
             return redirect('anmeldung_view', kurs=kurs.url)
     else:
         form = NotfallblattForm()

@@ -202,11 +202,7 @@ class AnmeldungAdmin(AdminImageMixin, reversion.VersionAdmin):
     al_ok.boolean = True
 
     def nfb(self, obj):
-        try:
-            obj.notfallblatt
-            return True
-        except:
-            return obj.notfallblatt_erhalten is not None
+        return obj.notfallblatt_erhalten is not None
     nfb.short_description = 'NFB'
     nfb.admin_order_field='notfallblatt_erhalten'
     nfb.boolean = True
