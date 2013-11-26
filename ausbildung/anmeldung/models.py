@@ -200,11 +200,13 @@ class Anmeldung(models.Model):
     erstellt = models.DateTimeField(auto_now=True)
     aktualisiert = models.DateTimeField('Zuletzt aktualisiert', auto_now_add=True)
 
-    anmeldung_erhalten = models.DateTimeField('Anm. SEKI', blank=True, null=True,
+    anmeldung_erhalten = models.DateTimeField('Anmeldung im Seki',
+        blank=True, null=True,
         help_text='Wann ist die unterschrieben Anmeldung im Seki angekommen')
-    notfallblatt_erhalten = models.DateTimeField('Notfallblatt', blank=True, null=True,
+    notfallblatt_erhalten = models.DateTimeField('Notfallblatt im Seki',
+        blank=True, null=True,
         help_text='Wann ist das Notfallblatt im Seki angekommen')
-    bezahlt = models.DateTimeField('Bezahlt', blank=True, null=True,
+    bezahlt = models.DateTimeField('Bezahlt am', blank=True, null=True,
         help_text='Wann ist die Zahlung eingegangen')
 
     # Personendaten
