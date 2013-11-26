@@ -9,7 +9,6 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^account/', include('ausbildung.account.urls')),
     url(r'^anmeldung/', include('ausbildung.anmeldung.urls')),
-    url(r'^report_builder/', include('report_builder.urls')),
 )
 
 if settings.DEBUG:
