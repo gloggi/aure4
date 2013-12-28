@@ -105,6 +105,7 @@ class AnmeldungAdmin(AdminImageMixin, reversion.VersionAdmin):
         'nfb',
         'anmeldung_seki',
         'zahlung',
+        'nothelfer',
     )
     list_display_links = (
         'pfadiname',
@@ -228,6 +229,13 @@ class AnmeldungAdmin(AdminImageMixin, reversion.VersionAdmin):
         return obj.bezahlt is not None
     zahlung.admin_order_field = 'anmeldung_erhalten'
     zahlung.boolean = True
+
+    def nothelfer(self, obj):
+        if obj.zusatz:
+            return obj.zusatz.get('nothelfer', None)
+        return None
+    nothelfer.short_description = 'Anm. NH'
+    nothelfer.boolean = True
 
 
 
