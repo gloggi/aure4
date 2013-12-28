@@ -232,7 +232,10 @@ class AnmeldungAdmin(AdminImageMixin, reversion.VersionAdmin):
 
     def nothelfer(self, obj):
         if obj.zusatz:
-            return obj.zusatz.get('nothelfer', None)
+            if 'nothelfer' in obj.zusatz:
+                return obj.zusatz['nothelfer']
+            if 'nothelferkurs' in obj.zusatz:
+                return obj.zusatz['nothelferkurs']
         return None
     nothelfer.short_description = 'Anm. NH'
     nothelfer.boolean = True
