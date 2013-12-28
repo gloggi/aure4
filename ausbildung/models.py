@@ -5,7 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 from feincms.module.page.models import Page
 from feincms.content.richtext.models import RichTextContent
 from feincms.content.section.models import SectionContent
-from feincms.content.medialibrary.v2 import MediaFileContent
+from feincms.content.medialibrary.models import MediaFileContent
 from feincms.content.contactform.models import ContactFormContent
 
 from feincms_cleanse import cleanse_html
@@ -29,7 +29,7 @@ Page.register_templates({
     ),
 })
 
-Page.register_extensions('titles')
+Page.register_extensions('feincms.module.page.extensions.titles')
 
 # Patch Section content to support cleanse and save anchors on headings
 def save(self, *args, **kwargs):
