@@ -118,6 +118,7 @@ class AnmeldungAdmin(AdminImageMixin, reversion.VersionAdmin):
         'nachname',
     )
     list_filter = (
+        'bestaetigung',
         'kurs',
     )
     list_search = ('pfadiname', 'vorname', 'nachname', 'email')
