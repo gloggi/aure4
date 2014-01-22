@@ -85,7 +85,6 @@ def list_export(modeladmin, request, queryset):
         'einheit',
         'anmeldung_erhalten',
         'notfallblatt_erhalten',
-        'anmeldung_erhalten',
         'bezahlt',
     )
     header = [f.upper() for f in fields]
