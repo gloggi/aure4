@@ -1,5 +1,5 @@
 
-Eine neue Anmledung wurde auf aure4.ch erfasst.
+Eine neue Anmeldung wurde auf aure4.ch erfasst.
 
 Kurs: {{ a.kurs }}
 

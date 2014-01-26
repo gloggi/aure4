@@ -91,6 +91,7 @@ class AnmeldungAdmin(AdminImageMixin, reversion.VersionAdmin):
         'pfadiname',
         'vorname',
         'nachname',
+        'kurs',
         'strasse',
         'plz',
         'ort',
