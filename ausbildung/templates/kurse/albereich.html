@@ -17,6 +17,7 @@
                 <th>Einheit</th>
                 <th>Geburtsdatum</th>
                 <th>Angemeldet</th>
+                <th>Bezahlt</th>
                 <th>Bestätigung</th>
             </tr>
         </thead>
@@ -26,7 +27,14 @@
                 <td>{{ tn }}</td>
                 <td>{{ tn.einheit }}</td>
                 <td>{{ tn.geburtsdatum|date:"d.m.Y" }}</td>
-                <td>{{ tn.erstellt|date:"d.m.Y" }}</td>
+                <td>{{ tn.aktualisiert|date:"d.m.Y" }}</td>
+                <td>
+                    {% if tn.bezahlt %}
+                        ja
+                    {% else %}
+                        nein
+                    {% endif %}
+                </td>
                 <td>
                     {% url 'al_feedback' anmeldung_id=tn.id as feedback_url %}
                     {% if tn.alfeedback %}
