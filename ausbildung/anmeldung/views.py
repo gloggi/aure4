@@ -98,7 +98,7 @@ def anmeldung_form(request, kurs):
                 message = render_to_string('anmeldung/email.txt',
                     {'a': anmeldung})
                 send_mail(subject, message, 'anmeldung@aure4.ch',
-                    ['kodack@gloggi.ch', 'chili@gloggi.ch'])
+                    ['ausbildung@gloggi.ch'])
 
                 return redirect('anmeldung_view', kurs=kurs.url)
     else:

@@ -25,6 +25,7 @@ class KursAdmin(reversion.VersionAdmin):
     search_fields = ('name', 'nummer', 'hauptleiter')
     inlines = [ZusatzfeldInline]
     prepopulated_fields = {'url': ('name',)}
+    save_as = True
     #date_hierarchy = 'von'
 
 
